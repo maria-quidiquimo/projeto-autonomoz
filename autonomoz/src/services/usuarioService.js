@@ -17,42 +17,6 @@ class UsuarioService {
     async autenticar(matricula, senha) {
         const usuario = await usuarioRepository.buscarPorMatricula(matricula);
     }
-    /**
-     * Lista todos os usuários cadastrados.
-     */
-    async getAll() {
-        return await usuarioRepository.findAll();
-    }
-
-    /**
-     * Busca usuário por ID.
-     */
-    async getById(id) {
-        const usuario = await usuarioRepository.findById(id);
-        if (!usuario) {
-            throw new Error('Usuário não encontrado.');
-        }
-        const { senha_hash, ...dadosPublicos } = usuario;
-        return dadosPublicos;
-    }
-
-    /**
-     * RES 03: Autenticação por Matrícula e Senha.
-     */
-    async authenticate(matricula, senha) {
-        const usuario = await usuarioRepository.findByMatricula(matricula);
-
-        if (!usuario) {
-            throw new Error('Matrícula não encontrada.');
-        }
-
-        if (usuario.senha_hash !== senha) {
-            throw new Error('Senha incorreta.');
-        }
-
-        const { senha_hash, ...dadosPublicos } = usuario;
-        return dadosPublicos;
-    }
 
     async cadastrar(adminId, dados) {
         if (!adminId) {
@@ -61,7 +25,6 @@ class UsuarioService {
 
 
         const admin = await usuarioRepository.buscarPorId(adminId);
-        const admin = await usuarioRepository.findById(adminId);
 
         if (!admin || admin.tipo_acesso !== 'GERENTE') {
             throw new Error('Acesso negado: Apenas gerentes podem cadastrar funcionários.');
