@@ -13,6 +13,7 @@ const ordemProducaoFuncionarioRoutes = require('./ordemProducaoFuncionarioRoutes
 const vendasRoutes = require('./vendasRoutes');
 const alertasEstoqueRoutes = require('./alertasEstoqueRoutes');
 const logsSistemaRoutes = require('./logsSistemaRoutes');
+const categoriaRoutes = require('./categoriaRoutes')
 
 // Mapeamento de todas as rotas ativas do sistema Autonomoz
 router.use('/usuarios', usuarioRoutes);
