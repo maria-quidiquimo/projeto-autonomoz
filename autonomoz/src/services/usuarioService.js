@@ -1,7 +1,6 @@
 const usuarioRepository = require('../repositories/usuarioRepository');
 
 class UsuarioService {
-<<<<<<< HEAD
     async listarTodos() {
         return await usuarioRepository.listarTodos();
     }
@@ -17,7 +16,7 @@ class UsuarioService {
 
     async autenticar(matricula, senha) {
         const usuario = await usuarioRepository.buscarPorMatricula(matricula);
-=======
+    }
     /**
      * Lista todos os usuários cadastrados.
      */
@@ -42,7 +41,6 @@ class UsuarioService {
      */
     async authenticate(matricula, senha) {
         const usuario = await usuarioRepository.findByMatricula(matricula);
->>>>>>> ab53b4842780763aaaabe6dac875ca6136ae5165
 
         if (!usuario) {
             throw new Error('Matrícula não encontrada.');
@@ -61,11 +59,9 @@ class UsuarioService {
             throw new Error('ID do administrador não fornecido no header (user-id).');
         }
 
-<<<<<<< HEAD
+
         const admin = await usuarioRepository.buscarPorId(adminId);
-=======
         const admin = await usuarioRepository.findById(adminId);
->>>>>>> ab53b4842780763aaaabe6dac875ca6136ae5165
 
         if (!admin || admin.tipo_acesso !== 'GERENTE') {
             throw new Error('Acesso negado: Apenas gerentes podem cadastrar funcionários.');
