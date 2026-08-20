@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const categoriaService = require('../services/categoriaService');
+const categoriaController = require('../controllers/categoriaController');
 
-router.get('/', categoriaService.listar);
-router.get('/:id', categoriaService.buscarPorId);
-router.post('/', categoriaService.cadastrar);
-router.put('/:id', categoriaService.atualizar);
-router.delete('/:id', categoriaService.excluir);
+router.get('/', categoriaController.listar);
+router.get('/:id', categoriaController.buscarPorId);
+router.post('/', categoriaController.cadastrar);
+router.put('/:id', categoriaController.atualizar);
+router.delete('/:id', categoriaController.excluir);
 
 module.exports = router;
