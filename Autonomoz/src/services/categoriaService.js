@@ -29,13 +29,6 @@ class CategoriaService {
         await this.buscarPorId(id);
         return await categoriaRepository.excluir(id);
     }
-
-    // Aliases para compatibilidade
-    async getAll() { return this.listarTodos(); }
-    async getById(id) { return this.buscarPorId(id); }
-    async create(dados) { return this.cadastrar(dados); }
-    async update(id, dados) { return this.atualizar(id, dados); }
-    async delete(id) { return this.excluir(id); }
 }
 
 module.exports = new CategoriaService();

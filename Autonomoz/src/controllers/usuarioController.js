@@ -2,23 +2,23 @@ const usuarioService = require('../services/usuarioService');
 const authService = require('../services/authService');
 
 class UsuarioController {
-    async getAll(req, res) {
+    async listar(req, res) {
         try {
-            const usuarios = await usuarioService.getAll();
+            const usuarios = await usuarioService.listarTodos();
             return res.status(200).json(usuarios);
         } catch (error) {
-            console.error("❌ ERRO NO GET ALL:", error);
+            console.error("❌ ERRO NO LISTAR:", error);
             return res.status(500).json({ error: "Erro interno ao buscar usuários." });
         }
     }
 
-    async getById(req, res) {
+    async buscarPorId(req, res) {
         try {
             const { id } = req.params;
-            const usuario = await usuarioService.getById(id);
+            const usuario = await usuarioService.buscarPorId(id);
             return res.status(200).json(usuario);
         } catch (error) {
-            console.error("❌ ERRO NO GET BY ID:", error);
+            console.error("❌ ERRO NO BUSCAR POR ID:", error);
             if (error.message === 'Usuário não encontrado.') {
                 return res.status(404).json({ message: error.message });
             }
@@ -26,15 +26,15 @@ class UsuarioController {
         }
     }
 
-    async create(req, res) {
+    async cadastrar(req, res) {
         try {
             // Usa o id do token JWT OU header user-id para compatibilidade
             const adminId = req.usuario?.id_usuario || req.headers['user-id'] || req.headers['userid'];
-            const novoUsuario = await usuarioService.registerNewUser(adminId, req.body);
+            const novoUsuario = await usuarioService.cadastrar(adminId, req.body);
 
             return res.status(201).json(novoUsuario);
         } catch (error) {
-            console.error("❌ ERRO NO CREATE:", error);
+            console.error("❌ ERRO NO CADASTRAR:", error);
             return res.status(400).json({ error: error.message });
         }
     }
@@ -50,13 +50,13 @@ class UsuarioController {
         }
     }
 
-    async update(req, res) {
+    async atualizar(req, res) {
         try {
             const { id } = req.params;
-            await usuarioService.update(id, req.body);
+            await usuarioService.atualizar(id, req.body);
             return res.status(200).json({ message: "Dados atualizados com sucesso." });
         } catch (error) {
-            console.error("❌ ERRO NO UPDATE:", error);
+            console.error("❌ ERRO NO ATUALIZAR:", error);
             if (error.message === 'Usuário não encontrado.') {
                 return res.status(404).json({ message: error.message });
             }
@@ -64,13 +64,13 @@ class UsuarioController {
         }
     }
 
-    async delete(req, res) {
+    async excluir(req, res) {
         try {
             const { id } = req.params;
-            await usuarioService.delete(id);
+            await usuarioService.excluir(id);
             return res.status(200).json({ message: "Usuário removido do sistema." });
         } catch (error) {
-            console.error("❌ ERRO NO DELETE:", error);
+            console.error("❌ ERRO NO EXCLUIR:", error);
             if (error.message === 'Usuário não encontrado.') {
                 return res.status(404).json({ message: error.message });
             }
@@ -78,9 +78,9 @@ class UsuarioController {
         }
     }
 
-    async getCargos(req, res) {
+    async buscarCargos(req, res) {
         try {
-            const cargos = await usuarioService.getCargos();
+            const cargos = await usuarioService.buscarCargos();
             return res.status(200).json(cargos);
         } catch (error) {
             console.error("❌ ERRO AO BUSCAR CARGOS:", error);

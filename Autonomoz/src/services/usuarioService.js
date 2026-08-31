@@ -88,15 +88,6 @@ class UsuarioService {
     async buscarCargos() {
         return await usuarioRepository.buscarCargos();
     }
-
-    // Aliases para compatibilidade
-    async getAll() { return this.listarTodos(); }
-    async getById(id) { return this.buscarPorId(id); }
-    async registerNewUser(adminId, dados) { return this.cadastrar(adminId, dados); }
-    async authenticate(matricula, senha) { return this.autenticar(matricula, senha); }
-    async update(id, userData) { return this.atualizar(id, userData); }
-    async delete(id) { return this.excluir(id); }
-    async getCargos() { return this.buscarCargos(); }
 }
 
 module.exports = new UsuarioService();

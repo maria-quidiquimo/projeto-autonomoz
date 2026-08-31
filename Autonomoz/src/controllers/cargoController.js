@@ -1,45 +1,45 @@
 const cargoService = require('../services/cargoService');
 
 class CargoController {
-    async getAll(req, res) {
+    async listar(req, res) {
         try {
-            const cargos = await cargoService.getAll();
+            const cargos = await cargoService.listarTodos();
             return res.status(200).json(cargos);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
     }
 
-    async getById(req, res) {
+    async buscarPorId(req, res) {
         try {
-            const cargo = await cargoService.getById(req.params.id);
+            const cargo = await cargoService.buscarPorId(req.params.id);
             return res.status(200).json(cargo);
         } catch (error) {
             return res.status(404).json({ message: error.message });
         }
     }
 
-    async create(req, res) {
+    async cadastrar(req, res) {
         try {
-            const novoCargo = await cargoService.create(req.body);
+            const novoCargo = await cargoService.cadastrar(req.body);
             return res.status(201).json(novoCargo);
         } catch (error) {
             return res.status(400).json({ error: error.message });
         }
     }
 
-    async update(req, res) {
+    async atualizar(req, res) {
         try {
-            await cargoService.update(req.params.id, req.body);
+            await cargoService.atualizar(req.params.id, req.body);
             return res.status(200).json({ message: 'Cargo atualizado com sucesso.' });
         } catch (error) {
             return res.status(400).json({ error: error.message });
         }
     }
 
-    async delete(req, res) {
+    async excluir(req, res) {
         try {
-            await cargoService.delete(req.params.id);
+            await cargoService.excluir(req.params.id);
             return res.status(200).json({ message: 'Cargo removido com sucesso.' });
         } catch (error) {
             return res.status(400).json({ error: error.message });

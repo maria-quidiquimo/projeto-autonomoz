@@ -32,13 +32,6 @@ class CategoriaRepository {
         const [resultado] = await db.query(sql, [id]);
         return resultado;
     }
-
-    // Aliases para compatibilidade
-    async findAll() { return this.listarTodos(); }
-    async findById(id) { return this.buscarPorId(id); }
-    async save(categoria) { return this.salvar(categoria); }
-    async update(id, categoria) { return this.atualizar(id, categoria); }
-    async delete(id) { return this.excluir(id); }
 }
 
 module.exports = new CategoriaRepository();
