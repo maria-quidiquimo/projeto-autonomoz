@@ -7,8 +7,6 @@ try{
 const categorias = await categoriaService.listarTodos()
 res.status(200).json(categorias);
 }
-
-
     catch(erro){
         res.status(500).json({
             mensagem:"Erro ao buscar categorias",
