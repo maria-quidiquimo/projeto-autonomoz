@@ -1,32 +1,86 @@
-const bcrypt = require('bcrypt');
-const usuarioRepository = require('../repositories/usuarioRepository');
+const db = require('../config/database');
+const { tratarErroBanco } = require('../helpers/databaseErrorHelper');
 
-class UsuarioService {
-    // ... outros métodos da classe
+class UsuarioRepository {
+    async listarTodos() {
+        const sql = `
+            SELECT u.id_usuario, u.nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
+            FROM Usuario u
+            LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
+            WHERE u.ativo = TRUE
+        `;
+        const [linhas] = await db.query(sql);
+        return linhas;
+    }
 
-    async autenticar(matricula, senha) {
-        if (!matricula || !senha) {
-            throw new Error('Matrícula e senha são obrigatórias.');
+    async buscarPorId(id) {
+        const sql = `
+            SELECT u.id_usuario, u.nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
+            FROM Usuario u
+            LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
+            WHERE u.id_usuario = ? AND u.ativo = TRUE
+        `;
+        const [linhas] = await db.query(sql, [id]);
+        return linhas[0];
+    }
+
+    async buscarPorMatricula(matricula) {
+        const sql = `
+            SELECT u.id_usuario, u.nome, u.matricula, u.senha, u.fk_cargo, c.nome_cargo, u.ativo 
+            FROM Usuario u
+            LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
+            WHERE u.matricula = ? AND u.ativo = TRUE
+        `;
+        const [linhas] = await db.query(sql, [matricula]);
+        return linhas[0];
+    }
+
+    async salvar(usuario) {
+        const { nome, matricula, senha, fk_cargo } = usuario;
+        const sql = `INSERT INTO Usuario (nome, matricula, senha, fk_cargo) VALUES (?, ?, ?, ?)`;
+        const [resultado] = await db.query(sql, [nome, matricula, senha, fk_cargo || null]);
+        return resultado;
+    }
+
+    async atualizar(id, usuario) {
+        const colunasPermitidas = ['nome', 'matricula', 'senha', 'fk_cargo', 'ativo'];
+        const camposParaAtualizar = [];
+        const valores = [];
+
+        Object.keys(usuario).forEach((campo) => {
+            if (colunasPermitidas.includes(campo) && usuario[campo] !== undefined) {
+                camposParaAtualizar.push(`${campo} = ?`);
+                valores.push(usuario[campo]);
+            }
+        });
+
+        if (camposParaAtualizar.length === 0) {
+            return { affectedRows: 0 };
         }
 
-        // 1. Busca o usuário pela matrícula
-        const usuario = await usuarioRepository.buscarPorMatricula(matricula);
+        valores.push(id);
 
-        // 2. Lança erro genérico por segurança se o usuário não existir
-        if (!usuario) {
-            throw new Error('Matrícula ou senha inválidas.');
+        const sql = `UPDATE Usuario SET ${camposParaAtualizar.join(', ')} WHERE id_usuario = ?`;
+        const [resultado] = await db.query(sql, valores);
+        return resultado;
+    }
+
+    async buscarCargos() {
+        const sql = 'SELECT id_cargo, nome_cargo FROM Cargo ORDER BY nome_cargo ASC';
+        const [linhas] = await db.query(sql);
+        return linhas;
+    }
+
+    // SOFT DELETE: inativa o usuário para preservar o histórico de auditoria/logs
+    async excluir(id) {
+        try {
+            const sql = 'UPDATE Usuario SET ativo = FALSE WHERE id_usuario = ?';
+            const [resultado] = await db.query(sql, [id]);
+            return resultado;
+        } catch (error) {
+            tratarErroBanco(error, 'Usuário');
         }
-
-        // 3. Compara a senha informada com o hash armazenado
-        const senhaValida = await bcrypt.compare(senha, usuario.senha);
-        if (!senhaValida) {
-            throw new Error('Matrícula ou senha inválidas.');
-        }
-
-        // 4. Retorna os dados do usuário (omitindo a senha por segurança)
-        const { senha: _, ...usuarioSemSenha } = usuario;
-        return usuarioSemSenha;
     }
 }
 
-module.exports = new UsuarioService();
+module.exports = new UsuarioRepository();
