@@ -374,10 +374,10 @@ INSERT INTO Fornecedor (razao_social, contato_email, contato_telefone) VALUES
 ('Itu Componentes Eletrônicos S.A.', 'vendas@itueletro.com.br', '(11) 4023-5566');
 
 INSERT INTO Usuarios (matricula, nome_completo, cpf, data_nascimento, senha_hash, tipo_acesso, cargo_descritivo, fk_usuario_criador) VALUES
-('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2y$10$exemploHASHnaoUSARemPRODUCAO01', 'GERENTE', 'Gerente Geral', NULL),
-('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2y$10$exemploHASHnaoUSARemPRODUCAO02', 'FUNCIONARIO', 'Mecânico', 1),
-('FUNC-002', 'Maria Eduarda Barreto', '333.444.555-66', '2008-07-15', '$2y$10$exemploHASHnaoUSARemPRODUCAO03', 'FUNCIONARIO', 'Auxiliar de Estoque', 1),
-('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2y$10$exemploHASHnaoUSARemPRODUCAO04', 'FUNCIONARIO', 'Eletricista', 1);
+('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2b$10$b9Sqc6wp2SkmqIsAo1JGBeDLgYG03cMysnkqpP0p2Ux3mdYQz0WIO', 'GERENTE', 'Gerente Geral', NULL),
+('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2b$10$Q15kmr7vbVZ0x2FPxof/ku.8rbkVqKh.T7y9ESRkQKompZWW.XqrW', 'FUNCIONARIO', 'Mecânico', 1),
+('FUNC-002', 'Maria Eduarda Barreto', '333.444.555-66', '2008-07-15', '$2b$10$Q15kmr7vbVZ0x2FPxof/ku.8rbkVqKh.T7y9ESRkQKompZWW.XqrW', 'FUNCIONARIO', 'Auxiliar de Estoque', 1),
+('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2b$10$Q15kmr7vbVZ0x2FPxof/ku.8rbkVqKh.T7y9ESRkQKompZWW.XqrW', 'FUNCIONARIO', 'Eletricista', 1);
 
 INSERT INTO Produto (codigo_item, nome_produto, descricao, fk_subcategoria, fk_fornecedor, unidade_medida, valor_unitario, estoque_minimo, estoque_atual) VALUES
 ('PC-001', 'Para-choque Dianteiro', 'Para-choque em ABS reforçado', 1, 1, 'UN', 350.00, 5, 12),
