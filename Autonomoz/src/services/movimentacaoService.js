@@ -1,4 +1,7 @@
 const movimentacaoRepository = require('../repositories/movimentacaoRepository');
+const loteRepository = require('../repositories/loteRepository');
+const db = require('../config/database');
+const { registrarLog } = require('./logAuditoriaHelper');
 
 class MovimentacaoService {
     async listarTodos() {
@@ -30,7 +33,45 @@ class MovimentacaoService {
             throw new Error('O motivo da saída é obrigatório para movimentações de saída.');
         }
 
-        return await movimentacaoRepository.salvar(dados);
+        // Buscar o lote para validar e obter o fk_produto
+        const lote = await loteRepository.buscarPorId(dados.fk_lote);
+        if (!lote) {
+            throw new Error('Lote não encontrado.');
+        }
+
+        // Se for SAIDA, verificar se a quantidade do lote é suficiente
+        if (dados.tipo_movimento === 'SAIDA' && lote.quantidade < dados.quantidade) {
+            throw new Error(`Quantidade insuficiente no lote. Disponível: ${lote.quantidade}, solicitado: ${dados.quantidade}.`);
+        }
+
+        // Registrar a movimentação
+        const resultado = await movimentacaoRepository.salvar(dados);
+
+        // Atualizar quantidade do lote
+        const novaQtdLote = dados.tipo_movimento === 'ENTRADA'
+            ? lote.quantidade + dados.quantidade
+            : lote.quantidade - dados.quantidade;
+
+        await db.query('UPDATE Lote_Produto SET quantidade = ? WHERE id_lote = ?', [novaQtdLote, dados.fk_lote]);
+
+        // Recalcular estoque_atual do produto (soma de todos os lotes ativos)
+        const [rows] = await db.query(
+            'SELECT COALESCE(SUM(quantidade), 0) AS total FROM Lote_Produto WHERE fk_produto = ? AND ativo = TRUE',
+            [lote.fk_produto]
+        );
+        const estoqueAtual = rows[0].total;
+
+        await db.query('UPDATE Produto SET estoque_atual = ? WHERE id_produto = ?', [estoqueAtual, lote.fk_produto]);
+
+        // Log de auditoria (RF-009)
+        const tipoLog = dados.tipo_movimento === 'ENTRADA' ? 'ENTRADA_ESTOQUE' : 'SAIDA_ESTOQUE';
+        await registrarLog(
+            tipoLog,
+            `${dados.tipo_movimento} de ${dados.quantidade} unidades no lote ${lote.codigo_lote}.${dados.motivo_saida ? ' Motivo: ' + dados.motivo_saida : ''}`,
+            dados.fk_usuario
+        );
+
+        return resultado;
     }
 
     async atualizar(id, dados) {
