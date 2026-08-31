@@ -29,5 +29,4 @@ router.use('/vendas', vendasRoutes);
 router.use('/alertas_estoque', alertasEstoqueRoutes);
 router.use('/logs_sistema', logsSistemaRoutes);
 router.use('/categorias', categoriaRoutes);
-
 module.exports = router;
