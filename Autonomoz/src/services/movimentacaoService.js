@@ -23,7 +23,7 @@ class MovimentacaoService {
         if (!dados.fk_usuario) {
             throw new Error('O usuário (fk_usuario) é obrigatório.');
         }
-        
+
         const tiposPermitidos = ['ENTRADA', 'SAIDA', 'AJUSTE_POSITIVO', 'AJUSTE_NEGATIVO'];
         if (!dados.tipo_movimento || !tiposPermitidos.includes(dados.tipo_movimento)) {
             throw new Error(`Tipo de movimento inválido. Use um dos seguintes: ${tiposPermitidos.join(', ')}.`);
@@ -31,7 +31,7 @@ class MovimentacaoService {
         if (!dados.quantidade || dados.quantidade <= 0) {
             throw new Error('A quantidade deve ser maior que zero.');
         }
-        
+
         // Motivo obrigatório para SAIDA e AJUSTES de inventário
         const exigeMotivo = ['SAIDA', 'AJUSTE_POSITIVO', 'AJUSTE_NEGATIVO'].includes(dados.tipo_movimento);
         if (exigeMotivo && (!dados.motivo_saida || dados.motivo_saida.trim() === '')) {
@@ -55,12 +55,18 @@ class MovimentacaoService {
 
             const lote = lotes[0];
 
-            const isSaidaOuAjusteNegativo = ['SAIDA', 'AJUSTE_NEGATIVO'].includes(dados.tipo_movimento);
+            // 2. Validação explicita de saldo suficiente para SAIDA (ISSUE #10)
+            if (dados.tipo_movimento === 'SAIDA' && dados.quantidade > lote.quantidade) {
+                const identificadorLote = lote.codigo_lote || dados.fk_lote;
+                throw new Error(`Saldo insuficiente no lote ${identificadorLote}: disponível ${lote.quantidade}, solicitado ${dados.quantidade}`);
+            }
 
-            // 2. Validação de saldo para saída ou ajuste negativo
-            if (isSaidaOuAjusteNegativo && lote.quantidade < dados.quantidade) {
+            // Validação de saldo para AJUSTE_NEGATIVO
+            if (dados.tipo_movimento === 'AJUSTE_NEGATIVO' && dados.quantidade > lote.quantidade) {
                 throw new Error(`Quantidade insuficiente no lote. Disponível: ${lote.quantidade}, solicitado: ${dados.quantidade}.`);
             }
+
+            const isSaidaOuAjusteNegativo = ['SAIDA', 'AJUSTE_NEGATIVO'].includes(dados.tipo_movimento);
 
             // 3. Atualizar quantidade do Lote_Produto
             const novaQtdLote = isSaidaOuAjusteNegativo
@@ -72,7 +78,7 @@ class MovimentacaoService {
                 [novaQtdLote, dados.fk_lote]
             );
 
-            // 4. Recalcular e atualizar estoque_atual do Produto (dispara o trigger de estoque mínimo)
+            // 4. Recalcular e atualizar estoque_atual do Produto
             const [somaLotes] = await conexao.query(
                 'SELECT COALESCE(SUM(quantidade), 0) AS total FROM Lote_Produto WHERE fk_produto = ? AND ativo = TRUE',
                 [lote.fk_produto]
@@ -97,7 +103,7 @@ class MovimentacaoService {
 
             await conexao.commit();
 
-            // 6. Log de auditoria (RF-009)
+            // 6. Log de auditoria
             let tipoLog = 'ENTRADA_ESTOQUE';
             if (dados.tipo_movimento === 'SAIDA') tipoLog = 'SAIDA_ESTOQUE';
             else if (dados.tipo_movimento.startsWith('AJUSTE')) tipoLog = 'AJUSTE_ESTOQUE';
