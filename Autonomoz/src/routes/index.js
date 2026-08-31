@@ -13,7 +13,9 @@ const ordemProducaoFuncionarioRoutes = require('./ordemProducaoFuncionarioRoutes
 const vendasRoutes = require('./vendasRoutes');
 const alertasEstoqueRoutes = require('./alertasEstoqueRoutes');
 const logsSistemaRoutes = require('./logsSistemaRoutes');
-const categoriaRoutes = require('./categoriaRoutes')
+const categoriaRoutes = require('./categoriaRoutes');
+const cargoRoutes = require('./cargoRoutes');
+const localizacaoRoutes = require('./localizacaoRoutes');
 
 // Mapeamento de todas as rotas ativas do sistema Autonomoz
 router.use('/usuarios', usuarioRoutes);
@@ -29,5 +31,7 @@ router.use('/vendas', vendasRoutes);
 router.use('/alertas_estoque', alertasEstoqueRoutes);
 router.use('/logs_sistema', logsSistemaRoutes);
 router.use('/categorias', categoriaRoutes);
+router.use('/cargos', cargoRoutes);
+router.use('/localizacoes', localizacaoRoutes);
 
 module.exports = router;

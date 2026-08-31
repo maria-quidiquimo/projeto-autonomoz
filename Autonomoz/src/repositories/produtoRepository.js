@@ -11,7 +11,7 @@ class ProdutoRepository {
     async buscarPorId(id) {
         const sql = 'SELECT * FROM Produto WHERE id_produto = ?';
         const [linhas] = await db.query(sql, [id]);
-        return linhas; // Retorna apenas o objeto do produto
+        return linhas[0]; // Retorna apenas o objeto do produto
     }
 
     // Salvar agora inclui o codigo_item (obrigatório e único)

@@ -1,49 +1,44 @@
-const db = require ('../config/database');
+const db = require('../config/database');
 
+class CategoriaRepository {
+    async listarTodos() {
+        const sql = 'SELECT * FROM Categoria ORDER BY nome_categoria ASC';
+        const [linhas] = await db.query(sql);
+        return linhas;
+    }
 
-class categoriaRepository {
-async listarTodos(){
-const sql = 'SELECT * FROM Categoria'
-const [linhas] = await db.query(sql)
+    async buscarPorId(id) {
+        const sql = 'SELECT * FROM Categoria WHERE id_categoria = ?';
+        const [linhas] = await db.query(sql, [id]);
+        return linhas[0] || null;
+    }
 
+    async salvar(categoria) {
+        const { nome_categoria, descricao } = categoria;
+        const sql = 'INSERT INTO Categoria (nome_categoria, descricao) VALUES (?, ?)';
+        const [resultado] = await db.query(sql, [nome_categoria, descricao || null]);
+        return resultado;
+    }
 
-    return linhas;
+    async atualizar(id, categoria) {
+        const { nome_categoria, descricao } = categoria;
+        const sql = 'UPDATE Categoria SET nome_categoria = ?, descricao = ? WHERE id_categoria = ?';
+        const [resultado] = await db.query(sql, [nome_categoria, descricao || null, id]);
+        return resultado;
+    }
+
+    async excluir(id) {
+        const sql = 'DELETE FROM Categoria WHERE id_categoria = ?';
+        const [resultado] = await db.query(sql, [id]);
+        return resultado;
+    }
+
+    // Aliases para compatibilidade
+    async findAll() { return this.listarTodos(); }
+    async findById(id) { return this.buscarPorId(id); }
+    async save(categoria) { return this.salvar(categoria); }
+    async update(id, categoria) { return this.atualizar(id, categoria); }
+    async delete(id) { return this.excluir(id); }
 }
 
-async buscarPorId(id){
-    const sql = 'SELECT * FROM Categoria WHERE id_categoria = ?';
-
-    const [linhas] = await db.query(sql, [id]);
-    return linhas;
-}
-
-async salvar(categoria) {
-    const {id_categoria, nome_categoria, descricao} = categoria;
-
-    const sql = 'INSERT INTO Categoria (id_categoria, nome_categoria, descricao) VALUES (?, ?, ?)';
-
-    const [resultado] = await db.query(sql, [id_categoria, nome_categoria, descricao || 0 ]);
-
-    return resultado;
-}
-
-async atualizar(id, categoria){
-    const { nome_categoria, descricao} = categoria;
-
-    const sql = 'UPDATE Categoria SET nome_categoria = ?, descricao = ? WHERE id_categoria = ?';
-
-    const [resultado] = await db.query(sql, [nome_categoria, descricao, id]);
-
-    return resultado;
-}
-
-async excluir(id){
-    const sql = 'DELETE FROM Categoria WHERE id_categoria = ?';
-    const [resultado] = await db.query(sql, [id]);
-    return resultado;
-}
-
-}
-
-
-module.exports = new categoriaRepository();
+module.exports = new CategoriaRepository();

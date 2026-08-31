@@ -1,4 +1,6 @@
 const vendasRepository = require('../repositories/vendasRepository');
+const usuarioRepository = require('../repositories/usuarioRepository');
+const { registrarLog } = require('./logAuditoriaHelper');
 
 class VendasService {
     async listarTodos() {
@@ -24,7 +26,22 @@ class VendasService {
             throw new Error('O valor da venda deve ser maior que zero.');
         }
 
-        return await vendasRepository.salvar(dados);
+        // RN-02: Validar se o usuário informado é realmente GERENTE
+        const gerente = await usuarioRepository.buscarPorId(dados.fk_usuario_gerente);
+        if (!gerente || gerente.tipo_acesso !== 'GERENTE') {
+            throw new Error('Acesso negado: Somente gerentes podem registrar vendas (RN-02).');
+        }
+
+        const resultado = await vendasRepository.salvar(dados);
+
+        // Log de auditoria (RF-009)
+        await registrarLog(
+            'REGISTRO_VENDA',
+            `Gerente ${gerente.matricula} registrou venda da OP #${dados.fk_ordem_producao} no valor de R$ ${dados.valor_venda}.`,
+            dados.fk_usuario_gerente
+        );
+
+        return resultado;
     }
 
     async atualizar(id, dados) {

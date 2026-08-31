@@ -1,4 +1,5 @@
 const usuarioService = require('../services/usuarioService');
+const authService = require('../services/authService');
 
 class UsuarioController {
     async getAll(req, res) {
@@ -27,11 +28,11 @@ class UsuarioController {
 
     async create(req, res) {
         try {
-            const adminId = req.headers['user-id'] || req.headers['userid']; 
+            // Usa o id do token JWT OU header user-id para compatibilidade
+            const adminId = req.usuario?.id_usuario || req.headers['user-id'] || req.headers['userid'];
             const novoUsuario = await usuarioService.registerNewUser(adminId, req.body);
-            
-            const { senha_hash, ...dadosPublicos } = novoUsuario;
-            return res.status(201).json(dadosPublicos);
+
+            return res.status(201).json(novoUsuario);
         } catch (error) {
             console.error("❌ ERRO NO CREATE:", error);
             return res.status(400).json({ error: error.message });
@@ -41,8 +42,8 @@ class UsuarioController {
     async login(req, res) {
         try {
             const { matricula, senha } = req.body;
-            const usuario = await usuarioService.authenticate(matricula, senha);
-            return res.status(200).json({ message: "Login realizado com sucesso", usuario });
+            const resultado = await authService.login(matricula, senha);
+            return res.status(200).json(resultado);
         } catch (error) {
             console.error("❌ ERRO NO LOGIN:", error);
             return res.status(401).json({ error: error.message });

@@ -1,5 +1,5 @@
 const alertasEstoqueRepository = require('../repositories/alertasEstoqueRepository');
-
+// comentario aleatorio pra dar commit milagroso
 class AlertasEstoqueService {
     async listarTodos() {
         return await alertasEstoqueRepository.listarTodos();

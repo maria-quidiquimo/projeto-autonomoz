@@ -1,50 +1,41 @@
-const cargoService = require('../services/cargoService');
+const cargoRepository = require('../repositories/cargoRepository');
 
-class CargoController {
-    async getAll(req, res) {
-        try {
-            const cargos = await cargoService.getAll();
-            return res.status(200).json(cargos);
-        } catch (error) {
-            return res.status(500).json({ error: error.message });
-        }
+class CargoService {
+    async getAll() {
+        return await cargoRepository.findAll();
     }
 
-    async getById(req, res) {
-        try {
-            const cargo = await cargoService.getById(req.params.id);
-            return res.status(200).json(cargo);
-        } catch (error) {
-            return res.status(404).json({ message: error.message });
+    async getById(id) {
+        const cargo = await cargoRepository.findById(id);
+        if (!cargo) {
+            throw new Error('Cargo não encontrado.');
         }
+        return cargo;
     }
 
-    async create(req, res) {
-        try {
-            const novoCargo = await cargoService.create(req.body);
-            return res.status(201).json(novoCargo);
-        } catch (error) {
-            return res.status(400).json({ error: error.message });
+    async create(dados) {
+        if (!dados.nome_cargo) {
+            throw new Error('O nome do cargo é obrigatório.');
         }
+        return await cargoRepository.save(dados);
     }
 
-    async update(req, res) {
-        try {
-            await cargoService.update(req.params.id, req.body);
-            return res.status(200).json({ message: 'Cargo atualizado com sucesso.' });
-        } catch (error) {
-            return res.status(400).json({ error: error.message });
-        }
+    async update(id, dados) {
+        await this.getById(id);
+        return await cargoRepository.update(id, dados);
     }
 
-    async delete(req, res) {
-        try {
-            await cargoService.delete(req.params.id);
-            return res.status(200).json({ message: 'Cargo removido com sucesso.' });
-        } catch (error) {
-            return res.status(400).json({ error: error.message });
-        }
+    async delete(id) {
+        await this.getById(id);
+        return await cargoRepository.delete(id);
     }
+
+    // Aliases para compatibilidade em português
+    async listarTodos() { return this.getAll(); }
+    async buscarPorId(id) { return this.getById(id); }
+    async cadastrar(dados) { return this.create(dados); }
+    async atualizar(id, dados) { return this.update(id, dados); }
+    async excluir(id) { return this.delete(id); }
 }
 
-module.exports = new CargoController();
+module.exports = new CargoService();

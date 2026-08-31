@@ -1,4 +1,8 @@
+const bcrypt = require('bcrypt');
 const usuarioRepository = require('../repositories/usuarioRepository');
+const { registrarLog } = require('./logAuditoriaHelper');
+
+const SALT_ROUNDS = 10;
 
 class UsuarioService {
     async listarTodos() {
@@ -16,6 +20,18 @@ class UsuarioService {
 
     async autenticar(matricula, senha) {
         const usuario = await usuarioRepository.buscarPorMatricula(matricula);
+
+        if (!usuario) {
+            throw new Error('Matrícula não encontrada.');
+        }
+
+        const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+        if (!senhaValida) {
+            throw new Error('Senha incorreta.');
+        }
+
+        const { senha_hash, ...dadosPublicos } = usuario;
+        return dadosPublicos;
     }
 
     async cadastrar(adminId, dados) {
@@ -23,25 +39,44 @@ class UsuarioService {
             throw new Error('ID do administrador não fornecido no header (user-id).');
         }
 
-
         const admin = await usuarioRepository.buscarPorId(adminId);
 
         if (!admin || admin.tipo_acesso !== 'GERENTE') {
             throw new Error('Acesso negado: Apenas gerentes podem cadastrar funcionários.');
         }
 
-        if (!dados.matricula || !dados.nome_completo || !dados.senha_hash) {
+        if (!dados.matricula || !dados.nome_completo || (!dados.senha_hash && !dados.senha)) {
             throw new Error('Dados obrigatórios (matrícula, nome, senha) ausentes.');
         }
 
+        // Criptografia da senha com bcrypt (RNF-003)
+        const senhaPlain = dados.senha || dados.senha_hash;
+        dados.senha_hash = await bcrypt.hash(senhaPlain, SALT_ROUNDS);
+        delete dados.senha; // Remove campo texto puro
+
         dados.fk_usuario_criador = adminId;
         const resultado = await usuarioRepository.salvar(dados);
-        
-        return { id_usuario: resultado.insertId, ...dados };
+
+        // Log de auditoria (RF-009)
+        await registrarLog(
+            'CADASTRO_USUARIO',
+            `Gerente ${admin.matricula} cadastrou o usuário ${dados.matricula}.`,
+            adminId
+        );
+
+        const { senha_hash: _, ...dadosRetorno } = dados;
+        return { id_usuario: resultado.insertId, ...dadosRetorno };
     }
 
     async atualizar(id, dados) {
         await this.buscarPorId(id);
+
+        // Se estão atualizando a senha, criptografa
+        if (dados.senha) {
+            dados.senha_hash = await bcrypt.hash(dados.senha, SALT_ROUNDS);
+            delete dados.senha;
+        }
+
         return await usuarioRepository.atualizar(id, dados);
     }
 
@@ -54,41 +89,14 @@ class UsuarioService {
         return await usuarioRepository.buscarCargos();
     }
 
-    /**
-     * Atualização de dados/cargo do usuário.
-     */
-    async update(id, userData) {
-        const usuarioExistente = await usuarioRepository.findById(id);
-        if (!usuarioExistente) {
-            throw new Error('Usuário não encontrado.');
-        }
-
-        const atualizado = await usuarioRepository.update(id, userData);
-        if (!atualizado) {
-            throw new Error('Nenhuma alteração foi realizada.');
-        }
-
-        return true;
-    }
-
-    /**
-     * Remoção de usuário.
-     */
-    async delete(id) {
-        const usuarioExistente = await usuarioRepository.findById(id);
-        if (!usuarioExistente) {
-            throw new Error('Usuário não encontrado.');
-        }
-
-        return await usuarioRepository.delete(id);
-    }
-
-    /**
-     * Consulta lista única de cargos existentes.
-     */
-    async getCargos() {
-        return await usuarioRepository.findCargos();
-    }
+    // Aliases para compatibilidade
+    async getAll() { return this.listarTodos(); }
+    async getById(id) { return this.buscarPorId(id); }
+    async registerNewUser(adminId, dados) { return this.cadastrar(adminId, dados); }
+    async authenticate(matricula, senha) { return this.autenticar(matricula, senha); }
+    async update(id, userData) { return this.atualizar(id, userData); }
+    async delete(id) { return this.excluir(id); }
+    async getCargos() { return this.buscarCargos(); }
 }
 
 module.exports = new UsuarioService();
