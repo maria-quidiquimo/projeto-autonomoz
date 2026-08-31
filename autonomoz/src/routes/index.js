@@ -17,7 +17,7 @@ const alertasEstoqueRoutes = require('./alertasEstoqueRoutes');
 const logsSistemaRoutes = require('./logsSistemaRoutes');
 const localizacaoRoutes = require('./localizacaoRoutes');
 
-// Mapeamento de todas as rotas ativas do sistema Autonomoz
+// Mapeamento de todas as rotas ativas do sistema Autonomozz
 router.use('/usuarios', usuarioRoutes);
 router.use('/cargos', cargoRoutes);
 router.use('/categorias', categoriaRoutes);
