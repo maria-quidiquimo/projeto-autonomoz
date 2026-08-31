@@ -23,14 +23,19 @@ class MovimentacaoService {
         if (!dados.fk_usuario) {
             throw new Error('O usuário (fk_usuario) é obrigatório.');
         }
-        if (!dados.tipo_movimento || !['ENTRADA', 'SAIDA'].includes(dados.tipo_movimento)) {
-            throw new Error('Tipo de movimento inválido. Use "ENTRADA" ou "SAIDA".');
+        
+        const tiposPermitidos = ['ENTRADA', 'SAIDA', 'AJUSTE_POSITIVO', 'AJUSTE_NEGATIVO'];
+        if (!dados.tipo_movimento || !tiposPermitidos.includes(dados.tipo_movimento)) {
+            throw new Error(`Tipo de movimento inválido. Use um dos seguintes: ${tiposPermitidos.join(', ')}.`);
         }
         if (!dados.quantidade || dados.quantidade <= 0) {
             throw new Error('A quantidade deve ser maior que zero.');
         }
-        if (dados.tipo_movimento === 'SAIDA' && !dados.motivo_saida) {
-            throw new Error('O motivo da saída é obrigatório para movimentações de saída.');
+        
+        // Motivo obrigatório para SAIDA e AJUSTES de inventário
+        const exigeMotivo = ['SAIDA', 'AJUSTE_POSITIVO', 'AJUSTE_NEGATIVO'].includes(dados.tipo_movimento);
+        if (exigeMotivo && (!dados.motivo_saida || dados.motivo_saida.trim() === '')) {
+            throw new Error(`O motivo/justificativa é obrigatório para operações de ${dados.tipo_movimento}.`);
         }
 
         const conexao = await db.getConnection();
@@ -50,15 +55,17 @@ class MovimentacaoService {
 
             const lote = lotes[0];
 
-            // 2. Validação de saldo para saída
-            if (dados.tipo_movimento === 'SAIDA' && lote.quantidade < dados.quantidade) {
+            const isSaidaOuAjusteNegativo = ['SAIDA', 'AJUSTE_NEGATIVO'].includes(dados.tipo_movimento);
+
+            // 2. Validação de saldo para saída ou ajuste negativo
+            if (isSaidaOuAjusteNegativo && lote.quantidade < dados.quantidade) {
                 throw new Error(`Quantidade insuficiente no lote. Disponível: ${lote.quantidade}, solicitado: ${dados.quantidade}.`);
             }
 
             // 3. Atualizar quantidade do Lote_Produto
-            const novaQtdLote = dados.tipo_movimento === 'ENTRADA'
-                ? lote.quantidade + dados.quantidade
-                : lote.quantidade - dados.quantidade;
+            const novaQtdLote = isSaidaOuAjusteNegativo
+                ? lote.quantidade - dados.quantidade
+                : lote.quantidade + dados.quantidade;
 
             await conexao.query(
                 'UPDATE Lote_Produto SET quantidade = ? WHERE id_lote = ?',
@@ -91,7 +98,10 @@ class MovimentacaoService {
             await conexao.commit();
 
             // 6. Log de auditoria (RF-009)
-            const tipoLog = dados.tipo_movimento === 'ENTRADA' ? 'ENTRADA_ESTOQUE' : 'SAIDA_ESTOQUE';
+            let tipoLog = 'ENTRADA_ESTOQUE';
+            if (dados.tipo_movimento === 'SAIDA') tipoLog = 'SAIDA_ESTOQUE';
+            else if (dados.tipo_movimento.startsWith('AJUSTE')) tipoLog = 'AJUSTE_ESTOQUE';
+
             await registrarLog(
                 tipoLog,
                 `${dados.tipo_movimento} de ${dados.quantidade} unidades no lote ${lote.codigo_lote}.${dados.motivo_saida ? ' Motivo: ' + dados.motivo_saida : ''}`,
@@ -105,6 +115,29 @@ class MovimentacaoService {
         } finally {
             conexao.release();
         }
+    }
+
+    async ajustarEstoque(dados) {
+        if (!dados.fk_lote || !dados.fk_usuario) {
+            throw new Error('Lote (fk_lote) e Usuário (fk_usuario) são obrigatórios.');
+        }
+        if (dados.quantidade_ajuste === undefined || dados.quantidade_ajuste === 0) {
+            throw new Error('A quantidade de ajuste deve ser diferente de zero.');
+        }
+        if (!dados.motivo || dados.motivo.trim() === '') {
+            throw new Error('O motivo do ajuste de inventário é obrigatório.');
+        }
+
+        const tipo_movimento = dados.quantidade_ajuste > 0 ? 'AJUSTE_POSITIVO' : 'AJUSTE_NEGATIVO';
+        const quantidade = Math.abs(dados.quantidade_ajuste);
+
+        return await this.cadastrar({
+            fk_lote: dados.fk_lote,
+            fk_usuario: dados.fk_usuario,
+            tipo_movimento,
+            quantidade,
+            motivo_saida: dados.motivo
+        });
     }
 
     async atualizar(id, dados) {

@@ -225,9 +225,9 @@ CREATE TABLE Movimentacao (
     fk_lote              INT NOT NULL,
     fk_usuario           INT NOT NULL,
 
-    tipo_movimento       ENUM('ENTRADA', 'SAIDA') NOT NULL,
+    tipo_movimento       ENUM('ENTRADA', 'SAIDA', 'AJUSTE_POSITIVO', 'AJUSTE_NEGATIVO') NOT NULL,
     quantidade           INT NOT NULL,
-    motivo_saida         VARCHAR(255) NULL,
+    motivo_saida         VARCHAR(255) NULL COMMENT 'Obrigatório para SAIDA e AJUSTES de inventário',
 
     registrado_em        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
@@ -238,7 +238,7 @@ CREATE TABLE Movimentacao (
 
     CONSTRAINT chk_mov_quantidade CHECK (quantidade > 0),
     CONSTRAINT chk_mov_motivo_saida CHECK (
-        (tipo_movimento = 'SAIDA' AND motivo_saida IS NOT NULL AND motivo_saida <> '')
+        (tipo_movimento IN ('SAIDA', 'AJUSTE_POSITIVO', 'AJUSTE_NEGATIVO') AND motivo_saida IS NOT NULL AND motivo_saida <> '')
         OR (tipo_movimento = 'ENTRADA')
     ),
 

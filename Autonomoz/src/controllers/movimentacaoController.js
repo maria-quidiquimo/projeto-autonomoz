@@ -21,10 +21,23 @@ class MovimentacaoController {
 
     async cadastrar(req, res) {
         try {
-            const resultado = await movimentacaoService.cadastrar(req.body);
-            res.status(201).json({ 
-                id_movimentacao: resultado.insertId, 
-                ...req.body 
+            const usuarioId = req.usuario?.id_usuario || req.body.fk_usuario;
+            const dados = { ...req.body, fk_usuario: usuarioId };
+            const resultado = await movimentacaoService.cadastrar(dados);
+            res.status(201).json(resultado);
+        } catch (erro) {
+            res.status(400).json({ mensagem: erro.message });
+        }
+    }
+
+    async ajustar(req, res) {
+        try {
+            const usuarioId = req.usuario?.id_usuario || req.body.fk_usuario;
+            const dados = { ...req.body, fk_usuario: usuarioId };
+            const resultado = await movimentacaoService.ajustarEstoque(dados);
+            res.status(201).json({
+                mensagem: 'Ajuste de inventário registrado com sucesso.',
+                movimentacao: resultado
             });
         } catch (erro) {
             res.status(400).json({ mensagem: erro.message });
