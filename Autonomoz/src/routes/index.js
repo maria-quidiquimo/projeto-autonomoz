@@ -21,6 +21,7 @@ const localizacaoRoutes = require('./localizacaoRoutes');
 router.use('/usuarios', usuarioRoutes);
 router.use('/fornecedores', fornecedorRoutes);
 router.use('/produtos', produtoRoutes);
+router.use('/categorias', categoriaRoutes);
 router.use('/subcategoria', subcategoriaRoutes);
 router.use('/lotes', loteRoutes);
 router.use('/movimentacoes', movimentacaoRoutes);
@@ -30,7 +31,6 @@ router.use('/ordem_producao_funcionario', ordemProducaoFuncionarioRoutes);
 router.use('/vendas', vendasRoutes);
 router.use('/alertas_estoque', alertasEstoqueRoutes);
 router.use('/logs_sistema', logsSistemaRoutes);
-router.use('/categorias', categoriaRoutes);
 router.use('/cargos', cargoRoutes);
 router.use('/localizacoes', localizacaoRoutes);
 
