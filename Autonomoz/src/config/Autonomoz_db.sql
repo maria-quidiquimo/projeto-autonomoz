@@ -9,6 +9,7 @@
 --   PARTE 1 - DDL: criação do banco e de todas as tabelas
 --   PARTE 2 - DML: dados fictícios para teste (seeders)
 --   PARTE 3 - DQL: consultas de verificação e testes executáveis (sem '?')
+--   PARTE 4 - EDIÇÃO DE TABELAS: alterações pós-criação (fk_cargo)
 -- ============================================================================
 
 
@@ -373,6 +374,13 @@ INSERT INTO Fornecedor (razao_social, contato_email, contato_telefone) VALUES
 ('Metalúrgica Salto Ltda', 'contato@metalsalto.com.br', '(11) 4028-1234'),
 ('Itu Componentes Eletrônicos S.A.', 'vendas@itueletro.com.br', '(11) 4023-5566');
 
+-- Seed de Cargo, necessário para o UPDATE da Parte 4 funcionar
+INSERT INTO Cargo (nome_cargo, descricao) VALUES
+('Gerente Geral', 'Responsável geral pela operação'),
+('Mecânico', 'Manutenção e reparo de veículos'),
+('Auxiliar de Estoque', 'Controle de entrada e saída de peças'),
+('Eletricista', 'Serviços elétricos e instalação de componentes');
+
 INSERT INTO Usuarios (matricula, nome_completo, cpf, data_nascimento, senha_hash, tipo_acesso, cargo_descritivo, fk_usuario_criador) VALUES
 ('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2b$10$b9Sqc6wp2SkmqIsAo1JGBeDLgYG03cMysnkqpP0p2Ux3mdYQz0WIO', 'GERENTE', 'Gerente Geral', NULL),
 ('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2b$10$Q15kmr7vbVZ0x2FPxof/ku.8rbkVqKh.T7y9ESRkQKompZWW.XqrW', 'FUNCIONARIO', 'Mecânico', 1),
@@ -542,22 +550,28 @@ WHERE a.resolvido = FALSE
 ORDER BY a.gerado_em DESC;
 
 
-UPDATE usuario SET cargo_id = ID_DO_CARGO_GERENTE WHERE id = 1;
-
-SELECT id_usuario, matricula, nome_completo, tipo_acesso, cargo_descritivo, criado_em 
-FROM Usuarios 
-ORDER BY id_usuario DESC;
-
 -- ############################################################################
 -- PARTE 4: EDIÇÃO DE TABELAS
 -- ############################################################################
 
 -- Adiciona a referência na tabela de Usuários
 ALTER TABLE Usuarios ADD COLUMN fk_cargo INT NULL;
-ALTER TABLE Usuarios ADD CONSTRAINT fk_usuarios_cargo 
+ALTER TABLE Usuarios ADD CONSTRAINT fk_usuarios_cargo
     FOREIGN KEY (fk_cargo) REFERENCES Cargo(id_cargo) ON DELETE SET NULL;
+
+-- Atualiza o usuário GER-001 (id_usuario = 1) para o cargo "Gerente Geral" (id_cargo = 1)
+-- Corrigido: nome da tabela era 'usuario' (não existe), o correto é 'Usuarios';
+-- a coluna era 'cargo_id' (não existe), o correto é 'fk_cargo';
+-- e o placeholder ID_DO_CARGO_GERENTE foi substituído pelo id real de Cargo.
+UPDATE Usuarios
+SET fk_cargo = (SELECT id_cargo FROM Cargo WHERE nome_cargo = 'Gerente Geral')
+WHERE id_usuario = 1;
+
+-- Conferência
+SELECT id_usuario, matricula, nome_completo, tipo_acesso, cargo_descritivo, fk_cargo, criado_em
+FROM Usuarios
+ORDER BY id_usuario DESC;
 
 -- ============================================================================
 -- FIM DO ARQUIVO
--- ============================================================================
-
+-- ============================================================================ 

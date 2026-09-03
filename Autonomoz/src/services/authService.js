@@ -16,7 +16,7 @@ class AuthService {
         }
 
         // Comparação segura com bcrypt (RNF-003)
-        const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+        const senhaValida = await bcrypt.compare(senha, usuario.senha);
         if (!senhaValida) {
             throw new Error('Matrícula ou senha incorretas.');
         }
@@ -35,7 +35,7 @@ class AuthService {
         // Log de auditoria (RF-009)
         await registrarLog('LOGIN', `Usuário ${usuario.matricula} realizou login.`, usuario.id_usuario);
 
-        const { senha_hash, ...dadosPublicos } = usuario;
+        const { senha: _, ...dadosPublicos } = usuario;
         return {
             mensagem: 'Login realizado com sucesso.',
             token,

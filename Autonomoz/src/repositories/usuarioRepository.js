@@ -4,8 +4,8 @@ const { tratarErroBanco } = require('../helpers/databaseErrorHelper');
 class UsuarioRepository {
     async listarTodos() {
         const sql = `
-            SELECT u.id_usuario, u.nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
-            FROM Usuario u
+            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
+            FROM Usuarios u
             LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
             WHERE u.ativo = TRUE
         `;
@@ -15,8 +15,8 @@ class UsuarioRepository {
 
     async buscarPorId(id) {
         const sql = `
-            SELECT u.id_usuario, u.nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
-            FROM Usuario u
+            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
+            FROM Usuarios u
             LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
             WHERE u.id_usuario = ? AND u.ativo = TRUE
         `;
@@ -26,8 +26,8 @@ class UsuarioRepository {
 
     async buscarPorMatricula(matricula) {
         const sql = `
-            SELECT u.id_usuario, u.nome, u.matricula, u.senha, u.fk_cargo, c.nome_cargo, u.ativo 
-            FROM Usuario u
+            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.senha_hash AS senha, u.fk_cargo, c.nome_cargo, u.ativo 
+            FROM Usuarios u
             LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
             WHERE u.matricula = ? AND u.ativo = TRUE
         `;
@@ -37,19 +37,21 @@ class UsuarioRepository {
 
     async salvar(usuario) {
         const { nome, matricula, senha, fk_cargo } = usuario;
-        const sql = `INSERT INTO Usuario (nome, matricula, senha, fk_cargo) VALUES (?, ?, ?, ?)`;
+        const sql = `INSERT INTO Usuarios (nome_completo, matricula, senha_hash, fk_cargo) VALUES (?, ?, ?, ?)`;
         const [resultado] = await db.query(sql, [nome, matricula, senha, fk_cargo || null]);
         return resultado;
     }
 
     async atualizar(id, usuario) {
+        const mapaColunas = { nome: 'nome_completo', senha: 'senha_hash' };
         const colunasPermitidas = ['nome', 'matricula', 'senha', 'fk_cargo', 'ativo'];
         const camposParaAtualizar = [];
         const valores = [];
 
         Object.keys(usuario).forEach((campo) => {
             if (colunasPermitidas.includes(campo) && usuario[campo] !== undefined) {
-                camposParaAtualizar.push(`${campo} = ?`);
+                const colunaBanco = mapaColunas[campo] || campo;
+                camposParaAtualizar.push(`${colunaBanco} = ?`);
                 valores.push(usuario[campo]);
             }
         });
@@ -60,7 +62,7 @@ class UsuarioRepository {
 
         valores.push(id);
 
-        const sql = `UPDATE Usuario SET ${camposParaAtualizar.join(', ')} WHERE id_usuario = ?`;
+        const sql = `UPDATE Usuarios SET ${camposParaAtualizar.join(', ')} WHERE id_usuario = ?`;
         const [resultado] = await db.query(sql, valores);
         return resultado;
     }
@@ -74,7 +76,7 @@ class UsuarioRepository {
     // SOFT DELETE: inativa o usuário para preservar o histórico de auditoria/logs
     async excluir(id) {
         try {
-            const sql = 'UPDATE Usuario SET ativo = FALSE WHERE id_usuario = ?';
+            const sql = 'UPDATE Usuarios SET ativo = FALSE WHERE id_usuario = ?';
             const [resultado] = await db.query(sql, [id]);
             return resultado;
         } catch (error) {
