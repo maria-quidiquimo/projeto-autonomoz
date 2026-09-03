@@ -1,8 +1,6 @@
 const bcrypt = require('bcrypt');
 const usuarioRepository = require('../repositories/usuarioRepository');
-const { registrarLog } = require('./logAuditoriaHelper');
-
-const SALT_ROUNDS = 10;
+const cargoRepository = require('../repositories/cargoRepository');
 
 class UsuarioService {
     async listarTodos() {
@@ -14,67 +12,66 @@ class UsuarioService {
         if (!usuario) {
             throw new Error('Usuário não encontrado.');
         }
-        const { senha_hash, ...dadosPublicos } = usuario;
-        return dadosPublicos;
+        return usuario;
     }
 
     async autenticar(matricula, senha) {
+        if (!matricula || !senha) {
+            throw new Error('Matrícula e senha são obrigatórias.');
+        }
+
         const usuario = await usuarioRepository.buscarPorMatricula(matricula);
-
         if (!usuario) {
-            throw new Error('Matrícula não encontrada.');
+            throw new Error('Matrícula ou senha inválidas.');
         }
 
-        const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+        const senhaValida = await bcrypt.compare(senha, usuario.senha);
         if (!senhaValida) {
-            throw new Error('Senha incorreta.');
+            throw new Error('Matrícula ou senha inválidas.');
         }
 
-        const { senha_hash, ...dadosPublicos } = usuario;
-        return dadosPublicos;
+        const { senha: _, ...usuarioSemSenha } = usuario;
+        return usuarioSemSenha;
     }
 
-    async cadastrar(adminId, dados) {
-        if (!adminId) {
-            throw new Error('ID do administrador não fornecido no header (user-id).');
+    async cadastrar(dados) {
+        if (!dados.nome || !dados.matricula || !dados.senha) {
+            throw new Error('Nome, matrícula e senha são obrigatórios.');
         }
 
-        const admin = await usuarioRepository.buscarPorId(adminId);
-
-        if (!admin || admin.tipo_acesso !== 'GERENTE') {
-            throw new Error('Acesso negado: Apenas gerentes podem cadastrar funcionários.');
+        if (dados.fk_cargo) {
+            const cargoExiste = await cargoRepository.buscarPorId(dados.fk_cargo);
+            if (!cargoExiste) {
+                throw new Error('O cargo informado não existe.');
+            }
         }
 
-        if (!dados.matricula || !dados.nome_completo || (!dados.senha_hash && !dados.senha)) {
-            throw new Error('Dados obrigatórios (matrícula, nome, senha) ausentes.');
-        }
+        const saltRounds = 10;
+        const senhaHash = await bcrypt.hash(dados.senha, saltRounds);
 
-        // Criptografia da senha com bcrypt (RNF-003)
-        const senhaPlain = dados.senha || dados.senha_hash;
-        dados.senha_hash = await bcrypt.hash(senhaPlain, SALT_ROUNDS);
-        delete dados.senha; // Remove campo texto puro
+        return await usuarioRepository.salvar({
+            ...dados,
+            senha: senhaHash
+        });
+    }
 
-        dados.fk_usuario_criador = adminId;
-        const resultado = await usuarioRepository.salvar(dados);
-
-        // Log de auditoria (RF-009)
-        await registrarLog(
-            'CADASTRO_USUARIO',
-            `Gerente ${admin.matricula} cadastrou o usuário ${dados.matricula}.`,
-            adminId
-        );
-
-        const { senha_hash: _, ...dadosRetorno } = dados;
-        return { id_usuario: resultado.insertId, ...dadosRetorno };
+    async buscarCargos() {
+        return await usuarioRepository.buscarCargos();
     }
 
     async atualizar(id, dados) {
         await this.buscarPorId(id);
 
-        // Se estão atualizando a senha, criptografa
+        if (dados.fk_cargo) {
+            const cargoExiste = await cargoRepository.buscarPorId(dados.fk_cargo);
+            if (!cargoExiste) {
+                throw new Error('O cargo informado não existe.');
+            }
+        }
+
         if (dados.senha) {
-            dados.senha_hash = await bcrypt.hash(dados.senha, SALT_ROUNDS);
-            delete dados.senha;
+            const saltRounds = 10;
+            dados.senha = await bcrypt.hash(dados.senha, saltRounds);
         }
 
         return await usuarioRepository.atualizar(id, dados);
@@ -83,10 +80,6 @@ class UsuarioService {
     async excluir(id) {
         await this.buscarPorId(id);
         return await usuarioRepository.excluir(id);
-    }
-
-    async buscarCargos() {
-        return await usuarioRepository.buscarCargos();
     }
 }
 
