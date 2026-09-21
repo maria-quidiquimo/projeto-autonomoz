@@ -4,7 +4,7 @@ const { tratarErroBanco } = require('../helpers/databaseErrorHelper');
 class UsuarioRepository {
     async listarTodos() {
         const sql = `
-            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
+            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.tipo_acesso, u.fk_cargo, c.nome_cargo, u.ativo 
             FROM Usuarios u
             LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
             WHERE u.ativo = TRUE
@@ -15,7 +15,7 @@ class UsuarioRepository {
 
     async buscarPorId(id) {
         const sql = `
-            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.fk_cargo, c.nome_cargo, u.ativo 
+            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.tipo_acesso, u.fk_cargo, c.nome_cargo, u.ativo 
             FROM Usuarios u
             LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
             WHERE u.id_usuario = ? AND u.ativo = TRUE
@@ -26,7 +26,7 @@ class UsuarioRepository {
 
     async buscarPorMatricula(matricula) {
         const sql = `
-            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.senha_hash AS senha, u.fk_cargo, c.nome_cargo, u.ativo 
+            SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.tipo_acesso, u.senha_hash AS senha, u.fk_cargo, c.nome_cargo, u.ativo 
             FROM Usuarios u
             LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
             WHERE u.matricula = ? AND u.ativo = TRUE
@@ -36,15 +36,29 @@ class UsuarioRepository {
     }
 
     async salvar(usuario) {
-        const { nome, matricula, senha, fk_cargo } = usuario;
-        const sql = `INSERT INTO Usuarios (nome_completo, matricula, senha_hash, fk_cargo) VALUES (?, ?, ?, ?)`;
-        const [resultado] = await db.query(sql, [nome, matricula, senha, fk_cargo || null]);
+        const { nome, matricula, senha, fk_cargo, tipo_acesso, cpf, data_nascimento, cargo_descritivo, fk_usuario_criador } = usuario;
+        const cpfFinal = cpf || `${Math.floor(Math.random() * 899 + 100)}.${Math.floor(Math.random() * 899 + 100)}.${Math.floor(Math.random() * 899 + 100)}-${Math.floor(Math.random() * 89 + 10)}`;
+        const dataNascFinal = data_nascimento || '1998-05-15';
+
+        const sql = `INSERT INTO Usuarios (nome_completo, matricula, senha_hash, fk_cargo, tipo_acesso, cpf, data_nascimento, cargo_descritivo, fk_usuario_criador) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const [resultado] = await db.query(sql, [
+            nome || usuario.nome_completo,
+            matricula,
+            senha,
+            fk_cargo || null,
+            tipo_acesso || 'FUNCIONARIO',
+            cpfFinal,
+            dataNascFinal,
+            cargo_descritivo || null,
+            fk_usuario_criador || null
+        ]);
         return resultado;
     }
 
     async atualizar(id, usuario) {
         const mapaColunas = { nome: 'nome_completo', senha: 'senha_hash' };
-        const colunasPermitidas = ['nome', 'matricula', 'senha', 'fk_cargo', 'ativo'];
+        const colunasPermitidas = ['nome', 'nome_completo', 'matricula', 'senha', 'fk_cargo', 'ativo', 'tipo_acesso', 'cpf', 'data_nascimento', 'cargo_descritivo'];
         const camposParaAtualizar = [];
         const valores = [];
 

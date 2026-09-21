@@ -34,7 +34,9 @@ class UsuarioService {
         return usuarioSemSenha;
     }
 
-    async cadastrar(dados) {
+    async cadastrar(arg1, arg2) {
+        const dados = (arg2 && typeof arg2 === 'object') ? arg2 : arg1;
+        const adminId = (arg2 && typeof arg2 === 'object') ? arg1 : (dados.fk_usuario_criador || null);
         if (!dados.nome || !dados.matricula || !dados.senha) {
             throw new Error('Nome, matrícula e senha são obrigatórios.');
         }
@@ -51,6 +53,7 @@ class UsuarioService {
 
         return await usuarioRepository.salvar({
             ...dados,
+            fk_usuario_criador: adminId || dados.fk_usuario_criador || null,
             senha: senhaHash
         });
     }
