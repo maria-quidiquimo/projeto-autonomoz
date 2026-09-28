@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"tertiary-fixed":"#cce5ff","secondary-fixed-dim":"#bec6e0","tertiary-fixed-dim":"#93ccff","on-primary-fixed":"#370e00","surface":"#f8f9ff","inverse-primary":"#ffb599","on-error":"#ffffff","on-error-container":"#93000a","on-secondary-container":"#5c647a","surface-container-lowest":"#ffffff","outline-variant":"#e2bfb2","tertiary":"#006194","on-tertiary-fixed-variant":"#004b73","surface-container-highest":"#d3e4fe","surface-container":"#e5eeff","outline":"#8e7166","inverse-on-surface":"#eaf1ff","error-container":"#ffdad6","primary-fixed":"#ffdbce","on-secondary-fixed":"#131b2e","surface-dim":"#cbdbf5","surface-variant":"#d3e4fe","tertiary-container":"#007bb9","on-primary-container":"#fffbff","error":"#ba1a1a","on-primary-fixed-variant":"#7f2b00","background":"#f8f9ff","on-surface":"#0b1c30","on-tertiary-fixed":"#001d31","surface-tint":"#a73a00","primary":"#a33900","secondary-fixed":"#dae2fd","secondary-container":"#dae2fd","on-surface-variant":"#5a4138","on-tertiary":"#ffffff","on-secondary-fixed-variant":"#3f465c","secondary":"#565e74","primary-container":"#cc4900","surface-container-high":"#dce9ff","on-secondary":"#ffffff","on-background":"#0b1c30","surface-container-low":"#eff4ff","on-primary":"#ffffff","surface-bright":"#f8f9ff","on-tertiary-container":"#fdfcff","primary-fixed-dim":"#ffb599","inverse-surface":"#213145"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-md":"1rem","gutter":"1.25rem","space-xs":"0.25rem","space-xl":"2.5rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"1.5rem"},fontFamily:{"headline-xl-mobile":["IBM Plex Sans"],"headline-md":["IBM Plex Sans"],"body-lg":["IBM Plex Sans"],"body-sm":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"body-md":["IBM Plex Sans"],"headline-lg-mobile":["IBM Plex Sans"],"label-code":["JetBrains Mono"],"label-sm":["IBM Plex Sans"],"label-metric":["JetBrains Mono"],"headline-lg":["IBM Plex Sans"]},fontSize:{"headline-xl-mobile":["26px",{"lineHeight":"34px","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg-mobile":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-code":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","fontWeight":"600"}],"label-metric":["28px",{"lineHeight":"32px","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-inverse-surface text-inverse-on-surface z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-margin flex items-center justify-between bg-inverse-surface border-b border-secondary/20"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WtK4MGHNbQk77e5GoxqbVT6ktEkPC6XlYoshMOT3l4s4FrxBHR_-h8VyKqAbVXH-B4cFk0cVdcKiLTyXzCXdNaRt3igJHVWTfB1HeILr-B12BAsfsjLhl4m8riHtU0PpddlJ35iSjD9I10L8b_EG9WGKuB2xpfTSOvwe0_u50Maitgl_VCfSC23dZjutp3wJ-IcHvzzPoMUMdweqgqHhjnPV8j1RGR1Hm_5h9gjKMgxn_2-OD1sHp8EHpz"/><div class="flex flex-col"><span class="font-headline-md text-body-md font-bold tracking-wider text-inverse-on-surface leading-none">AUTONOMOZ</span><span class="font-label-code text-[9px] uppercase tracking-widest text-secondary-fixed-dim leading-tight">ICS Platform</span></div></div><span class="px-space-xs py-0.5 bg-primary/20 text-inverse-primary rounded font-label-sm uppercase">GERENTE</span></div><nav class="flex flex-col py-space-sm" data-active-classes="bg-primary text-on-primary font-bold"><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md">Dashboard</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="estoque" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md">Estoque</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="ordens-de-producao" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="font-body-md">Ordens de Produção</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="rastreabilidade-de-pecas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span><span class="font-body-md">Rastreabilidade</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="movimentacoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">sync_alt</span><span class="font-body-md">Movimentações</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="alertas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">warning</span><span class="font-body-md">Alertas</span></div><span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded font-label-code text-body-sm font-bold bg-error text-on-error">5</span></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="relatorios" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-body-md">Relatórios</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="configuracoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body-md">Configurações</span></div></a></nav></div><div class="p-space-md bg-inverse-surface border-t border-secondary/20 flex flex-col gap-space-sm"><div class="flex items-center justify-between"><span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm text-tertiary-fixed-dim bg-tertiary/20"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>Planta Sorocaba - Turno A</span></div><div class="flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm min-w-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0"><span class="font-body-sm font-bold truncate text-inverse-on-surface">Eng. Marcos Silveira</span><span class="font-label-sm text-secondary-fixed-dim truncate">Gerente de Operações</span></div></div><a class="p-space-xs rounded text-secondary-fixed-dim hover:text-error hover:bg-surface-container-highest/10 transition-colors shrink-0" data-path="logout" href="#" title="Encerrar Turno"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WtK4MGHNbQk77e5GoxqbVT6ktEkPC6XlYoshMOT3l4s4FrxBHR_-h8VyKqAbVXH-B4cFk0cVdcKiLTyXzCXdNaRt3igJHVWTfB1HeILr-B12BAsfsjLhl4m8riHtU0PpddlJ35iSjD9I10L8b_EG9WGKuB2xpfTSOvwe0_u50Maitgl_VCfSC23dZjutp3wJ-IcHvzzPoMUMdweqgqHhjnPV8j1RGR1Hm_5h9gjKMgxn_2-OD1sHp8EHpz"/><div class="flex items-center gap-space-sm"><span class="font-label-code text-body-sm text-on-surface-variant font-medium">Terça-feira, 24 de Outubro • 14:32:05</span><span class="text-outline-variant font-body-sm">|</span><div class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded bg-surface-container text-tertiary font-label-sm"><span class="w-2 h-2 rounded-full bg-tertiary"></span><span>Linha Operacional: Online (99.8%)</span></div></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-space-sm text-secondary text-[18px]">search</span><input class="h-10 pl-9 pr-space-md w-72 rounded bg-surface-container-low border border-outline/30 font-label-code text-body-sm text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary" placeholder="Consultar SKU, Lote ou OP..." type="text"/></div><button class="relative p-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Notificações da Linha"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Container Master de Operações -->
+<div class="p-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+<!-- 1. Cabeçalho da Central de Alertas -->
+<header class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md pb-space-xs">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+            Central de Alertas e Notificações Operacionais
+          </h1>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded bg-error/15 text-error font-label-code text-body-sm font-bold animate-pulse">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+            5 Ocorrências Pendentes
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+          Monitoramento em tempo real de níveis de estoque de segurança, prazos críticos de validade e desvios de processo industrial com conformidade IATF 16949.
+        </p>
+</div>
+<!-- Ações Mestras do Topo -->
+<div class="flex items-center gap-space-sm flex-wrap shrink-0">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md font-medium inline-flex items-center gap-2 shadow-sm transition-colors" id="toggleAudioBtn" onclick="toggleAudio()" title="Silenciar Notificações Sonoras de Alerta">
+<span class="material-symbols-outlined text-[20px] text-primary" id="audioIcon">volume_up</span>
+<span id="audioText">Áudio Ativo</span>
+</button>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md font-medium inline-flex items-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[20px] text-secondary">tune</span>
+<span>Configurar Limiares</span>
+</button>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-primary text-on-primary hover:bg-primary-container font-body-md font-semibold inline-flex items-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Exportar Relatório</span>
+</button>
+</div>
+</header>
+<!-- 2. Grid de KPIs Operacionais (Bento Industrial) -->
+<section aria-label="Indicadores de Alertas" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card KPI 1: Alertas Críticos -->
+<div class="cursor-pointer bg-surface-container-lowest p-space-md rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group" onclick="filterSeverity('CRITICO')">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-code text-body-sm text-secondary uppercase tracking-wider font-semibold">Críticos Ativos</span>
+<span class="p-1.5 rounded bg-error/10 text-error">
+<span class="material-symbols-outlined text-[20px]">dangerous</span>
+</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-sm">
+<span class="font-label-metric text-label-metric text-error">03</span>
+<span class="font-label-code text-body-sm text-error font-medium">+1 no último turno</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Ação Imediata Requerida</span>
+<span class="font-label-code text-body-sm font-semibold">60% do total</span>
+</div>
+</div>
+<!-- Card KPI 2: Alertas de Atenção -->
+<div class="cursor-pointer bg-surface-container-lowest p-space-md rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group" onclick="filterSeverity('ATENCAO')">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-code text-body-sm text-secondary uppercase tracking-wider font-semibold">Atenção / Preventivo</span>
+<span class="p-1.5 rounded bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-sm">
+<span class="font-label-metric text-label-metric text-primary">02</span>
+<span class="font-label-code text-body-sm text-secondary font-medium">Estável</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Validades &lt; 5 dias</span>
+<span class="font-label-code text-body-sm font-semibold">40% do total</span>
+</div>
+</div>
+<!-- Card KPI 3: Resolvidos Hoje -->
+<div class="cursor-pointer bg-surface-container-lowest p-space-md rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group" onclick="switchTab('resolvidos')">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-tertiary"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-code text-body-sm text-secondary uppercase tracking-wider font-semibold">Resolvidos no Turno</span>
+<span class="p-1.5 rounded bg-tertiary/10 text-tertiary">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-sm">
+<span class="font-label-metric text-label-metric text-tertiary">14</span>
+<span class="font-label-code text-body-sm text-tertiary font-medium">93.3% eficácia</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Total Turno A (Sorocaba)</span>
+<span class="font-label-code text-body-sm font-semibold">14 de 19</span>
+</div>
+</div>
+<!-- Card KPI 4: MTTR Médio -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-code text-body-sm text-secondary uppercase tracking-wider font-semibold">MTTR Médio Resolução</span>
+<span class="p-1.5 rounded bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-sm">
+<span class="font-label-metric text-label-metric text-on-surface">18<span class="text-body-md font-body-md text-secondary ml-1">min</span></span>
+<span class="font-label-code text-body-sm text-tertiary font-medium">-4 min vs. meta</span>
+</div>
+<div class="mt-space-xs flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Meta Industrial: 25 min</span>
+<span class="font-label-code text-body-sm text-tertiary font-bold">Dentro do SLA</span>
+</div>
+</div>
+</section>
+<!-- 3. Abas Principais + Ferramentas de Filtragem -->
+<div class="flex flex-col gap-space-md">
+<!-- Barra de Abas Superiores -->
+<div class="flex items-center justify-between flex-wrap gap-space-md bg-surface-container-low p-1.5 rounded-lg shadow-sm">
+<div class="flex items-center gap-1.5">
+<button class="min-h-[44px] px-space-md py-2 rounded font-body-md font-bold text-on-primary bg-primary shadow-sm flex items-center gap-space-xs transition-colors" id="tabAtivosBtn" onclick="switchTab('ativos')">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+<span>Ativos</span>
+<span class="ml-1 px-1.5 py-0.5 rounded bg-on-primary text-primary font-label-code text-body-sm font-bold">5</span>
+</button>
+<button class="min-h-[44px] px-space-md py-2 rounded font-body-md font-medium text-secondary hover:text-on-surface hover:bg-surface-container-high flex items-center gap-space-xs transition-colors" id="tabResolvidosBtn" onclick="switchTab('resolvidos')">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span>Histórico Resolvidos</span>
+<span class="ml-1 px-1.5 py-0.5 rounded bg-surface-container-highest text-secondary font-label-code text-body-sm">128</span>
+</button>
+</div>
+<!-- Indicador de Sincronia / Auditoria da Linha -->
+<div class="hidden md:flex items-center gap-space-sm px-space-md py-1 bg-surface-container-lowest rounded text-secondary font-label-code text-body-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Buffer PLC Sorocaba: Sincronizado</span>
+<span class="text-outline-variant">|</span>
+<span>Ciclo: 10s</span>
+</div>
+</div>
+<!-- Barra de Controles e Filtros Rápidos -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-md">
+<!-- Campo de Pesquisa Textual -->
+<div class="relative flex-1 min-w-[280px]">
+<span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-secondary text-[20px]">filter_alt</span>
+<input class="w-full h-11 pl-10 pr-space-md rounded bg-surface-container-low text-on-surface placeholder:text-secondary font-label-code text-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm" id="searchInput" oninput="filterCards()" placeholder="Filtrar por SKU, produto, lote ou descrição operacional..." type="text"/>
+</div>
+<!-- Filtros por Categoria / Tipo -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 xl:pb-0">
+<button class="filter-type-btn min-h-[44px] px-space-sm py-2 rounded font-label-code text-body-sm font-semibold bg-surface-container-highest text-on-surface shrink-0" data-type="TODOS" onclick="setFilterType('TODOS')">
+            Todos
+          </button>
+<button class="filter-type-btn min-h-[44px] px-space-sm py-2 rounded font-label-code text-body-sm font-medium bg-surface-container-low hover:bg-surface-container text-error shrink-0 flex items-center gap-1.5" data-type="ESTOQUE" onclick="setFilterType('ESTOQUE')">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+            Estoque Mínimo (2)
+          </button>
+<button class="filter-type-btn min-h-[44px] px-space-sm py-2 rounded font-label-code text-body-sm font-medium bg-surface-container-low hover:bg-surface-container text-error shrink-0 flex items-center gap-1.5" data-type="VENCIDA" onclick="setFilterType('VENCIDA')">
+<span class="w-2 h-2 rounded-full bg-on-error-container"></span>
+            Validade Vencida (1)
+          </button>
+<button class="filter-type-btn min-h-[44px] px-space-sm py-2 rounded font-label-code text-body-sm font-medium bg-surface-container-low hover:bg-surface-container text-primary shrink-0 flex items-center gap-1.5" data-type="PROXIMA" onclick="setFilterType('PROXIMA')">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+            Validade Próxima (2)
+          </button>
+</div>
+<!-- Ações em Lote e Ordenação -->
+<div class="flex items-center gap-space-sm justify-between xl:justify-end shrink-0 pt-2 xl:pt-0">
+<div class="flex items-center gap-2">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer" id="selectAllCheckbox" onchange="toggleSelectAll(this)" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-secondary font-medium cursor-pointer select-none" for="selectAllCheckbox">Todos</label>
+</div>
+<button class="min-h-[44px] px-space-sm py-2 rounded bg-surface-container-high text-secondary cursor-not-allowed font-body-md font-semibold inline-flex items-center gap-1.5 transition-colors" disabled="" id="batchResolveBtn" onclick="resolveSelected()">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>Resolver Seleção (<span id="selectedCount">0</span>)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 4. Lista Principal de Cards de Alertas Ativos -->
+<div aria-label="Lista de Alertas Operacionais" class="flex flex-col gap-space-md" id="alertsContainer" role="region">
+<!-- CARD 1: ESTOQUE MÍNIMO [Crítico - Vermelho] -->
+<article class="alert-card bg-surface-container-lowest rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col md:flex-row" data-card-id="1" data-severity="CRITICO" data-type="ESTOQUE">
+<!-- Borda lateral semântica integrada com alto contraste -->
+<div class="w-full md:w-2.5 h-2.5 md:h-auto bg-error shrink-0"></div>
+<div class="p-space-md md:p-space-lg flex-1 flex flex-col justify-between gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-sm">
+<!-- Bloco de Identificação e Badge -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<input class="alert-item-checkbox w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer shrink-0" onchange="updateSelectedCount()" type="checkbox"/>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm font-bold bg-error/15 text-error">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+                  ESTOQUE MÍNIMO
+                </span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  SKU: <strong class="text-on-surface">PT-8821</strong>
+</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container font-label-code text-body-sm text-secondary">
+                  Criticidade: Alta
+                </span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+                Painel Traseiro Estampado atingiu nível crítico: <span class="text-error font-label-metric text-[22px]">2 / 5 un</span>
+</h2>
+</div>
+<!-- Timestamp e Telemetria Temporal -->
+<div class="flex lg:flex-col items-end gap-1 shrink-0 text-right">
+<span class="font-label-code text-body-sm font-semibold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">alarm</span>
+                há 22 minutos
+              </span>
+<span class="font-label-code text-body-sm text-secondary">
+                24/10/2026 • 14:10:15
+              </span>
+</div>
+</div>
+<!-- Metadados Técnicos de Chão de Fábrica -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm p-space-sm rounded bg-surface-container-low font-label-code text-body-sm">
+<div>
+<span class="text-secondary block">Localização Físico:</span>
+<span class="font-semibold text-on-surface">Almoxarifado Central (Prat. D-02)</span>
+</div>
+<div>
+<span class="text-secondary block">Consumo Diário:</span>
+<span class="font-semibold text-on-surface">3.2 un/dia (Burn rate elevado)</span>
+</div>
+<div>
+<span class="text-secondary block">Última Entrada:</span>
+<span class="font-semibold text-on-surface">Há 4 dias (Lote OP-981)</span>
+</div>
+<div>
+<span class="text-secondary block">Impacto de Linha:</span>
+<span class="font-bold text-error">Parada iminente em 8h</span>
+</div>
+</div>
+<!-- Ações do Card de Alerta -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md font-semibold inline-flex items-center gap-2 transition-colors" onclick="requestRestock('PT-8821')">
+<span class="material-symbols-outlined text-[18px] text-primary">add_shopping_cart</span>
+<span>Solicitar Reposição Imediata</span>
+</button>
+<button class="min-h-[44px] px-space-sm py-2 rounded hover:bg-surface-container text-secondary hover:text-on-surface font-body-md font-medium inline-flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">inventory</span>
+<span>Ver Produto no Estoque</span>
+</button>
+</div>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-tertiary text-on-tertiary hover:bg-tertiary-container font-body-md font-bold inline-flex items-center justify-center gap-2 shadow-sm transition-colors" onclick="resolveAlert(1, 'Reposição agendada via Kanban')">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Marcar como Resolvido</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 2: VALIDADE VENCIDA [Urgente - Vermelho Escuro/Carmim] -->
+<article class="alert-card bg-surface-container-lowest rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col md:flex-row" data-card-id="2" data-severity="CRITICO" data-type="VENCIDA">
+<!-- Borda lateral semântica carmim -->
+<div class="w-full md:w-2.5 h-2.5 md:h-auto bg-on-error-container shrink-0"></div>
+<div class="p-space-md md:p-space-lg flex-1 flex flex-col justify-between gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<input class="alert-item-checkbox w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer shrink-0" onchange="updateSelectedCount()" type="checkbox"/>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm font-bold bg-error-container text-on-error-container">
+<span class="material-symbols-outlined text-[16px]">event_busy</span>
+                  VALIDADE VENCIDA
+                </span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  Lote: <strong class="text-on-surface">LOTE-2026-041</strong>
+</span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  SKU: <strong class="text-on-surface">ADH-EPOX-01</strong>
+</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-error-container/60 font-label-code text-body-sm text-on-error-container font-bold">
+                  Bloqueio Ativo
+                </span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+                Adesivo Estrutural Epóxi Bi-Componente 3M expirou em <span class="text-error font-semibold">23/10/2026</span>
+</h2>
+</div>
+<div class="flex lg:flex-col items-end gap-1 shrink-0 text-right">
+<span class="font-label-code text-body-sm font-semibold text-on-error-container flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                há 14 horas
+              </span>
+<span class="font-label-code text-body-sm text-secondary">
+                24/10/2026 • 00:01:00
+              </span>
+</div>
+</div>
+<!-- Metadados Técnicos de Chão de Fábrica -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm p-space-sm rounded bg-surface-container-low font-label-code text-body-sm">
+<div>
+<span class="text-secondary block">Saldo Retido:</span>
+<span class="font-bold text-on-error-container">16 frascos (8.0 kg)</span>
+</div>
+<div>
+<span class="text-secondary block">Localização:</span>
+<span class="font-semibold text-on-surface">Almoxarifado Químico - Área 02</span>
+</div>
+<div>
+<span class="text-secondary block">Status no ERP:</span>
+<span class="font-bold text-error">Interditado p/ Linha</span>
+</div>
+<div>
+<span class="text-secondary block">Procedimento Padrão:</span>
+<span class="font-semibold text-on-surface">Quarentena / Laudo de Descarte</span>
+</div>
+</div>
+<!-- Ações do Card de Alerta -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-error-container font-body-md font-bold inline-flex items-center gap-2 transition-colors" onclick="openQuarantineModal('LOTE-2026-041')">
+<span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+<span>Abrir Quarentena / Descarte</span>
+</button>
+<button class="min-h-[44px] px-space-sm py-2 rounded hover:bg-surface-container text-secondary hover:text-on-surface font-body-md font-medium inline-flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Emitir Relatório de Não-Conformidade</span>
+</button>
+</div>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-tertiary text-on-tertiary hover:bg-tertiary-container font-body-md font-bold inline-flex items-center justify-center gap-2 shadow-sm transition-colors" onclick="resolveAlert(2, 'Lote segregado para descarte químico')">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Marcar como Resolvido</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 3: VALIDADE PRÓXIMA [Atenção - Âmbar] -->
+<article class="alert-card bg-surface-container-lowest rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col md:flex-row" data-card-id="3" data-severity="ATENCAO" data-type="PROXIMA">
+<!-- Borda lateral semântica âmbar -->
+<div class="w-full md:w-2.5 h-2.5 md:h-auto bg-primary shrink-0"></div>
+<div class="p-space-md md:p-space-lg flex-1 flex flex-col justify-between gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<input class="alert-item-checkbox w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer shrink-0" onchange="updateSelectedCount()" type="checkbox"/>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm font-bold bg-primary-fixed text-on-primary-fixed-variant">
+<span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+                  VALIDADE PRÓXIMA
+                </span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  Lote: <strong class="text-on-surface">LOTE-2026-088</strong>
+</span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  SKU: <strong class="text-on-surface">RSN-PU-500</strong>
+</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+                Resina Selante Poliuretano vence em <span class="text-primary font-bold">3 dias (27/10/2026)</span>
+</h2>
+</div>
+<div class="flex lg:flex-col items-end gap-1 shrink-0 text-right">
+<span class="font-label-code text-body-sm font-semibold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">timelapse</span>
+                há 6 horas
+              </span>
+<span class="font-label-code text-body-sm text-secondary">
+                24/10/2026 • 08:30:22
+              </span>
+</div>
+</div>
+<!-- Metadados Técnicos de Chão de Fábrica -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm p-space-sm rounded bg-surface-container-low font-label-code text-body-sm">
+<div>
+<span class="text-secondary block">Quantidade Restante:</span>
+<span class="font-bold text-on-surface">25 cartuchos (12.5 kg)</span>
+</div>
+<div>
+<span class="text-secondary block">Localização:</span>
+<span class="font-semibold text-on-surface">Bancada Linha 02 (Rack B)</span>
+</div>
+<div>
+<span class="text-secondary block">Destino Sugerido:</span>
+<span class="font-bold text-primary">Priorizar OP-7740 (Montagem)</span>
+</div>
+<div>
+<span class="text-secondary block">Diretriz Logística:</span>
+<span class="font-semibold text-on-surface">Consumir conforme FIFO rigoroso</span>
+</div>
+</div>
+<!-- Ações do Card de Alerta -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md font-semibold inline-flex items-center gap-2 transition-colors" onclick="prioritizeFifo('LOTE-2026-088')">
+<span class="material-symbols-outlined text-[18px] text-primary">low_priority</span>
+<span>Priorizar no FIFO da Linha</span>
+</button>
+<button class="min-h-[44px] px-space-sm py-2 rounded hover:bg-surface-container text-secondary hover:text-on-surface font-body-md font-medium inline-flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Rastrear Lote Completo</span>
+</button>
+</div>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-tertiary text-on-tertiary hover:bg-tertiary-container font-body-md font-bold inline-flex items-center justify-center gap-2 shadow-sm transition-colors" onclick="resolveAlert(3, 'Atribuído à Linha 02 para consumo hoje')">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Marcar como Resolvido</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 4: ESTOQUE MÍNIMO [Crítico - Vermelho] -->
+<article class="alert-card bg-surface-container-lowest rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col md:flex-row" data-card-id="4" data-severity="CRITICO" data-type="ESTOQUE">
+<div class="w-full md:w-2.5 h-2.5 md:h-auto bg-error shrink-0"></div>
+<div class="p-space-md md:p-space-lg flex-1 flex flex-col justify-between gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<input class="alert-item-checkbox w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer shrink-0" onchange="updateSelectedCount()" type="checkbox"/>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm font-bold bg-error/15 text-error">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+                  ESTOQUE MÍNIMO
+                </span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  SKU: <strong class="text-on-surface">CH-EL-902</strong>
+</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container font-label-code text-body-sm text-secondary">
+                  Criticidade: Alta
+                </span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+                Chicote Elétrico Principal atingiu estoque de segurança: <span class="text-error font-label-metric text-[22px]">1 / 8 un</span>
+</h2>
+</div>
+<div class="flex lg:flex-col items-end gap-1 shrink-0 text-right">
+<span class="font-label-code text-body-sm font-semibold text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">alarm</span>
+                há 3 horas
+              </span>
+<span class="font-label-code text-body-sm text-secondary">
+                24/10/2026 • 11:45:00
+              </span>
+</div>
+</div>
+<!-- Metadados Técnicos de Chão de Fábrica -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm p-space-sm rounded bg-surface-container-low font-label-code text-body-sm">
+<div>
+<span class="text-secondary block">Fornecedor Homologado:</span>
+<span class="font-semibold text-on-surface">Itu Componentes Elétricos S.A.</span>
+</div>
+<div>
+<span class="text-secondary block">Lead Time Reposição:</span>
+<span class="font-bold text-primary">48 horas úteis</span>
+</div>
+<div>
+<span class="text-secondary block">Localização:</span>
+<span class="font-semibold text-on-surface">Depósito Aéreo - Box 14</span>
+</div>
+<div>
+<span class="text-secondary block">Lote de Compra Econômica:</span>
+<span class="font-semibold text-on-surface">Mínimo 20 un</span>
+</div>
+</div>
+<!-- Ações do Card de Alerta -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md font-semibold inline-flex items-center gap-2 transition-colors" onclick="issuePurchaseOrder('CH-EL-902')">
+<span class="material-symbols-outlined text-[18px] text-primary">receipt_long</span>
+<span>Emitir Pedido de Compra</span>
+</button>
+<button class="min-h-[44px] px-space-sm py-2 rounded hover:bg-surface-container text-secondary hover:text-on-surface font-body-md font-medium inline-flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">contact_phone</span>
+<span>Acionar Fornecedor</span>
+</button>
+</div>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-tertiary text-on-tertiary hover:bg-tertiary-container font-body-md font-bold inline-flex items-center justify-center gap-2 shadow-sm transition-colors" onclick="resolveAlert(4, 'Pedido de Compra #8812 emitido')">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Marcar como Resolvido</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 5: VALIDADE PRÓXIMA [Atenção - Âmbar] -->
+<article class="alert-card bg-surface-container-lowest rounded-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col md:flex-row" data-card-id="5" data-severity="ATENCAO" data-type="PROXIMA">
+<div class="w-full md:w-2.5 h-2.5 md:h-auto bg-primary shrink-0"></div>
+<div class="p-space-md md:p-space-lg flex-1 flex flex-col justify-between gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<input class="alert-item-checkbox w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer shrink-0" onchange="updateSelectedCount()" type="checkbox"/>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm font-bold bg-primary-fixed text-on-primary-fixed-variant">
+<span class="material-symbols-outlined text-[16px]">hourglass_top</span>
+                  VALIDADE PRÓXIMA
+                </span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  Lote: <strong class="text-on-surface">LOTE-2026-072</strong>
+</span>
+<span class="font-label-code text-body-sm font-semibold text-secondary">
+                  SKU: <strong class="text-on-surface">LUB-SNT-04</strong>
+</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+                Lubrificante Sintético de Alta Temperatura vence em <span class="text-primary font-bold">5 dias (29/10/2026)</span>
+</h2>
+</div>
+<div class="flex lg:flex-col items-end gap-1 shrink-0 text-right">
+<span class="font-label-code text-body-sm font-semibold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">timelapse</span>
+                há 1 hora
+              </span>
+<span class="font-label-code text-body-sm text-secondary">
+                24/10/2026 • 13:00:10
+              </span>
+</div>
+</div>
+<!-- Metadados Técnicos de Chão de Fábrica -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm p-space-sm rounded bg-surface-container-low font-label-code text-body-sm">
+<div>
+<span class="text-secondary block">Saldo Atual:</span>
+<span class="font-bold text-on-surface">10 galões (50 Litros)</span>
+</div>
+<div>
+<span class="text-secondary block">Localização:</span>
+<span class="font-semibold text-on-surface">Almoxarifado Geral - Prat. B-08</span>
+</div>
+<div>
+<span class="text-secondary block">Consumo Médio Turno:</span>
+<span class="font-semibold text-on-surface">2 galões / semana</span>
+</div>
+<div>
+<span class="text-secondary block">Ação Preventiva:</span>
+<span class="font-semibold text-on-surface">Realocar para Manutenção Preventiva</span>
+</div>
+</div>
+<!-- Ações do Card de Alerta -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-md font-semibold inline-flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span>Detalhes do Lote</span>
+</button>
+<button class="min-h-[44px] px-space-sm py-2 rounded hover:bg-surface-container text-secondary hover:text-on-surface font-body-md font-medium inline-flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">swap_horiz</span>
+<span>Transferir Almoxarifado</span>
+</button>
+</div>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-tertiary text-on-tertiary hover:bg-tertiary-container font-body-md font-bold inline-flex items-center justify-center gap-2 shadow-sm transition-colors" onclick="resolveAlert(5, 'Direcionado para troca programada de óleo')">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Marcar como Resolvido</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- 5. Aba / Visualização de Histórico Resolvido (Toggleable via script) -->
+<div class="hidden flex-col gap-space-md" id="resolvedContainer">
+<div class="bg-surface-container-low p-space-md rounded-lg flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-on-surface">Histórico Recente de Ocorrências Resolvidas</span>
+<span class="font-label-code text-body-sm text-secondary">Turno A • Planta Sorocaba</span>
+</div>
+<!-- Item Resolvido de Exemplo Conforme Especificação -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md opacity-90">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-tertiary/15 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-md text-body-lg font-bold text-on-surface">Fluido de Usinagem Semi-Sintético (SKU: FLD-CNC-20)</span>
+<span class="px-2 py-0.5 rounded font-label-code text-body-sm bg-tertiary/20 text-tertiary font-bold">RESOLVIDO</span>
+</div>
+<p class="font-body-md text-body-md text-secondary">
+              Resolvido por <strong class="text-on-surface">Eng. Marcos Silveira</strong> em 24/10 às 13:50:40
+            </p>
+<span class="font-label-code text-body-sm text-on-surface-variant font-medium">
+              Motivo do encerramento: Reposição de emergência solicitada via Pedido de Compra homologado #4092.
+            </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-code text-body-sm font-semibold inline-flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+<span>Ver Log de Auditoria</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 6. Rodapé Técnico Operacional (IATF / ISO / Paginação) -->
+<footer class="mt-space-md pt-space-md bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm flex-wrap text-secondary font-label-code text-body-sm">
+<span class="inline-flex items-center gap-1 text-on-surface font-semibold">
+<span class="material-symbols-outlined text-[16px] text-tertiary">verified</span>
+          IATF 16949:2016 Compliant
+        </span>
+<span class="text-outline-variant">|</span>
+<span>ISO 9001:2015 Cláusula 8.5.2 (Rastreabilidade)</span>
+<span class="text-outline-variant">|</span>
+<span>Servidor Edge Sorocaba #04</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-code text-body-sm">
+<span class="text-secondary">Exibindo 1-5 de 5 alertas</span>
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 rounded bg-surface-container text-secondary/40 flex items-center justify-center cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-9 h-9 rounded bg-primary text-on-primary font-bold flex items-center justify-center">
+            1
+          </button>
+<button class="w-9 h-9 rounded bg-surface-container text-secondary/40 flex items-center justify-center cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</footer>
+</div>
+<!-- Modal Interativo: Quarentena / Descarte Imediato -->
+<div class="fixed inset-0 bg-inverse-surface/65 z-50 hidden items-center justify-center p-space-md backdrop-blur-sm" id="quarantineModal">
+<div class="bg-surface-container-lowest max-w-lg w-full rounded-xl shadow-xl p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined text-[28px]">gavel</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Abertura de Quarentena</h3>
+</div>
+<button class="w-8 h-8 rounded hover:bg-surface-container text-secondary flex items-center justify-center" onclick="closeQuarantineModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-xs font-body-md text-body-md text-on-surface-variant">
+<p>Você está iniciando o protocolo de segregação física e bloqueio no ERP para o item vencido:</p>
+<div class="p-space-sm rounded bg-surface-container-low font-label-code text-body-sm text-on-surface">
+<strong>Lote:</strong> <span id="modalLoteId">LOTE-2026-041</span><br/>
+<strong>Responsável Técnico:</strong> Eng. Marcos Silveira<br/>
+<strong>Destino:</strong> Gaiola Amarela de Descarte Químico (G-02)
+        </div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-code text-body-sm font-semibold text-on-surface">Justificativa Operacional / Parecer:</label>
+<textarea class="w-full p-space-sm rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" placeholder="Insira número do laudo técnico ou observação de descarte..." rows="3"></textarea>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="min-h-[44px] px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-body-md font-medium" onclick="closeQuarantineModal()">
+          Cancelar
+        </button>
+<button class="min-h-[44px] px-space-md py-2 rounded bg-error text-on-error hover:bg-on-error-container font-body-md font-bold inline-flex items-center gap-2 shadow-sm" onclick="confirmQuarantine()">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>Confirmar Bloqueio</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Toast de Notificação de Ação Operacional -->
+<div class="fixed bottom-space-lg right-space-lg z-50 hidden bg-inverse-surface text-inverse-on-surface px-space-md py-3 rounded-lg shadow-xl font-label-code text-body-md flex items-center gap-3 transition-transform" id="toastNotification">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[22px]">check_circle</span>
+<span id="toastMessage">Operação registrada com sucesso.</span>
+</div>
+<!-- Script de Micro-interações e Lógica de Gestão de Alertas -->
+<script>
+    let isMuted = false;
+    let currentFilterType = 'TODOS';
+    let currentSeverity = null;
+
+    function toggleAudio() {
+      isMuted = !isMuted;
+      const icon = document.getElementById('audioIcon');
+      const text = document.getElementById('audioText');
+      if (isMuted) {
+        icon.innerText = 'volume_off';
+        icon.className = 'material-symbols-outlined text-[20px] text-secondary';
+        text.innerText = 'Áudio Silenciado';
+        showToast('Alertas sonoros silenciados para este turno.');
+      } else {
+        icon.innerText = 'volume_up';
+        icon.className = 'material-symbols-outlined text-[20px] text-primary';
+        text.innerText = 'Áudio Ativo';
+        showToast('Alarme sonoro reativado.');
+      }
+    }
+
+    function switchTab(tab) {
+      const tabAtivosBtn = document.getElementById('tabAtivosBtn');
+      const tabResolvidosBtn = document.getElementById('tabResolvidosBtn');
+      const alertsContainer = document.getElementById('alertsContainer');
+      const resolvedContainer = document.getElementById('resolvedContainer');
+
+      if (tab === 'ativos') {
+        tabAtivosBtn.className = 'min-h-[44px] px-space-md py-2 rounded font-body-md font-bold text-on-primary bg-primary shadow-sm flex items-center gap-space-xs transition-colors';
+        tabResolvidosBtn.className = 'min-h-[44px] px-space-md py-2 rounded font-body-md font-medium text-secondary hover:text-on-surface hover:bg-surface-container-high flex items-center gap-space-xs transition-colors';
+        alertsContainer.classList.remove('hidden');
+        resolvedContainer.classList.add('hidden');
+      } else {
+        tabResolvidosBtn.className = 'min-h-[44px] px-space-md py-2 rounded font-body-md font-bold text-on-primary bg-primary shadow-sm flex items-center gap-space-xs transition-colors';
+        tabAtivosBtn.className = 'min-h-[44px] px-space-md py-2 rounded font-body-md font-medium text-secondary hover:text-on-surface hover:bg-surface-container-high flex items-center gap-space-xs transition-colors';
+        alertsContainer.classList.add('hidden');
+        resolvedContainer.classList.remove('hidden');
+      }
+    }
+
+    function setFilterType(type) {
+      currentFilterType = type;
+      currentSeverity = null;
+      document.querySelectorAll('.filter-type-btn').forEach(btn => {
+        if (btn.getAttribute('data-type') === type) {
+          btn.classList.add('bg-surface-container-highest', 'text-on-surface', 'font-bold');
+          btn.classList.remove('bg-surface-container-low', 'font-medium');
+        } else {
+          btn.classList.remove('bg-surface-container-highest', 'font-bold');
+          btn.classList.add('bg-surface-container-low', 'font-medium');
+        }
+      });
+      filterCards();
+    }
+
+    function filterSeverity(severity) {
+      currentSeverity = severity;
+      filterCards();
+      showToast(`Filtrando ocorrências com gravidade: ${severity}`);
+    }
+
+    function filterCards() {
+      const search = (document.getElementById('searchInput').value || '').toLowerCase();
+      const cards = document.querySelectorAll('.alert-card');
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const type = card.getAttribute('data-type');
+        const severity = card.getAttribute('data-severity');
+
+        const matchesSearch = text.includes(search);
+        const matchesType = (currentFilterType === 'TODOS' || type === currentFilterType);
+        const matchesSeverity = (!currentSeverity || severity === currentSeverity);
+
+        if (matchesSearch && matchesType && matchesSeverity) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function resolveAlert(id, reason) {
+      const card = document.querySelector(`.alert-card[data-card-id="${id}"]`);
+      if (card) {
+        card.style.transition = 'all 0.3s ease';
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          card.remove();
+          updateSelectedCount();
+          showToast(`Alerta #${id} arquivado com sucesso: ${reason}`);
+        }, 300);
+      }
+    }
+
+    function toggleSelectAll(masterCheckbox) {
+      const checkboxes = document.querySelectorAll('.alert-item-checkbox');
+      checkboxes.forEach(cb => {
+        const parentCard = cb.closest('.alert-card');
+        if (parentCard && parentCard.style.display !== 'none') {
+          cb.checked = masterCheckbox.checked;
+        }
+      });
+      updateSelectedCount();
+    }
+
+    function updateSelectedCount() {
+      const checked = document.querySelectorAll('.alert-item-checkbox:checked').length;
+      const countEl = document.getElementById('selectedCount');
+      const batchBtn = document.getElementById('batchResolveBtn');
+      if (countEl) countEl.innerText = checked;
+
+      if (batchBtn) {
+        if (checked > 0) {
+          batchBtn.disabled = false;
+          batchBtn.className = 'min-h-[44px] px-space-sm py-2 rounded bg-tertiary text-on-tertiary hover:bg-tertiary-container font-body-md font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm';
+        } else {
+          batchBtn.disabled = true;
+          batchBtn.className = 'min-h-[44px] px-space-sm py-2 rounded bg-surface-container-high text-secondary cursor-not-allowed font-body-md font-semibold inline-flex items-center gap-1.5 transition-colors';
+        }
+      }
+    }
+
+    function resolveSelected() {
+      const checkedBoxes = document.querySelectorAll('.alert-item-checkbox:checked');
+      checkedBoxes.forEach(cb => {
+        const parentCard = cb.closest('.alert-card');
+        if (parentCard) {
+          parentCard.remove();
+        }
+      });
+      document.getElementById('selectAllCheckbox').checked = false;
+      updateSelectedCount();
+      showToast(`${checkedBoxes.length} alertas resolvidos em lote com sucesso.`);
+    }
+
+    function requestRestock(sku) {
+      showToast(`Pedido de reposição prioritário gerado para SKU ${sku}`);
+    }
+
+    function issuePurchaseOrder(sku) {
+      showToast(`Pedido de compra expedido via EDI para o SKU ${sku}`);
+    }
+
+    function prioritizeFifo(lote) {
+      showToast(`Flag FIFO ativado na Linha 02 para lote ${lote}`);
+    }
+
+    function openQuarantineModal(lote) {
+      document.getElementById('modalLoteId').innerText = lote;
+      const modal = document.getElementById('quarantineModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeQuarantineModal() {
+      const modal = document.getElementById('quarantineModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function confirmQuarantine() {
+      const lote = document.getElementById('modalLoteId').innerText;
+      closeQuarantineModal();
+      showToast(`Lote ${lote} bloqueado fisicamente e transferido para Quarentena.`);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const msg = document.getElementById('toastMessage');
+      msg.innerText = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3500);
+    }
+  </script>
+</div></main></div></body></html>

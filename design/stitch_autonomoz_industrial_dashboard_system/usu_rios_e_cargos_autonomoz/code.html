@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"tertiary-fixed":"#cce5ff","secondary-fixed-dim":"#bec6e0","tertiary-fixed-dim":"#93ccff","on-primary-fixed":"#370e00","surface":"#f8f9ff","inverse-primary":"#ffb599","on-error":"#ffffff","on-error-container":"#93000a","on-secondary-container":"#5c647a","surface-container-lowest":"#ffffff","outline-variant":"#e2bfb2","tertiary":"#006194","on-tertiary-fixed-variant":"#004b73","surface-container-highest":"#d3e4fe","surface-container":"#e5eeff","outline":"#8e7166","inverse-on-surface":"#eaf1ff","error-container":"#ffdad6","primary-fixed":"#ffdbce","on-secondary-fixed":"#131b2e","surface-dim":"#cbdbf5","surface-variant":"#d3e4fe","tertiary-container":"#007bb9","on-primary-container":"#fffbff","error":"#ba1a1a","on-primary-fixed-variant":"#7f2b00","background":"#f8f9ff","on-surface":"#0b1c30","on-tertiary-fixed":"#001d31","surface-tint":"#a73a00","primary":"#a33900","secondary-fixed":"#dae2fd","secondary-container":"#dae2fd","on-surface-variant":"#5a4138","on-tertiary":"#ffffff","on-secondary-fixed-variant":"#3f465c","secondary":"#565e74","primary-container":"#cc4900","surface-container-high":"#dce9ff","on-secondary":"#ffffff","on-background":"#0b1c30","surface-container-low":"#eff4ff","on-primary":"#ffffff","surface-bright":"#f8f9ff","on-tertiary-container":"#fdfcff","primary-fixed-dim":"#ffb599","inverse-surface":"#213145"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-md":"1rem","gutter":"1.25rem","space-xs":"0.25rem","space-xl":"2.5rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"1.5rem"},fontFamily:{"headline-xl-mobile":["IBM Plex Sans"],"headline-md":["IBM Plex Sans"],"body-lg":["IBM Plex Sans"],"body-sm":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"body-md":["IBM Plex Sans"],"headline-lg-mobile":["IBM Plex Sans"],"label-code":["JetBrains Mono"],"label-sm":["IBM Plex Sans"],"label-metric":["JetBrains Mono"],"headline-lg":["IBM Plex Sans"]},fontSize:{"headline-xl-mobile":["26px",{"lineHeight":"34px","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg-mobile":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-code":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","fontWeight":"600"}],"label-metric":["28px",{"lineHeight":"32px","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-inverse-surface text-inverse-on-surface z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-margin flex items-center justify-between bg-inverse-surface border-b border-secondary/20"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WtK4MGHNbQk77e5GoxqbVT6ktEkPC6XlYoshMOT3l4s4FrxBHR_-h8VyKqAbVXH-B4cFk0cVdcKiLTyXzCXdNaRt3igJHVWTfB1HeILr-B12BAsfsjLhl4m8riHtU0PpddlJ35iSjD9I10L8b_EG9WGKuB2xpfTSOvwe0_u50Maitgl_VCfSC23dZjutp3wJ-IcHvzzPoMUMdweqgqHhjnPV8j1RGR1Hm_5h9gjKMgxn_2-OD1sHp8EHpz"/><div class="flex flex-col"><span class="font-headline-md text-body-md font-bold tracking-wider text-inverse-on-surface leading-none">AUTONOMOZ</span><span class="font-label-code text-[9px] uppercase tracking-widest text-secondary-fixed-dim leading-tight">ICS Platform</span></div></div><span class="px-space-xs py-0.5 bg-primary/20 text-inverse-primary rounded font-label-sm uppercase">GERENTE</span></div><nav class="flex flex-col py-space-sm" data-active-classes="bg-primary text-on-primary font-bold"><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md">Dashboard</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="estoque" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md">Estoque</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="ordens-de-producao" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="font-body-md">Ordens de Produção</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="rastreabilidade-de-pecas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span><span class="font-body-md">Rastreabilidade</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="movimentacoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">sync_alt</span><span class="font-body-md">Movimentações</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="alertas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">warning</span><span class="font-body-md">Alertas</span></div><span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded font-label-code text-body-sm font-bold bg-error text-on-error">5</span></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="relatorios" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-body-md">Relatórios</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="configuracoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body-md">Configurações</span></div></a></nav></div><div class="p-space-md bg-inverse-surface border-t border-secondary/20 flex flex-col gap-space-sm"><div class="flex items-center justify-between"><span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm text-tertiary-fixed-dim bg-tertiary/20"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>Planta Sorocaba - Turno A</span></div><div class="flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm min-w-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0"><span class="font-body-sm font-bold truncate text-inverse-on-surface">Eng. Marcos Silveira</span><span class="font-label-sm text-secondary-fixed-dim truncate">Gerente de Operações</span></div></div><a class="p-space-xs rounded text-secondary-fixed-dim hover:text-error hover:bg-surface-container-highest/10 transition-colors shrink-0" data-path="logout" href="#" title="Encerrar Turno"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WtK4MGHNbQk77e5GoxqbVT6ktEkPC6XlYoshMOT3l4s4FrxBHR_-h8VyKqAbVXH-B4cFk0cVdcKiLTyXzCXdNaRt3igJHVWTfB1HeILr-B12BAsfsjLhl4m8riHtU0PpddlJ35iSjD9I10L8b_EG9WGKuB2xpfTSOvwe0_u50Maitgl_VCfSC23dZjutp3wJ-IcHvzzPoMUMdweqgqHhjnPV8j1RGR1Hm_5h9gjKMgxn_2-OD1sHp8EHpz"/><div class="flex items-center gap-space-sm"><span class="font-label-code text-body-sm text-on-surface-variant font-medium">Terça-feira, 24 de Outubro • 14:32:05</span><span class="text-outline-variant font-body-sm">|</span><div class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded bg-surface-container text-tertiary font-label-sm"><span class="w-2 h-2 rounded-full bg-tertiary"></span><span>Linha Operacional: Online (99.8%)</span></div></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-space-sm text-secondary text-[18px]">search</span><input class="h-10 pl-9 pr-space-md w-72 rounded bg-surface-container-low border border-outline/30 font-label-code text-body-sm text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary" placeholder="Consultar SKU, Lote ou OP..." type="text"/></div><button class="relative p-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Notificações da Linha"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-header / Command Bar -->
+<div class="bg-surface-container-low px-margin py-space-md shadow-sm">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-space-md">
+<!-- Title & Context -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-secondary font-label-code text-body-sm">
+<span>Início</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Configurações</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Usuários e Cargos</span>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Usuários e Permissões de Acesso</h1>
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm uppercase">
+<span class="material-symbols-outlined text-[13px]">shield</span>
+            Restrito • Gerência
+          </span>
+</div>
+<p class="text-on-surface-variant font-body-sm">
+          Gestão centralizada de credenciais industriais, crachás digitais e atribuição hierárquica de chão de fábrica.
+        </p>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="h-11 px-space-md rounded bg-surface-container text-on-surface font-body-md font-medium hover:bg-surface-container-high transition-colors flex items-center gap-space-xs" id="btn-open-cargo">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span>Novo Cargo</span>
+</button>
+<button class="h-11 px-space-md rounded bg-primary text-on-primary font-body-md font-semibold hover:bg-primary-container shadow-sm transition-colors flex items-center gap-space-xs" id="btn-open-modal">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span>Novo Usuário</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Canvas Container -->
+<div class="max-w-7xl mx-auto w-full px-margin py-space-lg flex flex-col gap-space-lg">
+<!-- Metric summary bar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm uppercase tracking-wider">Total de Colaboradores</span>
+<span class="material-symbols-outlined text-[20px]">group</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-label-metric text-label-metric text-on-surface">28</span>
+<span class="font-label-code text-body-sm text-tertiary">100% alocados</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm uppercase tracking-wider">Operadores Ativos</span>
+<span class="material-symbols-outlined text-[20px] text-tertiary">check_circle</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-label-metric text-label-metric text-on-surface">27</span>
+<span class="font-label-code text-body-sm text-secondary">1 afastado</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm uppercase tracking-wider">Perfil Gerencial</span>
+<span class="material-symbols-outlined text-[20px] text-primary">admin_panel_settings</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-label-metric text-label-metric text-on-surface">04</span>
+<span class="font-label-code text-body-sm text-primary">Acesso irrestrito</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-label-sm uppercase tracking-wider">Cargos Estruturados</span>
+<span class="material-symbols-outlined text-[20px]">work_history</span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-label-metric text-label-metric text-on-surface">04</span>
+<span class="font-label-code text-body-sm text-secondary">Matriz ISO/TS</span>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex items-center gap-space-xs bg-surface-container-low p-1 rounded max-w-fit">
+<button class="px-space-md py-space-xs rounded bg-surface-container-lowest text-on-surface font-body-md font-semibold shadow-sm flex items-center gap-space-xs transition-colors" id="tab-users-btn" onclick="switchTab('users')">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span>Usuários do Sistema</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-code text-body-sm font-bold">28</span>
+</button>
+<button class="px-space-md py-space-xs rounded text-secondary hover:text-on-surface font-body-md font-medium flex items-center gap-space-xs transition-colors" id="tab-roles-btn" onclick="switchTab('roles')">
+<span class="material-symbols-outlined text-[18px]">assignment_ind</span>
+<span>Cargos e Funções</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-label-code text-body-sm">4</span>
+</button>
+</div>
+<!-- TAB 1: USUÁRIOS CONTENT -->
+<div class="flex flex-col gap-space-md" id="tab-users-view">
+<!-- Operational Filter Bar -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm">
+<div class="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm">
+<!-- Search Input -->
+<div class="relative flex-1 min-w-[260px]">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary text-[20px]">search</span>
+<input class="w-full h-11 pl-10 pr-space-md rounded bg-surface-container-low text-on-surface placeholder:text-secondary font-label-code text-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm" placeholder="Buscar por matrícula, nome ou CPF..." type="text"/>
+</div>
+<!-- Dropdown Cargos -->
+<div class="relative">
+<select class="h-11 px-space-md pr-8 rounded bg-surface-container-low text-on-surface font-body-sm focus:outline-none shadow-sm appearance-none cursor-pointer w-full sm:w-auto">
+<option value="">Todos os Cargos</option>
+<option value="gerente">Gerente Geral</option>
+<option value="mecanico">Mecânico</option>
+<option value="estoque">Auxiliar de Estoque</option>
+<option value="eletricista">Eletricista</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-3 pointer-events-none text-secondary text-[18px]">arrow_drop_down</span>
+</div>
+<!-- Dropdown Acesso -->
+<div class="relative">
+<select class="h-11 px-space-md pr-8 rounded bg-surface-container-low text-on-surface font-body-sm focus:outline-none shadow-sm appearance-none cursor-pointer w-full sm:w-auto">
+<option value="">Tipo de Acesso</option>
+<option value="todos">Todos</option>
+<option value="gerente">GERENTE</option>
+<option value="funcionario">FUNCIONÁRIO</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-3 pointer-events-none text-secondary text-[18px]">arrow_drop_down</span>
+</div>
+<!-- Dropdown Status -->
+<div class="relative">
+<select class="h-11 px-space-md pr-8 rounded bg-surface-container-low text-on-surface font-body-sm focus:outline-none shadow-sm appearance-none cursor-pointer w-full sm:w-auto">
+<option value="">Status</option>
+<option value="ativos">Ativos</option>
+<option value="inativos">Inativos</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-3 pointer-events-none text-secondary text-[18px]">arrow_drop_down</span>
+</div>
+</div>
+<!-- Export Action -->
+<button class="h-11 px-space-md rounded bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors font-body-sm font-semibold flex items-center justify-center gap-space-xs shrink-0">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar Auditoria (CSV)</span>
+</button>
+</div>
+<!-- High-Density Technical Table -->
+<div class="bg-surface-container-lowest rounded shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-secondary font-label-sm uppercase tracking-wider text-body-sm select-none">
+<th class="py-space-sm px-space-md font-semibold">Matrícula</th>
+<th class="py-space-sm px-space-md font-semibold">Colaborador / E-mail</th>
+<th class="py-space-sm px-space-md font-semibold">CPF</th>
+<th class="py-space-sm px-space-md font-semibold">Cargo Operacional</th>
+<th class="py-space-sm px-space-md font-semibold">Nível de Acesso</th>
+<th class="py-space-sm px-space-md font-semibold text-center">Status</th>
+<th class="py-space-sm px-space-md font-semibold text-right">Ações Técnicas</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent">
+<!-- Linha 1: Carlos Eduardo -->
+<tr class="hover:bg-surface-container-low/70 transition-colors">
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-2 py-1 rounded bg-surface-container-high text-on-surface font-label-code text-body-sm font-bold">MAT-0102</span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed font-bold font-label-code text-body-sm flex items-center justify-center shrink-0">
+                      CE
+                    </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md font-semibold text-on-surface">Carlos Eduardo Mendonça</span>
+<span class="font-label-code text-body-sm text-secondary truncate">c.mendonca@autonomoz.ind.br</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap font-label-code text-body-sm text-on-surface">
+                  284.912.838-14
+                </td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="font-body-sm font-medium text-on-surface">Gerente Geral</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-primary-fixed text-on-primary-fixed font-label-sm uppercase font-bold">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    GERENTE
+                  </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-tertiary"></div>
+</label>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-on-surface transition-colors" title="Editar Usuário">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-primary transition-colors" title="Resetar Senha de Terminal">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-tertiary transition-colors" title="Auditoria de Acessos">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Linha 2: Roberto Silva Santos -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low/70 transition-colors">
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-2 py-1 rounded bg-surface-container-high text-on-surface font-label-code text-body-sm font-bold">MAT-0419</span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold font-label-code text-body-sm flex items-center justify-center shrink-0">
+                      RS
+                    </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md font-semibold text-on-surface">Roberto Silva Santos</span>
+<span class="font-label-code text-body-sm text-secondary truncate">r.santos@autonomoz.ind.br</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap font-label-code text-body-sm text-on-surface">
+                  192.482.098-55
+                </td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="font-body-sm font-medium text-on-surface">Mecânico Líder</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    FUNCIONÁRIO
+                  </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-tertiary"></div>
+</label>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-on-surface transition-colors" title="Editar Usuário">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-primary transition-colors" title="Resetar Senha de Terminal">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-tertiary transition-colors" title="Auditoria de Acessos">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Linha 3: Juliana Albuquerque Prado -->
+<tr class="hover:bg-surface-container-low/70 transition-colors">
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-2 py-1 rounded bg-surface-container-high text-on-surface font-label-code text-body-sm font-bold">MAT-0588</span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold font-label-code text-body-sm flex items-center justify-center shrink-0">
+                      JA
+                    </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md font-semibold text-on-surface">Juliana Albuquerque Prado</span>
+<span class="font-label-code text-body-sm text-secondary truncate">j.prado@autonomoz.ind.br</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap font-label-code text-body-sm text-on-surface">
+                  341.872.108-92
+                </td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="font-body-sm font-medium text-on-surface">Auxiliar de Estoque</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    FUNCIONÁRIO
+                  </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-tertiary"></div>
+</label>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-on-surface transition-colors" title="Editar Usuário">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-primary transition-colors" title="Resetar Senha de Terminal">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-tertiary transition-colors" title="Auditoria de Acessos">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Linha 4: Marcos Vinícius Ferreira -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low/70 transition-colors">
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-2 py-1 rounded bg-surface-container-high text-on-surface font-label-code text-body-sm font-bold">MAT-0720</span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold font-label-code text-body-sm flex items-center justify-center shrink-0">
+                      MV
+                    </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md font-semibold text-on-surface">Marcos Vinícius Ferreira</span>
+<span class="font-label-code text-body-sm text-secondary truncate">m.ferreira@autonomoz.ind.br</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap font-label-code text-body-sm text-on-surface">
+                  409.281.765-33
+                </td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="font-body-sm font-medium text-on-surface">Eletricista Industrial</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    FUNCIONÁRIO
+                  </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-tertiary"></div>
+</label>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-on-surface transition-colors" title="Editar Usuário">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-primary transition-colors" title="Resetar Senha de Terminal">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-tertiary transition-colors" title="Auditoria de Acessos">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Linha 5: Thiago Alcantara Neves (Inativo) -->
+<tr class="hover:bg-surface-container-low/70 transition-colors opacity-75">
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="px-2 py-1 rounded bg-surface-container-high text-secondary font-label-code text-body-sm font-bold">MAT-0931</span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container text-secondary font-bold font-label-code text-body-sm flex items-center justify-center shrink-0">
+                      TN
+                    </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md font-semibold text-secondary">Thiago Alcantara Neves</span>
+<span class="font-label-code text-body-sm text-secondary truncate">t.neves@autonomoz.ind.br</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap font-label-code text-body-sm text-secondary">
+                  512.634.908-11
+                </td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="font-body-sm font-medium text-secondary">Auxiliar de Estoque</span>
+</td>
+<td class="py-space-sm px-space-md whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-secondary font-label-sm uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></span>
+                    FUNCIONÁRIO
+                  </span>
+</td>
+<td class="py-space-sm px-space-md text-center whitespace-nowrap">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-tertiary"></div>
+</label>
+</td>
+<td class="py-space-sm px-space-md text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-on-surface transition-colors" title="Editar Usuário">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-primary transition-colors" title="Resetar Senha de Terminal">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-secondary hover:text-tertiary transition-colors" title="Auditoria de Acessos">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination & Counter -->
+<div class="bg-surface-container-low px-space-md py-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs text-secondary font-label-code text-body-sm">
+<span>Exibindo</span>
+<span class="font-bold text-on-surface">1 - 5</span>
+<span>de</span>
+<span class="font-bold text-on-surface">28</span>
+<span>usuários cadastrados</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded bg-surface-container text-secondary opacity-50 flex items-center justify-center cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary font-label-code text-body-sm font-bold flex items-center justify-center">
+              1
+            </button>
+<button class="w-8 h-8 rounded bg-surface-container text-on-surface font-label-code text-body-sm hover:bg-surface-container-high flex items-center justify-center">
+              2
+            </button>
+<button class="w-8 h-8 rounded bg-surface-container text-on-surface font-label-code text-body-sm hover:bg-surface-container-high flex items-center justify-center">
+              3
+            </button>
+<span class="px-1 text-secondary font-label-code">...</span>
+<button class="w-8 h-8 rounded bg-surface-container text-on-surface font-label-code text-body-sm hover:bg-surface-container-high flex items-center justify-center">
+              6
+            </button>
+<button class="w-8 h-8 rounded bg-surface-container text-on-surface hover:bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: CARGOS E FUNÇÕES VIEW (Dedicated Section) -->
+<div class="flex flex-col gap-space-md hidden" id="tab-roles-view">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Matriz de Cargos e Competências</h2>
+<p class="text-on-surface-variant font-body-sm">Estrutura organizacional vinculada a perfis de chão de fábrica e segurança funcional.</p>
+</div>
+<button class="h-10 px-space-md rounded bg-primary text-on-primary font-body-sm font-semibold flex items-center gap-space-xs hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Adicionar Novo Cargo</span>
+</button>
+</div>
+<!-- Cargo Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Gerente Geral -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="p-1.5 rounded bg-primary-fixed text-on-primary-fixed material-symbols-outlined text-[20px]">manage_accounts</span>
+<span class="font-headline-md text-body-lg font-bold text-on-surface">Gerente Geral</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-code text-body-sm font-bold">4 usuários vinculados</span>
+</div>
+<p class="text-on-surface-variant font-body-sm mt-space-xs leading-relaxed">
+              Gestão completa de ordens de produção, parametrização de estoque, fornecedores e gestão de equipe.
+            </p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-sm uppercase text-primary font-bold">Nível Crítico • Supervisor</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container text-on-surface font-body-sm font-medium hover:bg-surface-container-high transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Editar Matriz</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Mecânico -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="p-1.5 rounded bg-secondary-container text-on-secondary-container material-symbols-outlined text-[20px]">build</span>
+<span class="font-headline-md text-body-lg font-bold text-on-surface">Mecânico</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-code text-body-sm font-bold">12 usuários vinculados</span>
+</div>
+<p class="text-on-surface-variant font-body-sm mt-space-xs leading-relaxed">
+              Operação no chão de fábrica, montagem mecânica, requisição e consumo de peças em ordens.
+            </p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-sm uppercase text-secondary font-bold">Operação Linha Direta</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container text-on-surface font-body-sm font-medium hover:bg-surface-container-high transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Editar Matriz</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Auxiliar de Estoque -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="p-1.5 rounded bg-secondary-container text-on-secondary-container material-symbols-outlined text-[20px]">inventory</span>
+<span class="font-headline-md text-body-lg font-bold text-on-surface">Auxiliar de Estoque</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-code text-body-sm font-bold">8 usuários vinculados</span>
+</div>
+<p class="text-on-surface-variant font-body-sm mt-space-xs leading-relaxed">
+              Recebimento físico de lotes, inspeção de entrada, movimentação interna e conferência.
+            </p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-sm uppercase text-secondary font-bold">Logística Interna</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container text-on-surface font-body-sm font-medium hover:bg-surface-container-high transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Editar Matriz</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Eletricista -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="p-1.5 rounded bg-secondary-container text-on-secondary-container material-symbols-outlined text-[20px]">bolt</span>
+<span class="font-headline-md text-body-lg font-bold text-on-surface">Eletricista</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-code text-body-sm font-bold">4 usuários vinculados</span>
+</div>
+<p class="text-on-surface-variant font-body-sm mt-space-xs leading-relaxed">
+              Instalação e reparo de chicotes elétricos, testes de bancada e homologação eletrônica.
+            </p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-label-sm uppercase text-secondary font-bold">Técnico Especializado</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container text-on-surface font-body-sm font-medium hover:bg-surface-container-high transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Editar Matriz</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Structure Matrix / Bottom Overview -->
+<div class="bg-surface-container-low p-space-md rounded shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded bg-tertiary-fixed text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-bold text-on-surface">Política de Segurança da Planta Sorocaba</span>
+<span class="font-body-sm text-secondary">
+            Redefinição compulsória de senha a cada 90 dias para nível GERENTE e 180 dias para terminais FUNCIONÁRIO.
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<span class="font-label-code text-body-sm text-on-surface-variant">Conformidade ISO 27001</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+</div>
+</div>
+<!-- MODAL: Cadastro de Novo Usuário (Aberto por padrão para visualização das regras industriais) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-inverse-surface/65 backdrop-blur-sm transition-opacity" id="modal-container">
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[92vh]">
+<!-- Modal Header -->
+<div class="px-margin py-space-md bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface">Cadastro de Novo Usuário</h3>
+<span class="font-label-code text-body-sm text-secondary">Terminal Administrativo • ID Operacional</span>
+</div>
+</div>
+<button class="p-1 rounded text-secondary hover:text-on-surface hover:bg-surface-container-highest transition-colors" id="modal-close-btn">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Regulatory Notification Box -->
+<div class="px-margin pt-space-md">
+<div class="p-space-sm bg-primary-fixed/60 rounded flex items-start gap-space-sm text-on-primary-fixed">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">info</span>
+<div class="flex flex-col">
+<span class="font-body-sm font-bold">Atenção ao Credenciamento Industrial:</span>
+<span class="font-body-sm text-on-primary-fixed leading-tight">
+              O cadastro é feito exclusivamente pelo gerente. O colaborador deverá redefinir a senha provisória no primeiro acesso ao terminal de chão de fábrica.
+            </span>
+</div>
+</div>
+</div>
+<!-- Modal Body (Form Fields) -->
+<form class="px-margin py-space-md overflow-y-auto flex flex-col gap-space-md" id="new-user-form">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Nome Completo -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm uppercase text-secondary font-semibold">Nome Completo *</label>
+<input class="h-11 px-space-sm rounded bg-surface-container-low text-on-surface font-body-md focus:outline-none focus:bg-surface-container-lowest shadow-sm" placeholder="ex: Marcelo Souza Prado" required="" type="text"/>
+</div>
+<!-- CPF -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm uppercase text-secondary font-semibold">CPF *</label>
+<input class="h-11 px-space-sm rounded bg-surface-container-low text-on-surface font-label-code text-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm" placeholder="000.000.000-00" required="" type="text"/>
+</div>
+<!-- Data de Nascimento -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm uppercase text-secondary font-semibold">Data de Nascimento *</label>
+<input class="h-11 px-space-sm rounded bg-surface-container-low text-on-surface font-label-code text-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm" required="" type="date"/>
+</div>
+<!-- Matrícula -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm uppercase text-secondary font-semibold">Matrícula (Sugerida) *</label>
+<div class="relative">
+<input class="w-full h-11 px-space-sm rounded bg-surface-container text-on-surface font-label-code text-body-sm font-bold focus:outline-none shadow-sm" required="" type="text" value="MAT-0945"/>
+<button class="absolute right-2 top-2 p-1 text-secondary hover:text-primary transition-colors" title="Gerar outro código" type="button">
+<span class="material-symbols-outlined text-[18px]">autorenew</span>
+</button>
+</div>
+</div>
+<!-- Senha Inicial -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm uppercase text-secondary font-semibold">Senha Inicial *</label>
+<span class="font-label-code text-[10px] text-tertiary">Mín. 8 dígitos</span>
+</div>
+<div class="relative">
+<input class="w-full h-11 px-space-sm pr-9 rounded bg-surface-container-low text-on-surface font-label-code text-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm" id="input-password" required="" type="password" value="Auto#2024"/>
+<button class="absolute right-2.5 top-2.5 text-secondary hover:text-on-surface" onclick="togglePassVisibility()" type="button">
+<span class="material-symbols-outlined text-[18px]" id="eye-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Cargo -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm uppercase text-secondary font-semibold">Cargo Designado *</label>
+<div class="relative">
+<select class="w-full h-11 px-space-sm pr-8 rounded bg-surface-container-low text-on-surface font-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm appearance-none" required="">
+<option disabled="" selected="" value="">Selecione a função</option>
+<option value="gerente">Gerente Geral</option>
+<option value="mecanico">Mecânico</option>
+<option value="estoque">Auxiliar de Estoque</option>
+<option value="eletricista">Eletricista</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-3 pointer-events-none text-secondary text-[18px]">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Tipo de Acesso (Segmented Control / Cards) -->
+<div class="flex flex-col gap-space-xs mt-space-xs">
+<label class="font-label-sm uppercase text-secondary font-semibold">Nível de Permissão no Terminal *</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<!-- Opção Funcionário -->
+<label class="relative flex flex-col p-space-sm rounded bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm has-[:checked]:bg-secondary-fixed has-[:checked]:text-on-secondary-fixed">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<input checked="" class="accent-primary" name="access-type" type="radio" value="funcionario"/>
+<span class="font-body-md font-bold">FUNCIONÁRIO</span>
+</div>
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+<p class="font-body-sm text-secondary mt-1 text-[12px] leading-snug">
+                Acesso restrito ao chão de fábrica: apontamento de peças, consulta básica de estoque e alertas operacionais.
+              </p>
+</label>
+<!-- Opção Gerente -->
+<label class="relative flex flex-col p-space-sm rounded bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors shadow-sm has-[:checked]:bg-primary-fixed has-[:checked]:text-on-primary-fixed">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<input class="accent-primary" name="access-type" type="radio" value="gerente"/>
+<span class="font-body-md font-bold">GERENTE</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary">shield</span>
+</div>
+<p class="font-body-sm text-secondary mt-1 text-[12px] leading-snug">
+                Acesso total: abertura e baixa de OP, gestão de inventário, relatórios de auditoria e cadastro de novos operadores.
+              </p>
+</label>
+</div>
+</div>
+</form>
+<!-- Modal Footer -->
+<div class="px-margin py-space-md bg-surface-container flex items-center justify-end gap-space-sm">
+<button class="h-11 px-space-md rounded bg-surface-container-low text-on-surface hover:bg-surface-container-highest transition-colors font-body-md font-medium" id="modal-cancel-btn" type="button">
+          Cancelar
+        </button>
+<button class="h-11 px-space-lg rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-body-md font-bold shadow-sm flex items-center gap-space-xs" id="modal-submit-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">check</span>
+<span>Salvar Usuário</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function switchTab(tab) {
+    const usersView = document.getElementById('tab-users-view');
+    const rolesView = document.getElementById('tab-roles-view');
+    const usersBtn = document.getElementById('tab-users-btn');
+    const rolesBtn = document.getElementById('tab-roles-btn');
+
+    if (tab === 'users') {
+      usersView.classList.remove('hidden');
+      rolesView.classList.add('hidden');
+      
+      usersBtn.className = "px-space-md py-space-xs rounded bg-surface-container-lowest text-on-surface font-body-md font-semibold shadow-sm flex items-center gap-space-xs transition-colors";
+      rolesBtn.className = "px-space-md py-space-xs rounded text-secondary hover:text-on-surface font-body-md font-medium flex items-center gap-space-xs transition-colors";
+    } else {
+      usersView.classList.add('hidden');
+      rolesView.classList.remove('hidden');
+
+      rolesBtn.className = "px-space-md py-space-xs rounded bg-surface-container-lowest text-on-surface font-body-md font-semibold shadow-sm flex items-center gap-space-xs transition-colors";
+      usersBtn.className = "px-space-md py-space-xs rounded text-secondary hover:text-on-surface font-body-md font-medium flex items-center gap-space-xs transition-colors";
+    }
+  }
+
+  // Modal Interactive Triggers
+  const modalContainer = document.getElementById('modal-container');
+  const btnOpenModal = document.getElementById('btn-open-modal');
+  const btnCloseModal = document.getElementById('modal-close-btn');
+  const btnCancelModal = document.getElementById('modal-cancel-btn');
+  const btnSubmitModal = document.getElementById('modal-submit-btn');
+
+  function openModal() {
+    modalContainer.classList.remove('hidden');
+  }
+
+  function closeModal() {
+    modalContainer.classList.add('hidden');
+  }
+
+  btnOpenModal.addEventListener('click', openModal);
+  btnCloseModal.addEventListener('click', closeModal);
+  btnCancelModal.addEventListener('click', closeModal);
+  btnSubmitModal.addEventListener('click', () => {
+    // Feedback visual imediato
+    alert('Novo usuário registrado com sucesso no banco de dados da Planta Sorocaba.');
+    closeModal();
+  });
+
+  // Toggle Password
+  function togglePassVisibility() {
+    const passInput = document.getElementById('input-password');
+    const eyeIcon = document.getElementById('eye-icon');
+    if (passInput.type === 'password') {
+      passInput.type = 'text';
+      eyeIcon.textContent = 'visibility_off';
+    } else {
+      passInput.type = 'password';
+      eyeIcon.textContent = 'visibility';
+    }
+  }
+
+  // Quick switch to roles from secondary top button
+  document.getElementById('btn-open-cargo').addEventListener('click', () => {
+    switchTab('roles');
+  });
+</script></main></div></body></html>

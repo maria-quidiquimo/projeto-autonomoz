@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-dim": "#cbdbf5", "error": "#ba1a1a", "secondary-fixed": "#dae2fd", "primary-fixed": "#ffdbce", "primary-fixed-dim": "#ffb599", "on-tertiary-fixed-variant": "#004b73", "surface-bright": "#f8f9ff", "secondary": "#565e74", "primary": "#a33900", "on-tertiary": "#ffffff", "on-error-container": "#93000a", "inverse-on-surface": "#eaf1ff", "surface-container": "#e5eeff", "primary-container": "#cc4900", "surface": "#f8f9ff", "on-tertiary-fixed": "#001d31", "on-primary": "#ffffff", "on-background": "#0b1c30", "on-error": "#ffffff", "surface-container-high": "#dce9ff", "on-secondary": "#ffffff", "surface-container-highest": "#d3e4fe", "tertiary-container": "#007bb9", "on-tertiary-container": "#fdfcff", "surface-tint": "#a73a00", "error-container": "#ffdad6", "tertiary": "#006194", "on-primary-fixed-variant": "#7f2b00", "surface-variant": "#d3e4fe", "on-secondary-fixed-variant": "#3f465c", "secondary-container": "#dae2fd", "tertiary-fixed-dim": "#93ccff", "surface-container-low": "#eff4ff", "secondary-fixed-dim": "#bec6e0", "on-primary-container": "#fffbff", "on-secondary-container": "#5c647a", "outline": "#8e7166", "on-secondary-fixed": "#131b2e", "outline-variant": "#e2bfb2", "background": "#f8f9ff", "on-surface": "#0b1c30", "inverse-surface": "#213145", "surface-container-lowest": "#ffffff", "tertiary-fixed": "#cce5ff", "on-primary-fixed": "#370e00", "inverse-primary": "#ffb599", "on-surface-variant": "#5a4138" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.5rem", "gutter": "1.25rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-xl": "2.5rem", "margin": "1.5rem" }, "fontFamily": { "body-sm": ["IBM Plex Sans"], "label-code": ["JetBrains Mono"], "label-sm": ["IBM Plex Sans"], "headline-xl-mobile": ["IBM Plex Sans"], "body-md": ["IBM Plex Sans"], "headline-lg-mobile": ["IBM Plex Sans"], "label-metric": ["JetBrains Mono"], "headline-md": ["IBM Plex Sans"], "body-lg": ["IBM Plex Sans"], "headline-xl": ["IBM Plex Sans"], "headline-lg": ["IBM Plex Sans"] }, "fontSize": { "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-code": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }], "headline-xl-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-metric": ["28px", { "lineHeight": "32px", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-xl": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-inverse-surface text-inverse-on-surface z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-16 px-margin flex items-center gap-space-sm bg-inverse-surface border-b border-secondary/20 shrink-0"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WtK4MGHNbQk77e5GoxqbVT6ktEkPC6XlYoshMOT3l4s4FrxBHR_-h8VyKqAbVXH-B4cFk0cVdcKiLTyXzCXdNaRt3igJHVWTfB1HeILr-B12BAsfsjLhl4m8riHtU0PpddlJ35iSjD9I10L8b_EG9WGKuB2xpfTSOvwe0_u50Maitgl_VCfSC23dZjutp3wJ-IcHvzzPoMUMdweqgqHhjnPV8j1RGR1Hm_5h9gjKMgxn_2-OD1sHp8EHpz"/><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight font-bold text-inverse-on-surface leading-none">AUTONOMOZ</span><span class="font-label-code text-label-code text-primary-fixed-dim uppercase tracking-wider text-[10px] mt-0.5">ICS MES v4.2</span></div></div><div class="px-space-md py-space-sm"><div class="bg-surface-container-highest/10 rounded-lg p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary-fixed text-[18px]">precision_manufacturing</span><span class="font-label-code text-label-code text-inverse-on-surface text-[11px]">LINHA-01 ATIVA</span></div><span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary-container text-on-primary-container uppercase">Online</span></div></div><nav class="flex-1 px-space-xs py-space-xs flex flex-col gap-0.5" data-active-classes="bg-primary text-on-primary font-semibold border-l-4 border-primary-fixed shadow-sm"><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="dashboard" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">dashboard</span><span class="font-body-md text-body-md">Dashboard</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="estoque-e-catalogo" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">inventory_2</span><span class="font-body-md text-body-md">Estoque &amp; Catálogo</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="lotes-e-rastreabilidade" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">qr_code_scanner</span><span class="font-body-md text-body-md">Lotes &amp; Rastreabilidade</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="movimentacoes" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">swap_horiz</span><span class="font-body-md text-body-md">Movimentações</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="categorias" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">category</span><span class="font-body-md text-body-md">Categorias</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="fornecedores" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">factory</span><span class="font-body-md text-body-md">Fornecedores</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="ordens-de-producao" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">build_circle</span><span class="font-body-md text-body-md">Ordens de Produção</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="vendas" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">point_of_sale</span><span class="font-body-md text-body-md">Vendas</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="alertas" href="#"><div class="flex items-center"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">warning</span><span class="font-body-md text-body-md">Alertas</span></div><span class="px-1.5 py-0.2 bg-error text-on-error font-label-code text-[11px] rounded font-bold">3</span></a><div class="my-space-xs pt-space-xs border-t border-secondary/20"><div class="px-space-md pb-space-xs flex items-center justify-between"><span class="font-label-sm text-label-sm text-inverse-on-surface/50 uppercase tracking-widest">Administração</span><span class="font-label-code text-[10px] text-primary-fixed bg-primary-container/40 px-1 rounded uppercase font-bold">Gerente</span></div><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="usuarios-e-cargos" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">badge</span><span class="font-body-md text-body-md">Usuários &amp; Cargos</span></a><a class="flex items-center px-space-md py-space-sm rounded text-inverse-on-surface/80 hover:bg-inverse-surface/80 hover:text-inverse-on-surface transition-all group" data-path="logs-e-relatorios" href="#"><span class="material-symbols-outlined mr-space-md text-[20px] text-inverse-on-surface/70 group-hover:text-inverse-on-surface">receipt_long</span><span class="font-body-md text-body-md">Logs e Relatórios</span></a></div></nav></div><div class="p-space-md border-t border-secondary/20 bg-inverse-surface shrink-0"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-body-md text-[13px] font-semibold text-inverse-on-surface truncate leading-tight">Carlos Silva</span><span class="font-label-code text-[11px] text-inverse-on-surface/60 truncate leading-tight">Matrícula: 1042</span></div><button class="p-1 text-inverse-on-surface/60 hover:text-inverse-on-surface transition-colors" title="Sair do Terminal" type="button"><span class="material-symbols-outlined text-[20px]">logout</span></button></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin border-b border-surface-container-high"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><span class="font-headline-md text-[16px] font-bold text-on-surface tracking-tight uppercase">AUTONOMOZ</span><span class="text-secondary/40 font-light">|</span><span class="font-body-md text-body-md text-on-surface-variant font-medium">Sistema de Controle Industrial</span></div><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container text-on-surface-variant border border-outline-variant/30"><span class="material-symbols-outlined text-primary text-[18px]">domain</span><span class="font-label-code text-label-code text-[12px]">Unidade Industrial 01 - Chão de Fábrica</span></div></div><div class="flex items-center gap-space-lg"><div class="hidden md:flex items-center gap-space-xs font-label-code text-label-code text-on-surface-variant bg-surface-container-low px-space-sm py-1 rounded border border-outline-variant/20"><span class="material-symbols-outlined text-[16px] text-tertiary">schedule</span><span id="system-clock">24/10/2024 14:32:08</span></div><div class="flex items-center gap-space-sm pl-space-md border-l border-surface-container-high"><div class="flex flex-col text-right"><span class="font-body-md text-[13px] font-semibold text-on-surface leading-tight">Carlos Silva</span><div class="flex items-center justify-end gap-1"><span class="font-label-code text-[10px] text-on-surface-variant">Matrícula: 1042</span><span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-label-sm text-[10px] uppercase font-bold border border-outline-variant/40">Gerente Geral</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Content Canvas Container -->
+<div class="p-margin flex flex-col gap-space-lg w-full">
+<!-- Top Context & Command Header -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Logs de Auditoria e Relatórios Operacionais</h1>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm uppercase tracking-wide">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed">lock</span>
+            Acesso Exclusivo: Gerência
+          </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-code text-[11px]">
+<span class="material-symbols-outlined text-[13px] text-tertiary">verified_user</span>
+            HASH SHA-256 IMUTÁVEL
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Registro imutável de ações em tempo real, rastreabilidade reversa de operações e conformidade com auditoria industrial.
+        </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-space-sm shrink-0 flex-wrap">
+<!-- Live Sync Pill -->
+<div class="flex items-center gap-space-xs px-3 py-2 rounded-lg bg-surface-container-low text-on-surface">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+<div class="flex flex-col">
+<span class="font-label-code text-[11px] leading-none text-on-surface font-bold uppercase">Sincronização Ativa</span>
+<span class="font-label-code text-[10px] leading-tight text-on-surface-variant">Hoje às 15:42:18</span>
+</div>
+<button class="ml-1 p-1 hover:bg-surface-container rounded transition-colors text-primary" id="btn-sync" title="Forçar Atualização" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+</div>
+<!-- Export Dropdown -->
+<div class="relative inline-block text-left">
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 bg-primary text-on-primary font-headline-md text-[14px] rounded-lg shadow-sm hover:bg-primary-container transition-colors" id="btn-export" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Exportar Relatório</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<!-- Dropdown Menu Modal/Panel -->
+<div class="hidden absolute right-0 mt-2 w-56 rounded-lg bg-surface-container-lowest shadow-xl z-30 p-1.5 flex flex-col gap-0.5" id="export-dropdown-menu">
+<button class="flex items-center gap-space-sm w-full px-space-sm py-2 rounded text-left font-body-md text-body-md text-on-surface hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]">table_view</span>
+<div class="flex flex-col">
+<span class="font-semibold text-[13px]">Baixar Planilha (.csv)</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">Dados brutos delimitados</span>
+</div>
+</button>
+<button class="flex items-center gap-space-sm w-full px-space-sm py-2 rounded text-left font-body-md text-body-md text-on-surface hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-error text-[20px]">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="font-semibold text-[13px]">Gerar Relatório PDF (.pdf)</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">Assinado para Auditoria Externa</span>
+</div>
+</button>
+<div class="h-px bg-surface-container-high my-1"></div>
+<button class="flex items-center gap-space-sm w-full px-space-sm py-2 rounded text-left font-body-md text-body-md text-on-surface hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-tertiary text-[20px]">terminal</span>
+<div class="flex flex-col">
+<span class="font-semibold text-[13px]">Exportar Syslog JSON</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">Formato SIEM / SOC industrial</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 4 KPI Metrics Bento Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Total de Eventos</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Últimos 30 dias contínuos</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">database</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-label-metric text-label-metric text-on-surface font-bold">8.420</span>
+<span class="inline-flex items-center gap-0.5 font-label-code text-[12px] font-bold text-tertiary bg-tertiary-fixed/40 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+            +12.4%
+          </span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Logins Registrados</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Sessões ativas &amp; encerradas</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[22px]">fingerprint</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-label-metric text-label-metric text-on-surface font-bold">412</span>
+<span class="inline-flex items-center gap-0.5 font-label-code text-[11px] text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+            14 ativos agora
+          </span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 48%"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Movimentações Almoxarife</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Entradas, baixas e devoluções</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[22px]">swap_horizontal_circle</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-label-metric text-label-metric text-on-surface font-bold">1.845</span>
+<span class="inline-flex items-center gap-1 font-label-code text-[11px] text-on-surface-variant">
+<span class="text-tertiary font-bold">1.210 Ent.</span> / <span class="text-primary font-bold">635 Saí.</span>
+</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden flex">
+<div class="bg-tertiary h-full" style="width: 65%"></div>
+<div class="bg-primary h-full" style="width: 35%"></div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Alterações Críticas</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Permissões, OP cancelada, Root</span>
+</div>
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined text-[22px]">security</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-label-metric text-label-metric text-on-surface font-bold">64</span>
+<span class="inline-flex items-center gap-1 font-label-code text-[12px] font-bold text-error bg-error-container/50 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">shield</span>
+            100% Auditado
+          </span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 14%"></div>
+</div>
+</div>
+</div>
+<!-- Visual Chart Section: Resumo Diário de Eventos do Sistema -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">analytics</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Resumo Diário de Eventos do Sistema</h2>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Volume consolidado nas últimas 14 datas operacionais de produção</span>
+</div>
+<!-- Legend -->
+<div class="flex items-center gap-space-md flex-wrap font-label-code text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-tertiary inline-block"></span>
+<span class="text-on-surface">LOGIN</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-secondary inline-block"></span>
+<span class="text-on-surface">CADASTRO_USUARIO</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-[#10b981] inline-block"></span>
+<span class="text-on-surface">ENTRADA_ESTOQUE</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-primary inline-block"></span>
+<span class="text-on-surface">SAIDA_ESTOQUE</span>
+</div>
+</div>
+</div>
+<!-- Integrated SVG High-Density Stacked Industrial Bar Chart -->
+<div class="w-full bg-surface-container-low/60 p-space-md rounded-lg overflow-x-auto">
+<div class="min-w-[720px] flex flex-col gap-2">
+<!-- Metric callout banner -->
+<div class="flex items-center justify-between text-on-surface-variant font-label-code text-[11px] pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">info</span>
+<span>Média diária no ciclo: <strong class="text-on-surface font-bold">280 eventos/dia</strong></span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 bg-primary-fixed/50 rounded font-semibold text-on-primary-fixed">
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+<span>Pico registrado: Quinta-feira, 26/10 (342 eventos)</span>
+</div>
+</div>
+<!-- Stacked Bars Grid Container -->
+<div class="h-44 w-full flex items-end justify-between gap-3 pt-4 px-2">
+<!-- Day 14 (14/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">230</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 67%;">
+<div class="bg-tertiary" style="height: 25%;" title="LOGIN: 58"></div>
+<div class="bg-secondary" style="height: 8%;" title="CADASTRO: 18"></div>
+<div class="bg-[#10b981]" style="height: 42%;" title="ENTRADA: 97"></div>
+<div class="bg-primary" style="height: 25%;" title="SAÍDA: 57"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">14/10</span>
+</div>
+<!-- Day 13 (15/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">245</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 71%;">
+<div class="bg-tertiary" style="height: 28%;"></div>
+<div class="bg-secondary" style="height: 6%;"></div>
+<div class="bg-[#10b981]" style="height: 40%;"></div>
+<div class="bg-primary" style="height: 26%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">15/10</span>
+</div>
+<!-- Day 12 (16/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">198</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 57%;">
+<div class="bg-tertiary" style="height: 25%;"></div>
+<div class="bg-secondary" style="height: 5%;"></div>
+<div class="bg-[#10b981]" style="height: 45%;"></div>
+<div class="bg-primary" style="height: 25%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">16/10</span>
+</div>
+<!-- Day 11 (17/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">290</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 84%;">
+<div class="bg-tertiary" style="height: 22%;"></div>
+<div class="bg-secondary" style="height: 12%;"></div>
+<div class="bg-[#10b981]" style="height: 38%;"></div>
+<div class="bg-primary" style="height: 28%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">17/10</span>
+</div>
+<!-- Day 10 (18/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">310</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 90%;">
+<div class="bg-tertiary" style="height: 20%;"></div>
+<div class="bg-secondary" style="height: 10%;"></div>
+<div class="bg-[#10b981]" style="height: 42%;"></div>
+<div class="bg-primary" style="height: 28%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">18/10</span>
+</div>
+<!-- Day 09 (19/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">140</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high opacity-70 transition-transform group-hover:scale-y-105 origin-bottom" style="height: 40%;">
+<div class="bg-tertiary" style="height: 40%;"></div>
+<div class="bg-secondary" style="height: 5%;"></div>
+<div class="bg-[#10b981]" style="height: 30%;"></div>
+<div class="bg-primary" style="height: 25%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">19/10</span>
+</div>
+<!-- Day 08 (20/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">110</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high opacity-70 transition-transform group-hover:scale-y-105 origin-bottom" style="height: 32%;">
+<div class="bg-tertiary" style="height: 45%;"></div>
+<div class="bg-secondary" style="height: 5%;"></div>
+<div class="bg-[#10b981]" style="height: 25%;"></div>
+<div class="bg-primary" style="height: 25%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">20/10</span>
+</div>
+<!-- Day 07 (21/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">275</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 80%;">
+<div class="bg-tertiary" style="height: 24%;"></div>
+<div class="bg-secondary" style="height: 6%;"></div>
+<div class="bg-[#10b981]" style="height: 45%;"></div>
+<div class="bg-primary" style="height: 25%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">21/10</span>
+</div>
+<!-- Day 06 (22/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">295</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 86%;">
+<div class="bg-tertiary" style="height: 20%;"></div>
+<div class="bg-secondary" style="height: 8%;"></div>
+<div class="bg-[#10b981]" style="height: 40%;"></div>
+<div class="bg-primary" style="height: 32%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">22/10</span>
+</div>
+<!-- Day 05 (23/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">288</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 83%;">
+<div class="bg-tertiary" style="height: 22%;"></div>
+<div class="bg-secondary" style="height: 6%;"></div>
+<div class="bg-[#10b981]" style="height: 44%;"></div>
+<div class="bg-primary" style="height: 28%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">23/10</span>
+</div>
+<!-- Day 04 (24/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">305</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 89%;">
+<div class="bg-tertiary" style="height: 21%;"></div>
+<div class="bg-secondary" style="height: 7%;"></div>
+<div class="bg-[#10b981]" style="height: 46%;"></div>
+<div class="bg-primary" style="height: 26%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">24/10</span>
+</div>
+<!-- Day 03 (25/10) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">320</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 93%;">
+<div class="bg-tertiary" style="height: 18%;"></div>
+<div class="bg-secondary" style="height: 9%;"></div>
+<div class="bg-[#10b981]" style="height: 43%;"></div>
+<div class="bg-primary" style="height: 30%;"></div>
+</div>
+<span class="font-label-code text-[10px] text-on-surface-variant">25/10</span>
+</div>
+<!-- Day 02 (26/10) - PICO -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<div class="flex flex-col items-center">
+<span class="px-1 py-0.2 bg-primary text-on-primary font-label-code text-[9px] rounded font-bold uppercase tracking-wider mb-0.5">Pico</span>
+<span class="font-label-code text-[11px] font-bold text-primary">342</span>
+</div>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high shadow-sm ring-2 ring-primary/40 transition-transform group-hover:scale-y-105 origin-bottom" style="height: 100%;">
+<div class="bg-tertiary" style="height: 22%;"></div>
+<div class="bg-secondary" style="height: 8%;"></div>
+<div class="bg-[#10b981]" style="height: 40%;"></div>
+<div class="bg-primary" style="height: 30%;"></div>
+</div>
+<span class="font-label-code text-[10px] font-bold text-primary">26/10</span>
+</div>
+<!-- Day 01 (27/10 - Hoje) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group cursor-pointer">
+<span class="font-label-code text-[10px] text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">268</span>
+<div class="w-full max-w-[34px] flex flex-col rounded-t overflow-hidden bg-surface-container-high transition-transform group-hover:scale-y-105 origin-bottom" style="height: 78%;">
+<div class="bg-tertiary" style="height: 26%;"></div>
+<div class="bg-secondary" style="height: 4%;"></div>
+<div class="bg-[#10b981]" style="height: 42%;"></div>
+<div class="bg-primary" style="height: 28%;"></div>
+</div>
+<span class="font-label-code text-[10px] font-bold text-on-surface">Hoje</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Advanced Operational Filter Bar -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-md">
+<!-- Search and Key Filter Selectors -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-sm items-center">
+<!-- Live Search Bar (5 cols) -->
+<div class="lg:col-span-4 relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[20px] text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low text-on-surface rounded-lg font-body-md text-body-md placeholder:text-on-surface-variant/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary transition-all" id="audit-search-input" placeholder="Buscar por mensagem, IP, matrícula, SKU ou lote..." type="text"/>
+</div>
+<!-- Filter: Tipo de Evento (3 cols) -->
+<div class="lg:col-span-3">
+<div class="relative">
+<select class="w-full appearance-none pl-3 pr-8 py-2.5 bg-surface-container-low text-on-surface rounded-lg font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer" id="filter-event-type">
+<option value="">Tipo de Evento (Todos)</option>
+<option value="LOGIN">LOGIN</option>
+<option value="CADASTRO_USUARIO">CADASTRO_USUARIO</option>
+<option value="ENTRADA_ESTOQUE">ENTRADA_ESTOQUE</option>
+<option value="SAIDA_ESTOQUE">SAIDA_ESTOQUE</option>
+<option value="ATUALIZACAO_PERMISSAO">ATUALIZACAO_PERMISSAO</option>
+<option value="CANCELAMENTO_OP">CANCELAMENTO_OP</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-3 pointer-events-none text-on-surface-variant text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Filter: Usuário / Operador (3 cols) -->
+<div class="lg:col-span-3">
+<div class="relative">
+<select class="w-full appearance-none pl-3 pr-8 py-2.5 bg-surface-container-low text-on-surface rounded-lg font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer" id="filter-user">
+<option value="">Operador (Todos os Usuários)</option>
+<option value="1042">Carlos Silva (1042 - Gerente)</option>
+<option value="2088">Marcos Souza (2088 - Almoxarife)</option>
+<option value="1104">Roberto Alves (1104 - Mecânico)</option>
+<option value="3105">Lucas Ferreira (3105 - Auxiliar)</option>
+<option value="SYSTEM">Sistema Automático (Daemon)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-3 pointer-events-none text-on-surface-variant text-[18px]">person</span>
+</div>
+</div>
+<!-- Date Range Display / Modal Trigger (2 cols) -->
+<div class="lg:col-span-2">
+<button class="w-full flex items-center justify-between px-3 py-2.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-lg font-body-md text-[13px] transition-colors" type="button">
+<span class="flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-primary text-[18px]">calendar_today</span>
+<span class="font-label-code text-[11px] truncate">20/10 a 27/10</span>
+</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">tune</span>
+</button>
+</div>
+</div>
+<!-- Quick Preset Tags & Counter -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2 bg-surface-container-lowest">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-label-sm text-label-sm text-on-surface-variant mr-1">Predefinição:</span>
+<button class="px-2.5 py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high font-label-code text-[11px] transition-colors" type="button">Hoje</button>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-code text-[11px] font-bold shadow-xs" type="button">Últimos 7 dias</button>
+<button class="px-2.5 py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high font-label-code text-[11px] transition-colors" type="button">Últimos 30 dias</button>
+<button class="px-2.5 py-1 rounded bg-surface-container text-on-surface hover:bg-surface-container-high font-label-code text-[11px] transition-colors" type="button">Personalizado...</button>
+<button class="ml-2 text-primary hover:text-primary-container font-label-code text-[11px] underline flex items-center gap-0.5" id="btn-clear-filters" type="button">
+<span class="material-symbols-outlined text-[14px]">backspace</span>
+            Limpar filtros
+          </button>
+</div>
+<div class="flex items-center gap-2 font-label-code text-[12px] text-on-surface-variant">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Mostrando <strong class="text-on-surface font-bold">15</strong> de <strong class="text-on-surface font-bold">8.420</strong> registros encontrados</span>
+</div>
+</div>
+</div>
+<!-- Audit Log Table (Tabela de Trilha de Auditoria) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider select-none">
+<th class="py-3 px-space-md" scope="col">Data / Hora</th>
+<th class="py-3 px-space-sm" scope="col">Tipo de Evento</th>
+<th class="py-3 px-space-md min-w-[340px]" scope="col">Mensagem / Ação Executada</th>
+<th class="py-3 px-space-sm" scope="col">Usuário Responsável</th>
+<th class="py-3 px-space-sm" scope="col">IP / Terminal Origem</th>
+<th class="py-3 px-space-md text-right" scope="col">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-md text-[13px]">
+<!-- Row 1: ENTRADA_ESTOQUE -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-surface-container-lowest">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">27/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">15:38:22</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#d1fae5] text-[#065f46] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">south_west</span>
+                  ENTRADA_ESTOQUE
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+                Entrada confirmada de <span class="font-bold text-on-surface">150 un</span> do item <span class="font-semibold text-primary">"Pistão Padrão 1.6"</span> (<span class="font-label-code text-[11px] bg-surface-container px-1 rounded">SKU-4402</span>) vinculado ao Lote <span class="font-label-code text-[11px] text-tertiary font-bold">LOTE-2026-088</span>. Local: Almoxarifado Rua C-04.
+              </td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-[11px]">
+                    MS
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight">Marcos Souza</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">Matrícula: 2088 [ALMOXARIFE]</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Term. 01 - Almoxarifado</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.45</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-code text-[11px] transition-colors" data-log-id="LOG-88401" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: SAIDA_ESTOQUE -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-surface-container-low/30">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">27/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">15:29:40</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#ffedd5] text-[#9a3412] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">north_east</span>
+                  SAIDA_ESTOQUE
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+                Saída manual de <span class="font-bold text-on-surface">4 un</span> de <span class="font-semibold text-primary">"Parachoque Dianteiro"</span> (<span class="font-label-code text-[11px] bg-surface-container px-1 rounded">SKU-1029</span>) requisitada para O.P. <span class="font-label-code text-[11px] text-tertiary font-bold">#OP-2026-042</span> (Restauração Veículo 001).
+              </td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-[11px]">
+                    RA
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight">Roberto Alves</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">Matrícula: 1104 [MECÂNICO]</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Totem Chão de Fábrica 03</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.118</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-code text-[11px] transition-colors" data-log-id="LOG-88400" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: CADASTRO_USUARIO -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-surface-container-lowest">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">27/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">14:50:11</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#f3e8ff] text-[#6b21a8] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">person_add</span>
+                  CADASTRO_USUARIO
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+                Novo usuário criado no diretório local: <span class="font-bold text-on-surface">"Lucas Ferreira"</span> (Matrícula: <span class="font-label-code text-[11px]">3105</span>, Cargo: Auxiliar de Estoque, Nível de Acesso: <span class="font-semibold text-secondary">Funcionário</span>).
+              </td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[11px]">
+                    CS
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight">Carlos Silva</span>
+<span class="font-label-code text-[10px] text-primary font-bold">Matrícula: 1042 [GERENTE]</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Console ADM - Sala Gerência</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.10</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-code text-[11px] transition-colors" data-log-id="LOG-88399" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: LOGIN SUCESSO -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-surface-container-low/30">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">27/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">14:32:04</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#dbeafe] text-[#1e40af] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">vpn_key</span>
+                  LOGIN
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+                Autenticação biométrica/PIN bem-sucedida no <span class="font-semibold text-on-surface">Terminal Fixo 02</span> (IP 192.168.1.142). Sessão aberta com escopo industrial pleno.
+              </td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[11px]">
+                    CS
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight">Carlos Silva</span>
+<span class="font-label-code text-[10px] text-primary font-bold">Matrícula: 1042 [GERENTE]</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Terminal Fixo 02</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.142</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-code text-[11px] transition-colors" data-log-id="LOG-88398" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+<!-- Row 5: LOGIN FALHA / ALERTA -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-error-container/20">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">27/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">13:12:49</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#fee2e2] text-[#991b1b] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">error</span>
+                  LOGIN_FALHA
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+<span class="text-error font-semibold">Tentativa de login com credencial inválida</span> detectada para matrícula <span class="font-label-code text-[11px] font-bold">2088</span> no Terminal Móvel Rugged 01. Bloqueio temporário não acionado (tentativa 1/3).
+              </td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-bold text-[11px]">
+                    !
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight text-error">Não Autenticado</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">Matrícula informada: 2088</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Tablet Rugged 01</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.201</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-error hover:text-on-error font-label-code text-[11px] transition-colors" data-log-id="LOG-88397" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+<!-- Row 6: ENTRADA_ESTOQUE / FORNECEDOR -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-surface-container-lowest">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">27/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">11:05:03</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#d1fae5] text-[#065f46] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">south_west</span>
+                  ENTRADA_ESTOQUE
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+                Entrada registrada de <span class="font-bold text-on-surface">50 un</span> de <span class="font-semibold text-primary">"Chicote Elétrico Principal"</span> (<span class="font-label-code text-[11px] bg-surface-container px-1 rounded">SKU-8821</span>) via Fornecedor <span class="font-semibold">Itu Componentes Ind.</span> sob N.F. <span class="font-label-code text-[11px]">#004821</span>.
+              </td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-[11px]">
+                    MS
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight">Marcos Souza</span>
+<span class="font-label-code text-[10px] text-on-surface-variant">Matrícula: 2088 [ALMOXARIFE]</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Doca de Descarga 01</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.33</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-code text-[11px] transition-colors" data-log-id="LOG-88396" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+<!-- Row 7: ATUALIZACAO_PERMISSAO -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-surface-container-low/30">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">27/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">09:18:55</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#e0e7ff] text-[#3730a3] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">admin_panel_settings</span>
+                  ATUALIZACAO_PERMISSAO
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+                Privilégio de acesso atualizado: Operador <span class="font-semibold">Roberto Alves</span> (1104) recebeu autorização para apontamento no módulo de <span class="font-semibold text-tertiary">Usinagem CNC Torno-02</span>.
+              </td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[11px]">
+                    CS
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight">Carlos Silva</span>
+<span class="font-label-code text-[10px] text-primary font-bold">Matrícula: 1042 [GERENTE]</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Console ADM - Sala Gerência</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.10</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-code text-[11px] transition-colors" data-log-id="LOG-88395" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+<!-- Row 8: CANCELAMENTO_OP -->
+<tr class="hover:bg-surface-container-high/40 transition-colors bg-surface-container-lowest">
+<td class="py-3.5 px-space-md font-label-code text-[12px] text-on-surface whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-bold">26/10/2026</span>
+<span class="text-on-surface-variant text-[11px]">17:44:19</span>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#fee2e2] text-[#991b1b] font-label-code text-[11px] font-bold">
+<span class="material-symbols-outlined text-[15px]">cancel</span>
+                  CANCELAMENTO_OP
+                </span>
+</td>
+<td class="py-3.5 px-space-md font-body-md text-[13px] leading-relaxed">
+                Ordem de Produção <span class="font-label-code text-[11px] font-bold text-error">#OP-2026-039</span> foi cancelada administrativamente pelo gerente. Motivo informado: <span class="italic text-on-surface-variant">"Reespecificação dimensional de eixos encomendados pelo cliente."</span>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[11px]">
+                    CS
+                  </div>
+<div class="flex flex-col">
+<span class="font-semibold text-[12px] leading-tight">Carlos Silva</span>
+<span class="font-label-code text-[10px] text-primary font-bold">Matrícula: 1042 [GERENTE]</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-sm whitespace-nowrap">
+<div class="flex flex-col font-label-code text-[11px]">
+<span class="font-medium text-on-surface">Terminal Engenharia 01</span>
+<span class="text-on-surface-variant text-[10px]">192.168.1.18</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right whitespace-nowrap">
+<button class="btn-inspect-log inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-code text-[11px] transition-colors" data-log-id="LOG-88394" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspecionar</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination & Standard Compliance Footer -->
+<div class="p-space-md bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-space-md">
+<!-- Pagination controls -->
+<div class="flex items-center gap-space-md flex-wrap">
+<div class="flex items-center gap-2 font-label-code text-[12px] text-on-surface-variant">
+<span>Página <strong class="text-on-surface">1</strong> de <strong class="text-on-surface">562</strong></span>
+<div class="flex items-center gap-1 ml-2">
+<span class="text-[11px]">Itens:</span>
+<select class="bg-surface-container-lowest text-on-surface rounded px-1.5 py-1 font-label-code text-[11px] focus:outline-none">
+<option selected="" value="25">25</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-1 font-label-code text-[12px]">
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" title="Primeira página" type="button">
+<span class="material-symbols-outlined text-[18px]">first_page</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" title="Página anterior" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary font-bold flex items-center justify-center" type="button">1</button>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" type="button">2</button>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" type="button">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" type="button">562</button>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" title="Próxima página" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" title="Última página" type="button">
+<span class="material-symbols-outlined text-[18px]">last_page</span>
+</button>
+</div>
+</div>
+<!-- Compliance & Regulatory Notice -->
+<div class="flex items-center gap-2 text-on-surface-variant font-label-code text-[11px] max-w-xl text-right md:text-right">
+<span class="material-symbols-outlined text-[18px] text-tertiary shrink-0">verified</span>
+<span>
+            Registros assinados digitalmente conforme <strong class="text-on-surface font-semibold">ISO 9001 / IATF 16949</strong>. Modificações ou exclusões são estritamente bloqueadas por arquitetura de persistência Write-Once.
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detail Modal: JSON / Technical Trace Inspector (Modal de Auditoria em Profundidade) -->
+<div class="fixed inset-0 bg-[#0b1c30]/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-space-md" id="log-inspector-modal">
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh]">
+<!-- Modal Header -->
+<div class="bg-inverse-surface text-inverse-on-surface px-space-lg py-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-fixed text-[24px]">terminal</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-[16px] font-bold text-inverse-on-surface">Detalhamento Técnico de Trilha de Auditoria</span>
+<span class="font-label-code text-[11px] text-primary-fixed-dim" id="modal-log-id">ID: LOG-88401</span>
+</div>
+</div>
+<button class="text-inverse-on-surface/70 hover:text-inverse-on-surface p-1 rounded transition-colors" id="modal-close-btn" type="button">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-lg overflow-y-auto flex flex-col gap-space-md bg-surface">
+<!-- Integrity Validation Card -->
+<div class="p-space-sm rounded-lg bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Assinatura Digital Válida</span>
+<span class="font-label-code text-[10px] text-on-surface-variant font-mono">HASH: 3c9b74e892d47aa1f8653e028bca87410294fc6b009e51c8a149c95b77e1dfaa</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-code text-[10px] font-bold uppercase">Imutável</span>
+</div>
+<!-- Technical Key-Value Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm">
+<div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-xs">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Tipo de Evento</span>
+<span class="font-label-code text-[12px] font-bold text-tertiary" id="modal-event-type">ENTRADA_ESTOQUE</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-xs">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Timestamp UTC</span>
+<span class="font-label-code text-[12px] font-bold text-on-surface" id="modal-timestamp">2026-10-27T18:38:22.408Z</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-xs">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Matrícula Operador</span>
+<span class="font-label-code text-[12px] font-bold text-primary" id="modal-user-id">2088 (Marcos Souza)</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-xs">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Endereço IP Origem</span>
+<span class="font-label-code text-[12px] font-bold text-on-surface">192.168.1.45</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-xs">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Subnet / VLAN</span>
+<span class="font-label-code text-[12px] font-bold text-on-surface">VLAN_10_CHAO_FABRICA</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-xs">
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase block">Agente de Cliente</span>
+<span class="font-label-code text-[12px] font-bold text-on-surface">Autonomoz-Agent/4.2.1-arm64</span>
+</div>
+</div>
+<!-- Raw Payload JSON Container -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface font-bold uppercase tracking-wider">Payload do Evento (JSON Raw)</span>
+<button class="text-primary hover:text-primary-container font-label-code text-[11px] flex items-center gap-1" id="btn-copy-json" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+              Copiar Estrutura
+            </button>
+</div>
+<pre class="bg-inverse-surface text-inverse-on-surface p-space-md rounded-lg font-label-code text-[12px] overflow-x-auto leading-relaxed max-h-56 select-all"><code id="modal-json-content">{
+  "event_id": "LOG-88401",
+  "audit_version": "2.0",
+  "action": "ENTRADA_ESTOQUE",
+  "actor": {
+    "user_id": 2088,
+    "user_name": "Marcos Souza",
+    "role": "ALMOXARIFE",
+    "terminal": "Term. 01 - Almoxarifado",
+    "ip": "192.168.1.45"
+  },
+  "payload": {
+    "sku": "SKU-4402",
+    "item_description": "Pistão Padrão 1.6",
+    "quantity_received": 150,
+    "unit_of_measure": "UN",
+    "batch_code": "LOTE-2026-088",
+    "storage_location": "RUA-C-04-PALETE-02",
+    "supplier_invoice": "004821",
+    "inspection_status": "LIBERADO_QUALIDADE"
+  },
+  "security": {
+    "hash_chain": "3c9b74e892d47aa1f8653e028bca87410294fc6b009e51c8a149c95b77e1dfaa",
+    "prev_hash": "a189f72b90ce881240dbbca0199e821104e76a0142b9308ceba81239aa821034",
+    "signature": "ED25519-SIG-AUTONOMOZ-NODE-01"
+  }
+}</code></pre>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-space-lg py-space-md bg-surface-container-low flex items-center justify-between">
+<span class="font-label-code text-[11px] text-on-surface-variant">Carimbado com NTP de precisão atômica (Chrony v4)</span>
+<button class="px-space-md py-2 bg-inverse-surface text-inverse-on-surface font-body-md text-body-md rounded-lg hover:bg-inverse-surface/80 transition-colors" id="modal-close-footer" type="button">
+          Fechar Visualizador
+        </button>
+</div>
+</div>
+</div>
+<!-- Interactive Logic -->
+<script>
+    (function initAuditLogs() {
+      // Export Dropdown Toggle
+      const btnExport = document.getElementById('btn-export');
+      const exportDropdown = document.getElementById('export-dropdown-menu');
+
+      if (btnExport && exportDropdown) {
+        btnExport.addEventListener('click', (e) => {
+          e.stopPropagation();
+          exportDropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!exportDropdown.contains(e.target) && !btnExport.contains(e.target)) {
+            exportDropdown.classList.add('hidden');
+          }
+        });
+      }
+
+      // Sync Button Micro-interaction
+      const btnSync = document.getElementById('btn-sync');
+      if (btnSync) {
+        btnSync.addEventListener('click', () => {
+          btnSync.classList.add('animate-spin');
+          setTimeout(() => {
+            btnSync.classList.remove('animate-spin');
+          }, 800);
+        });
+      }
+
+      // Filter Clearing
+      const btnClear = document.getElementById('btn-clear-filters');
+      const searchInput = document.getElementById('audit-search-input');
+      const filterEvent = document.getElementById('filter-event-type');
+      const filterUser = document.getElementById('filter-user');
+
+      if (btnClear) {
+        btnClear.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          if (filterEvent) filterEvent.selectedIndex = 0;
+          if (filterUser) filterUser.selectedIndex = 0;
+        });
+      }
+
+      // Inspection Modal Interactivity
+      const modal = document.getElementById('log-inspector-modal');
+      const inspectButtons = document.querySelectorAll('.btn-inspect-log');
+      const btnCloseModal = document.getElementById('modal-close-btn');
+      const btnCloseModalFooter = document.getElementById('modal-close-footer');
+      const btnCopyJson = document.getElementById('btn-copy-json');
+
+      const openModal = (logId) => {
+        if (!modal) return;
+        const modalLogId = document.getElementById('modal-log-id');
+        if (modalLogId && logId) {
+          modalLogId.textContent = 'ID: ' + logId;
+        }
+        modal.classList.remove('hidden');
+      };
+
+      const closeModal = () => {
+        if (!modal) return;
+        modal.classList.add('hidden');
+      };
+
+      inspectButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const logId = btn.getAttribute('data-log-id') || 'LOG-88401';
+          openModal(logId);
+        });
+      });
+
+      if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+      if (btnCloseModalFooter) btnCloseModalFooter.addEventListener('click', closeModal);
+
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+      }
+
+      // Copy JSON payload button
+      if (btnCopyJson) {
+        btnCopyJson.addEventListener('click', () => {
+          const codeEl = document.getElementById('modal-json-content');
+          if (codeEl) {
+            navigator.clipboard.writeText(codeEl.textContent || '').then(() => {
+              btnCopyJson.innerHTML = '<span class="material-symbols-outlined text-[14px]">done</span> Copiado!';
+              setTimeout(() => {
+                btnCopyJson.innerHTML = '<span class="material-symbols-outlined text-[14px]">content_copy</span> Copiar Estrutura';
+              }, 2000);
+            });
+          }
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"tertiary-fixed":"#cce5ff","secondary-fixed-dim":"#bec6e0","tertiary-fixed-dim":"#93ccff","on-primary-fixed":"#370e00","surface":"#f8f9ff","inverse-primary":"#ffb599","on-error":"#ffffff","on-error-container":"#93000a","on-secondary-container":"#5c647a","surface-container-lowest":"#ffffff","outline-variant":"#e2bfb2","tertiary":"#006194","on-tertiary-fixed-variant":"#004b73","surface-container-highest":"#d3e4fe","surface-container":"#e5eeff","outline":"#8e7166","inverse-on-surface":"#eaf1ff","error-container":"#ffdad6","primary-fixed":"#ffdbce","on-secondary-fixed":"#131b2e","surface-dim":"#cbdbf5","surface-variant":"#d3e4fe","tertiary-container":"#007bb9","on-primary-container":"#fffbff","error":"#ba1a1a","on-primary-fixed-variant":"#7f2b00","background":"#f8f9ff","on-surface":"#0b1c30","on-tertiary-fixed":"#001d31","surface-tint":"#a73a00","primary":"#a33900","secondary-fixed":"#dae2fd","secondary-container":"#dae2fd","on-surface-variant":"#5a4138","on-tertiary":"#ffffff","on-secondary-fixed-variant":"#3f465c","secondary":"#565e74","primary-container":"#cc4900","surface-container-high":"#dce9ff","on-secondary":"#ffffff","on-background":"#0b1c30","surface-container-low":"#eff4ff","on-primary":"#ffffff","surface-bright":"#f8f9ff","on-tertiary-container":"#fdfcff","primary-fixed-dim":"#ffb599","inverse-surface":"#213145"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-md":"1rem","gutter":"1.25rem","space-xs":"0.25rem","space-xl":"2.5rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"1.5rem"},fontFamily:{"headline-xl-mobile":["IBM Plex Sans"],"headline-md":["IBM Plex Sans"],"body-lg":["IBM Plex Sans"],"body-sm":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"body-md":["IBM Plex Sans"],"headline-lg-mobile":["IBM Plex Sans"],"label-code":["JetBrains Mono"],"label-sm":["IBM Plex Sans"],"label-metric":["JetBrains Mono"],"headline-lg":["IBM Plex Sans"]},fontSize:{"headline-xl-mobile":["26px",{"lineHeight":"34px","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg-mobile":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-code":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","fontWeight":"600"}],"label-metric":["28px",{"lineHeight":"32px","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-inverse-surface text-inverse-on-surface z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-margin flex items-center justify-between bg-inverse-surface border-b border-secondary/20"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WtK4MGHNbQk77e5GoxqbVT6ktEkPC6XlYoshMOT3l4s4FrxBHR_-h8VyKqAbVXH-B4cFk0cVdcKiLTyXzCXdNaRt3igJHVWTfB1HeILr-B12BAsfsjLhl4m8riHtU0PpddlJ35iSjD9I10L8b_EG9WGKuB2xpfTSOvwe0_u50Maitgl_VCfSC23dZjutp3wJ-IcHvzzPoMUMdweqgqHhjnPV8j1RGR1Hm_5h9gjKMgxn_2-OD1sHp8EHpz"/><div class="flex flex-col"><span class="font-headline-md text-body-md font-bold tracking-wider text-inverse-on-surface leading-none">AUTONOMOZ</span><span class="font-label-code text-[9px] uppercase tracking-widest text-secondary-fixed-dim leading-tight">ICS Platform</span></div></div><span class="px-space-xs py-0.5 bg-primary/20 text-inverse-primary rounded font-label-sm uppercase">GERENTE</span></div><nav class="flex flex-col py-space-sm" data-active-classes="bg-primary text-on-primary font-bold"><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md">Dashboard</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="estoque" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md">Estoque</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="ordens-de-producao" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="font-body-md">Ordens de Produção</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="rastreabilidade-de-pecas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span><span class="font-body-md">Rastreabilidade</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="movimentacoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">sync_alt</span><span class="font-body-md">Movimentações</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="alertas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">warning</span><span class="font-body-md">Alertas</span></div><span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded font-label-code text-body-sm font-bold bg-error text-on-error">5</span></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="relatorios" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-body-md">Relatórios</span></div></a><a class="flex items-center justify-between px-space-md py-space-sm text-secondary-fixed-dim hover:bg-surface-container-highest/10 hover:text-inverse-on-surface transition-colors min-h-[44px]" data-path="configuracoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body-md">Configurações</span></div></a></nav></div><div class="p-space-md bg-inverse-surface border-t border-secondary/20 flex flex-col gap-space-sm"><div class="flex items-center justify-between"><span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded font-label-code text-body-sm text-tertiary-fixed-dim bg-tertiary/20"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>Planta Sorocaba - Turno A</span></div><div class="flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm min-w-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0"><span class="font-body-sm font-bold truncate text-inverse-on-surface">Eng. Marcos Silveira</span><span class="font-label-sm text-secondary-fixed-dim truncate">Gerente de Operações</span></div></div><a class="p-space-xs rounded text-secondary-fixed-dim hover:text-error hover:bg-surface-container-highest/10 transition-colors shrink-0" data-path="logout" href="#" title="Encerrar Turno"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WtK4MGHNbQk77e5GoxqbVT6ktEkPC6XlYoshMOT3l4s4FrxBHR_-h8VyKqAbVXH-B4cFk0cVdcKiLTyXzCXdNaRt3igJHVWTfB1HeILr-B12BAsfsjLhl4m8riHtU0PpddlJ35iSjD9I10L8b_EG9WGKuB2xpfTSOvwe0_u50Maitgl_VCfSC23dZjutp3wJ-IcHvzzPoMUMdweqgqHhjnPV8j1RGR1Hm_5h9gjKMgxn_2-OD1sHp8EHpz"/><div class="flex items-center gap-space-sm"><span class="font-label-code text-body-sm text-on-surface-variant font-medium">Terça-feira, 24 de Outubro • 14:32:05</span><span class="text-outline-variant font-body-sm">|</span><div class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded bg-surface-container text-tertiary font-label-sm"><span class="w-2 h-2 rounded-full bg-tertiary"></span><span>Linha Operacional: Online (99.8%)</span></div></div></div><div class="flex items-center gap-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-space-sm text-secondary text-[18px]">search</span><input class="h-10 pl-9 pr-space-md w-72 rounded bg-surface-container-low border border-outline/30 font-label-code text-body-sm text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary" placeholder="Consultar SKU, Lote ou OP..." type="text"/></div><button class="relative p-space-xs rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Notificações da Linha"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full relative">
+<!-- Backdrop Context: Estoque & Almoxarifado Industrial Screen (Frozen / Blurred in background) -->
+<div class="w-full pointer-events-none select-none opacity-40 blur-[1px] p-margin flex flex-col gap-space-md">
+<!-- Header Context -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code text-body-sm text-secondary">Almoxarifado</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">chevron_right</span>
+<span class="font-label-code text-body-sm text-primary font-bold">Catálogo de SKUs</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Gestão de Inventário &amp; Almoxarifado</h1>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="h-11 px-space-md bg-primary text-on-primary rounded font-body-md font-semibold flex items-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+          Novo Produto
+        </div>
+</div>
+</div>
+<!-- Quick Stats Metric Bar -->
+<div class="grid grid-cols-4 gap-gutter">
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col gap-1">
+<span class="font-label-sm text-secondary uppercase tracking-wider">Itens Cadastrados</span>
+<span class="font-label-metric text-label-metric text-on-surface">1.842</span>
+<span class="font-label-code text-body-sm text-tertiary">98.4% operacionais</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col gap-1">
+<span class="font-label-sm text-secondary uppercase tracking-wider">Alertas de Reposição</span>
+<span class="font-label-metric text-label-metric text-error">14</span>
+<span class="font-label-code text-body-sm text-error">Abaixo do estoque mín.</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col gap-1">
+<span class="font-label-sm text-secondary uppercase tracking-wider">Lotes em Trânsito</span>
+<span class="font-label-metric text-label-metric text-tertiary">38</span>
+<span class="font-label-code text-body-sm text-secondary">Aguardando conferência NF</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col gap-1">
+<span class="font-label-sm text-secondary uppercase tracking-wider">Valor em Almoxarifado</span>
+<span class="font-label-metric text-label-metric text-on-surface">R$ 412k</span>
+<span class="font-label-code text-body-sm text-secondary">Atualizado há 12 min</span>
+</div>
+</div>
+<!-- Background Table Simulation -->
+<div class="bg-surface-container-lowest rounded shadow-sm overflow-hidden mt-space-sm">
+<div class="bg-surface-container px-space-md py-space-sm flex items-center justify-between">
+<span class="font-label-sm text-secondary uppercase tracking-wider">SKU / Item</span>
+<span class="font-label-sm text-secondary uppercase tracking-wider">Categoria</span>
+<span class="font-label-sm text-secondary uppercase tracking-wider">Fornecedor Principal</span>
+<span class="font-label-sm text-secondary uppercase tracking-wider">Saldo</span>
+<span class="font-label-sm text-secondary uppercase tracking-wider">Status</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm font-label-code text-body-sm text-on-surface">
+<div class="flex items-center justify-between py-space-xs">
+<span>PC-001 • Para-choque Frontal Usinado</span>
+<span>Lataria &amp; Estrutural</span>
+<span>MaxParts Indústria</span>
+<span>42 UN</span>
+<span class="text-tertiary">OPERACIONAL</span>
+</div>
+<div class="flex items-center justify-between py-space-xs bg-surface-container-low px-space-xs rounded">
+<span>DS-884 • Disco de Freio Ventilado 280mm</span>
+<span>Suspensão &amp; Freios</span>
+<span>Fremax</span>
+<span>04 UN</span>
+<span class="text-error font-bold">ESTOQUE BAIXO</span>
+</div>
+<div class="flex items-center justify-between py-space-xs">
+<span>SN-109 • Sensor Pressão Common Rail</span>
+<span>Sistema Elétrico</span>
+<span>Bosch Automotiva</span>
+<span>88 UN</span>
+<span class="text-tertiary">OPERACIONAL</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Industrial Dark Scrim / Overlay Layer -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/75 backdrop-blur-[3px] flex items-center justify-center p-space-md transition-opacity duration-200" id="modal-overlay">
+<!-- Modal Card Container (680px Width, High Precision Mechanical Look) -->
+<div aria-labelledby="modal-title" aria-modal="true" class="relative w-full max-w-[700px] max-h-[92vh] bg-surface-container-lowest rounded-xl shadow-2xl flex flex-col overflow-hidden text-on-surface" role="dialog">
+<!-- Top Status Ribbon Accent -->
+<div class="h-1.5 w-full bg-primary shrink-0"></div>
+<!-- Modal Header -->
+<div class="px-space-lg py-space-md bg-surface-container-low flex items-start justify-between gap-space-md shrink-0">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-code text-[11px] font-bold tracking-wider bg-primary/15 text-primary uppercase">
+              MÓDULO GERENCIAL
+            </span>
+<span class="font-label-code text-body-sm text-secondary font-medium">• Ficha Cadastral ICS</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight" id="modal-title">
+            Cadastrar Novo Produto
+          </h2>
+<p class="font-body-md text-body-sm text-secondary">
+            Registro de especificações técnicas e parâmetros de suprimento no catálogo mestre.
+          </p>
+</div>
+<button class="w-10 h-10 rounded bg-surface-container-high hover:bg-surface-container-highest text-secondary hover:text-on-surface flex items-center justify-center transition-colors shrink-0" onclick="document.getElementById('modal-overlay').classList.add('hidden')" title="Fechar formulário" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Scrollable Body -->
+<div class="px-space-lg py-space-md overflow-y-auto flex flex-col gap-space-md">
+<!-- Field Group 1: SKU & Unidade de Medida -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+<div class="md:col-span-7 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="sku-code">
+                Código do item (SKU / Cód. Interno) <span class="text-error">*</span>
+</label>
+<button class="font-label-code text-[11px] text-primary hover:underline font-bold inline-flex items-center gap-1 cursor-pointer" onclick="generateSKU()" type="button">
+<span class="material-symbols-outlined text-[13px]">autorenew</span>
+                Gerar SKU automático
+              </button>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">qr_code_2</span>
+<input class="w-full h-11 pl-10 pr-space-md rounded bg-surface-container-lowest font-label-code text-body-md font-bold text-on-surface placeholder:text-secondary/70 focus:outline-none focus:bg-surface-container-low shadow-sm" id="sku-code" placeholder="Ex: PC-002, MT-905" type="text" value="PC-002"/>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Identificador único utilizado nas ordens de usinagem e rastreio.</span>
+</div>
+<div class="md:col-span-5 flex flex-col gap-1">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="unit-measure">
+              Unidade de Medida <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<select class="w-full h-11 px-space-md appearance-none rounded bg-surface-container-lowest font-body-md text-on-surface focus:outline-none focus:bg-surface-container-low shadow-sm cursor-pointer" id="unit-measure">
+<option selected="" value="UN">UN (Unidade)</option>
+<option value="CJ">CJ (Conjunto)</option>
+<option value="PC">PC (Peça)</option>
+<option value="JOGO">Jogo</option>
+<option value="PAR">Par</option>
+<option value="KG">Kg (Quilograma)</option>
+<option value="L">L (Litro)</option>
+<option value="M">M (Metro)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-secondary text-[20px]">expand_more</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Padrão de baixa em bancada.</span>
+</div>
+</div>
+<!-- Field Group 2: Nome do Produto -->
+<div class="flex flex-col gap-1">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="product-name">
+            Nome do produto <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">inventory</span>
+<input class="w-full h-11 pl-10 pr-space-md rounded bg-surface-container-lowest font-body-md text-on-surface font-medium placeholder:text-secondary/70 focus:outline-none focus:bg-surface-container-low shadow-sm" id="product-name" placeholder="Ex: Para-choque Dianteiro Reforçado" type="text" value="Para-choque Dianteiro Reforçado Linha Pesada"/>
+</div>
+</div>
+<!-- Field Group 3: Descrição Técnica -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="product-description">
+              Descrição Técnica &amp; Aplicação
+            </label>
+<span class="font-label-code text-[11px] text-secondary">Norma ABNT / NBR</span>
+</div>
+<textarea class="w-full p-space-sm rounded bg-surface-container-lowest font-body-md text-on-surface placeholder:text-secondary/70 focus:outline-none focus:bg-surface-container-low shadow-sm resize-none" id="product-description" placeholder="Detalhes técnicos, compatibilidade de modelos, especificações de material e acabamento..." rows="3">Polímero termoplástico de alta absorção com alma de aço estrutural SAE 1020. Aplicação em chassis plataformas modelo K-400 e superiores. Tratamento anticorrosivo por fosfatização.</textarea>
+</div>
+<!-- Field Group 4: Categoria & Subcategoria -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="flex flex-col gap-1">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="category-select">
+              Categoria <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<select class="w-full h-11 px-space-md appearance-none rounded bg-surface-container-lowest font-body-md text-on-surface focus:outline-none focus:bg-surface-container-low shadow-sm cursor-pointer" id="category-select">
+<option selected="" value="lataria">Lataria &amp; Estrutural</option>
+<option value="eletrico">Sistema Elétrico</option>
+<option value="motor">Motor &amp; Transmissão</option>
+<option value="suspensao">Suspensão &amp; Freios</option>
+<option value="quimica">Química &amp; Lubrificantes</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-secondary text-[20px]">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="subcategory-select">
+                Subcategoria
+              </label>
+<span class="font-label-code text-[10px] text-tertiary font-semibold uppercase">Vinculado</span>
+</div>
+<div class="relative flex items-center">
+<select class="w-full h-11 px-space-md appearance-none rounded bg-surface-container-lowest font-body-md text-on-surface focus:outline-none focus:bg-surface-container-low shadow-sm cursor-pointer" id="subcategory-select">
+<option selected="" value="externos">Componentes Externos</option>
+<option value="estrutural">Estrutural / Solda</option>
+<option value="fiacao">Fiação &amp; Conectores</option>
+<option value="sensores">Sensores</option>
+<option value="cilindros">Cilindros &amp; Pistões</option>
+<option value="friccao">Fricção</option>
+<option value="discos">Discos &amp; Tambores</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-secondary text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Field Group 5: Fornecedor Homologado & Valor Unitário -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+<div class="md:col-span-7 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="supplier-select">
+                Fornecedor Homologado <span class="text-error">*</span>
+</label>
+<a class="font-label-code text-[11px] text-primary hover:underline font-bold inline-flex items-center gap-0.5" href="#">
+<span class="material-symbols-outlined text-[13px]">add</span>
+                Novo fornecedor
+              </a>
+</div>
+<div class="relative flex items-center">
+<select class="w-full h-11 px-space-md appearance-none rounded bg-surface-container-lowest font-body-md text-on-surface focus:outline-none focus:bg-surface-container-low shadow-sm cursor-pointer" id="supplier-select">
+<option selected="" value="maxparts">MaxParts Indústria e Peças Ltda</option>
+<option value="abc">Metalúrgica ABC</option>
+<option value="bosch">Bosch Automotiva</option>
+<option value="mahle">Mahle Metal Leve</option>
+<option value="frasle">Fras-le Componentes</option>
+<option value="delphi">Delphi Technologies</option>
+<option value="fremax">Fremax Discos e Rotores</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 pointer-events-none text-secondary text-[20px]">expand_more</span>
+</div>
+</div>
+<div class="md:col-span-5 flex flex-col gap-1">
+<label class="font-body-md text-body-sm font-semibold text-on-surface" for="unit-cost">
+              Valor unitário estimado
+            </label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-label-code text-body-sm font-bold text-secondary">R$</span>
+<input class="w-full h-11 pl-10 pr-space-md rounded bg-surface-container-lowest font-label-code text-body-md font-semibold text-on-surface placeholder:text-secondary/70 focus:outline-none focus:bg-surface-container-low shadow-sm" id="unit-cost" placeholder="0,00" type="text" value="385,50"/>
+</div>
+</div>
+</div>
+<!-- Field Group 6: Estoque Mínimo de Segurança -->
+<div class="p-space-md bg-surface-container-low rounded-lg flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">safety_check</span>
+<label class="font-body-md text-body-sm font-bold text-on-surface" for="min-stock">
+                Estoque Mínimo de Segurança
+              </label>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-code text-body-sm font-bold bg-error/15 text-error">
+              Gatilho Crítico
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<div class="md:col-span-4 relative flex items-center">
+<input class="w-full h-11 px-space-md rounded bg-surface-container-lowest font-label-code text-body-lg font-bold text-on-surface focus:outline-none shadow-sm" id="min-stock" min="1" placeholder="Ex: 15" step="1" type="number" value="15"/>
+<span class="absolute right-3 font-label-code text-body-sm font-medium text-secondary">UN</span>
+</div>
+<div class="md:col-span-8">
+<p class="font-body-sm text-body-sm text-secondary leading-snug">
+                Gera alerta crítico automático no Dashboard e notificação ao encarregado de compras assim que o saldo físico no almoxarifado atingir ou cruzar este limite.
+              </p>
+</div>
+</div>
+</div>
+<!-- Industrial Informational Callout Banner -->
+<div class="p-space-md bg-tertiary-fixed/40 rounded flex items-start gap-space-sm shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-[22px] shrink-0 mt-0.5">info</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-body-md text-body-sm font-bold text-tertiary-container">
+              ℹ️ A entrada física do produto é registrada depois, em Lotes.
+            </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Cadastrar o item cria a ficha técnica do SKU no catálogo do almoxarifado. Para dar entrada de volume físico e conferência de nota fiscal, utilize o menu <strong class="font-semibold text-on-surface">Movimentações</strong> ou <strong class="font-semibold text-on-surface">Módulo de Lotes</strong>.
+            </p>
+</div>
+</div>
+</div>
+<!-- Modal Action Footer -->
+<div class="px-space-lg py-space-md bg-surface-container-low flex items-center justify-between gap-space-md shrink-0">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-code text-[11px]">Validação Nível: Gerência Operacional</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="min-h-[44px] px-space-md py-space-sm rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-body-md font-semibold transition-colors flex items-center justify-center" onclick="document.getElementById('modal-overlay').classList.add('hidden')" type="button">
+            Cancelar
+          </button>
+<button class="min-h-[44px] px-space-lg py-space-sm rounded bg-primary hover:bg-primary-container text-on-primary font-body-md font-bold transition-all shadow-md flex items-center gap-space-xs active:scale-[0.99]" onclick="handleSaveProduct()" type="button">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Salvar Produto</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Micro-interactions Handler -->
+<script>
+    function generateSKU() {
+      const prefixes = ['PC', 'MT', 'DS', 'SN', 'FL', 'CV'];
+      const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+      const randomNumber = Math.floor(100 + Math.random() * 900);
+      const skuField = document.getElementById('sku-code');
+      if (skuField) {
+        skuField.value = `${randomPrefix}-${randomNumber}`;
+        skuField.classList.add('bg-primary-fixed/30');
+        setTimeout(() => {
+          skuField.classList.remove('bg-primary-fixed/30');
+        }, 300);
+      }
+    }
+
+    function handleSaveProduct() {
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">sync</span><span>Gravando SKU...</span>`;
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Item Cadastrado!</span>`;
+        btn.classList.remove('bg-primary');
+        btn.classList.add('bg-tertiary-container');
+        setTimeout(() => {
+          document.getElementById('modal-overlay').classList.add('hidden');
+        }, 600);
+      }, 700);
+    }
+  </script>
+</div></main></div></body></html>

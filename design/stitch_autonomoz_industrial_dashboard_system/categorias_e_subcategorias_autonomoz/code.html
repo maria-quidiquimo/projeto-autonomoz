@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "error": "#ba1a1a", "secondary-container": "#dae2fd", "on-primary-fixed": "#370e00", "tertiary-container": "#007bb9", "tertiary-fixed": "#cce5ff", "surface-bright": "#f8f9ff", "primary": "#a33900", "secondary-fixed": "#dae2fd", "secondary": "#565e74", "on-background": "#0b1c30", "on-primary": "#ffffff", "on-tertiary": "#ffffff", "background": "#f8f9ff", "tertiary": "#006194", "surface-tint": "#a73a00", "surface-container-low": "#eff4ff", "inverse-primary": "#ffb599", "outline": "#8e7166", "surface-container": "#e5eeff", "surface-container-highest": "#d3e4fe", "primary-fixed-dim": "#ffb599", "surface-container-lowest": "#ffffff", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#93ccff", "on-tertiary-fixed": "#001d31", "surface": "#f8f9ff", "error-container": "#ffdad6", "surface-container-high": "#dce9ff", "outline-variant": "#e2bfb2", "primary-fixed": "#ffdbce", "surface-variant": "#d3e4fe", "on-secondary-fixed": "#131b2e", "on-secondary-container": "#5c647a", "on-error": "#ffffff", "surface-dim": "#cbdbf5", "on-primary-fixed-variant": "#7f2b00", "on-surface": "#0b1c30", "on-surface-variant": "#5a4138", "on-primary-container": "#fffbff", "primary-container": "#cc4900", "on-tertiary-container": "#fdfcff", "on-secondary-fixed-variant": "#3f465c", "inverse-on-surface": "#eaf1ff", "on-tertiary-fixed-variant": "#004b73", "secondary-fixed-dim": "#bec6e0", "inverse-surface": "#213145", "on-error-container": "#93000a" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-md": "1rem", "margin": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "space-xl": "2.5rem", "gutter": "1.25rem" }, "fontFamily": { "headline-xl-mobile": [ "IBM Plex Sans" ], "body-lg": [ "IBM Plex Sans" ], "body-sm": [ "IBM Plex Sans" ], "headline-lg-mobile": [ "IBM Plex Sans" ], "label-metric": [ "JetBrains Mono" ], "label-sm": [ "IBM Plex Sans" ], "headline-lg": [ "IBM Plex Sans" ], "label-code": [ "JetBrains Mono" ], "headline-md": [ "IBM Plex Sans" ], "body-md": [ "IBM Plex Sans" ], "headline-xl": [ "IBM Plex Sans" ] }, "fontSize": { "headline-xl-mobile": [ "26px", { "lineHeight": "34px", "fontWeight": "700" } ], "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "headline-lg-mobile": [ "20px", { "lineHeight": "28px", "fontWeight": "600" } ], "label-metric": [ "28px", { "lineHeight": "32px", "fontWeight": "700" } ], "label-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "600" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "fontWeight": "600" } ], "label-code": [ "13px", { "lineHeight": "18px", "fontWeight": "500" } ], "headline-md": [ "20px", { "lineHeight": "28px", "fontWeight": "600" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "headline-xl": [ "32px", { "lineHeight": "40px", "fontWeight": "700" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-[260px] bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-md flex items-center justify-between bg-surface-container-low"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #ea580c - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe3OVe1-95Np0M4UpBWT5onZI6O5U3S7h8XWIPivQghwU4jj5NdYwA2xi20slFaJN4C8qCkpSN8xoZth0-wVAHOgNmtWlKpuckldt-4LzOpcztrVxbdULaWYGDEorRth-kA0KLpBBVxJzPmKhYV7jVb0xmOFRVyeNLWaD4ZNPs5VulXlQlAPnW3JPpwRDZBgdbFnULkWYVx87bw3ydGuEyjq97kojy4_A9nwu6OxnyVetIgf2KS8-ADw"/><span class="font-headline-md text-headline-md tracking-wider text-on-surface uppercase">AUTONOMOZ</span></div><span class="px-space-xs py-0.5 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wide">MES v3.4</span></div><div class="px-space-md py-space-sm bg-surface-container flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nível de Acesso</span><span class="px-2 py-0.5 rounded-lg bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm font-semibold tracking-wider">GERENTE</span></div><nav class="flex-1 px-space-sm py-space-md space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center justify-between h-11 px-space-md rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dashboard" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-body-md text-body-md">Dashboard</span></div></a><a aria-current="page" class="flex items-center justify-between h-11 px-space-md transition-colors bg-primary-container text-on-primary-container font-semibold rounded-lg" data-path="estoque" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md text-body-md">Estoque</span></div></a><a class="flex items-center justify-between h-11 px-space-md rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ordens-de-producao" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="font-body-md text-body-md">Ordens de Produção</span></div></a><a class="flex items-center justify-between h-11 px-space-md rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="rastreabilidade" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span><span class="font-body-md text-body-md">Rastreabilidade</span></div></a><a class="flex items-center justify-between h-11 px-space-md rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="movimentacoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">sync_alt</span><span class="font-body-md text-body-md">Movimentações</span></div></a><a class="flex items-center justify-between h-11 px-space-md rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="alertas" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">warning</span><span class="font-body-md text-body-md">Alertas</span></div><span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold">5</span></a><a class="flex items-center justify-between h-11 px-space-md rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="relatorios" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span class="font-body-md text-body-md">Relatórios</span></div></a><a class="flex items-center justify-between h-11 px-space-md rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="configuracoes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md">Configurações</span></div></a></nav></div><div class="p-space-md bg-surface-container-low"><div class="flex items-center gap-space-sm mb-space-xs"><div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-headline-md text-headline-md font-bold">MS</div><div class="min-w-0 flex-1"><p class="font-body-md text-body-md font-semibold text-on-surface truncate">Eng. Marcos Silveira</p><p class="font-label-sm text-label-sm text-on-surface-variant truncate">Gerente de Operações</p></div></div><div class="mt-space-xs pt-space-xs bg-surface-container-highest/40 p-space-xs rounded-lg flex items-center justify-between"><span class="font-label-code text-label-code text-on-surface-variant truncate">Planta Sorocaba</span><span class="font-label-code text-label-code font-bold text-primary px-1.5 py-0.5 rounded bg-surface-container-lowest">Turno A</span></div></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin gap-gutter"><div class="flex items-center gap-gutter min-w-0 flex-1"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-code text-label-code whitespace-nowrap"><span class="text-on-surface font-semibold">ESTOQUE</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-primary font-bold">CATEGORIAS E SUBCATEGORIAS</span></div><div class="relative flex-1 max-w-md hidden lg:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span><input class="w-full h-10 pl-9 pr-space-md rounded-lg bg-surface-container-low text-on-surface font-label-code text-label-code focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-on-surface-variant/70" placeholder="Pesquisar SKU, Lote, OP ou Código de Barras (F3)..." type="text"/></div></div><div class="flex items-center gap-gutter"><div class="hidden xl:flex items-center gap-space-sm px-space-md py-1.5 rounded-lg bg-surface-container-low"><div class="w-2.5 h-2.5 rounded-full bg-[#15803d] animate-pulse"></div><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">Linha Operacional Online</span><span class="font-label-code text-label-code text-tertiary leading-tight">99.8% OEE Ativo</span></div></div><div class="hidden md:flex flex-col text-right"><span class="font-label-code text-label-code text-on-surface font-semibold" id="live-clock">24 OUT 2024 · 14:32:05</span><span class="font-label-sm text-label-sm text-on-surface-variant">Sincronizado NTP</span></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Notificações e Alertas"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-container ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-margin bg-surface min-h-[calc(100vh-4rem)]"><div class="flex flex-col w-full">
+<!-- Local Top Sub-Header & Breadcrumb Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm mb-space-md border-b border-surface-container">
+<div class="flex items-center gap-space-xs font-label-code text-label-code text-on-surface-variant">
+<span class="text-on-surface-variant font-medium">Planta Sorocaba</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface-variant font-medium">Almoxarifado Central</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface-variant font-medium">Estoque</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Categorias e Subcategorias</span>
+</div>
+<div class="flex items-center gap-space-xs px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm tracking-wider uppercase font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+<span>Nível Gerencial</span>
+</div>
+</div>
+<!-- Page Title & Primary Actions Area -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md mb-space-lg">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Gestão de Categorias e Subcategorias</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-4xl">
+        Estruturação taxonômica de itens, peças de reposição e insumos industriais vinculados ao catálogo e controle de almoxarifado.
+      </p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="h-11 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-md text-[14px] flex items-center gap-space-xs transition-colors shadow-sm" onclick="openModal('nova-subcategoria')">
+<span class="material-symbols-outlined text-[20px]">create_new_folder</span>
+<span>+ Nova Subcategoria</span>
+</button>
+<button class="h-11 px-space-md rounded-lg bg-primary-container hover:opacity-95 text-on-primary font-headline-md text-[14px] flex items-center gap-space-xs transition-colors shadow-sm" onclick="openModal('nova-categoria')">
+<span class="material-symbols-outlined text-[20px]">add_box</span>
+<span>+ Nova Categoria</span>
+</button>
+</div>
+</div>
+<!-- Main Split-View Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- LEFT PANEL: Tree View (Catalog Structure) -->
+<div class="lg:col-span-4 xl:col-span-4 flex flex-col rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">account_tree</span>
+<h2 class="font-headline-md text-[16px] text-on-surface">Hierarquia do Catálogo</h2>
+</div>
+<span class="font-label-code text-label-code text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">3 Cat • 5 Sub</span>
+</div>
+<!-- Quick Search in Tree -->
+<div class="relative mb-space-sm">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full h-9 pl-8 pr-3 rounded bg-surface-container-low text-on-surface font-label-code text-[12px] focus:outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary placeholder:text-on-surface-variant/60" id="tree-search" placeholder="Filtrar categorias..." type="text"/>
+</div>
+<!-- Expand / Collapse All Controls -->
+<div class="flex items-center justify-between pb-space-sm text-label-sm font-label-sm text-tertiary">
+<div class="flex items-center gap-3">
+<button class="hover:underline flex items-center gap-0.5" id="btn-expand-all">
+<span class="material-symbols-outlined text-[14px]">unfold_more</span> Expandir todos
+          </button>
+<span class="text-surface-container-highest">|</span>
+<button class="hover:underline flex items-center gap-0.5" id="btn-collapse-all">
+<span class="material-symbols-outlined text-[14px]">unfold_less</span> Recolher todos
+          </button>
+</div>
+<span class="font-label-code text-label-code text-on-surface-variant">Total: 190 SKUs</span>
+</div>
+<!-- Interactive Tree Container -->
+<div class="flex flex-col gap-1 select-none overflow-y-auto max-h-[640px] pr-1" id="category-tree">
+<!-- Category 1: Funilaria (Expanded) -->
+<div class="tree-node group" data-category="funilaria">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant node-chevron">expand_more</span>
+<span class="material-symbols-outlined text-[20px] text-primary">folder_open</span>
+<span class="font-headline-md text-[14px] text-on-surface truncate">Funilaria</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant shrink-0">42 SKUs</span>
+</div>
+<!-- Subcategories for Funilaria -->
+<div class="pl-6 pt-1 flex flex-col gap-1 node-children">
+<!-- Subcategory 1.1: Selected / Active -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-primary/10 text-on-surface border-l-4 border-primary shadow-sm cursor-pointer" title="Item Ativo em Edição">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-primary">label</span>
+<span class="font-headline-md text-[13px] font-semibold text-primary truncate">Funilaria 1</span>
+<span class="px-1.5 py-0.2 rounded bg-primary text-on-primary font-label-sm text-[10px]">EDITANDO</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-primary-container text-on-primary shrink-0 font-bold">18 SKUs</span>
+</div>
+<!-- Subcategory 1.2 -->
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">label_off</span>
+<span class="font-body-md text-[13px] text-on-surface truncate">Funilaria 2</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant shrink-0">24 SKUs</span>
+</div>
+</div>
+</div>
+<!-- Category 2: Elétrica (Expanded) -->
+<div class="tree-node group mt-1" data-category="eletrica">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant node-chevron">expand_more</span>
+<span class="material-symbols-outlined text-[20px] text-tertiary">folder_open</span>
+<span class="font-headline-md text-[14px] text-on-surface truncate">Elétrica</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant shrink-0">85 SKUs</span>
+</div>
+<!-- Subcategories for Elétrica -->
+<div class="pl-6 pt-1 flex flex-col gap-1 node-children">
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">label</span>
+<span class="font-body-md text-[13px] text-on-surface truncate">Elétrica 1</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant shrink-0">50 SKUs</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">label</span>
+<span class="font-body-md text-[13px] text-on-surface truncate">Elétrica 2</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant shrink-0">35 SKUs</span>
+</div>
+</div>
+</div>
+<!-- Category 3: Motor (Collapsed by Default) -->
+<div class="tree-node group mt-1" data-category="motor">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant node-chevron">chevron_right</span>
+<span class="material-symbols-outlined text-[20px] text-secondary">folder</span>
+<span class="font-headline-md text-[14px] text-on-surface truncate">Motor</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant shrink-0">63 SKUs</span>
+</div>
+<!-- Subcategories for Motor (Hidden) -->
+<div class="pl-6 pt-1 flex flex-col gap-1 node-children hidden">
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">label</span>
+<span class="font-body-md text-[13px] text-on-surface truncate">Motor 1</span>
+</div>
+<span class="font-label-code text-label-code px-2 py-0.5 rounded bg-surface-container text-on-surface-variant shrink-0">63 SKUs</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Drag & Drop Help / Instruction Footnote -->
+<div class="mt-space-md pt-space-sm border-t border-surface-container flex items-start gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0">drag_indicator</span>
+<p class="font-body-sm text-body-sm leading-tight">
+          Arraste para reordenar ou selecione um item para visualizar e editar suas propriedades técnicas e vínculo com estoque.
+        </p>
+</div>
+</div>
+<!-- RIGHT PANEL: Details & Edit Panel -->
+<div class="lg:col-span-8 xl:col-span-8 flex flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
+<!-- Panel Header & Status -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-md border-b border-surface-container">
+<div>
+<div class="flex items-center gap-2 font-label-code text-[12px] text-on-surface-variant mb-1">
+<span>Categoria: <strong class="text-on-surface">Funilaria</strong></span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary font-bold">Subcategoria Selecionada</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-2">
+            Detalhes da Subcategoria: Funilaria 1
+          </h2>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2.5 py-1 rounded bg-[#dcfce7] text-[#15803d] font-label-code text-[12px] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Ativo no Catálogo
+          </span>
+<span class="px-2.5 py-1 rounded bg-surface-container font-label-code text-[12px] text-on-surface-variant font-semibold">
+            ID: SUB-CAT-0101
+          </span>
+</div>
+</div>
+<!-- Impact Metric / Linked Products Counter Banner -->
+<div class="my-space-md p-space-md rounded-lg bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-3">
+<div class="p-2 rounded bg-surface-container-lowest text-primary shadow-xs">
+<span class="material-symbols-outlined text-[24px]">inventory</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-metric text-[20px] text-primary">18</span>
+<span class="font-headline-md text-[14px] text-on-surface font-semibold">Produtos vinculados a esta subcategoria</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Ex: Para-choque Dianteiro (PC-001), Painel Traseiro (LT-108), Suporte de Farol (SP-014).
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-error-container text-on-error-container font-label-sm text-[11px] shrink-0 font-medium">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>Bloqueio de exclusão por vínculo ativo</span>
+</div>
+</div>
+<!-- Edit Form Grid -->
+<form class="space-y-space-md" id="edit-subcategory-form" onsubmit="event.preventDefault(); showToast('Alterações salvas com sucesso!');">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Subcategory Name -->
+<div>
+<label class="block font-label-code text-[12px] font-semibold text-on-surface mb-1">
+              Nome da Subcategoria <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-11 px-3 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest" required="" type="text" value="Funilaria 1"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Rótulo formal de exibição nas OPs e ordens de separação.</span>
+</div>
+<!-- Parent Category Selector -->
+<div>
+<label class="block font-label-code text-[12px] font-semibold text-on-surface mb-1">
+              Categoria Pai <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full h-11 px-3 pr-8 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest appearance-none cursor-pointer">
+<option selected="" value="funilaria">Funilaria (FUN)</option>
+<option value="eletrica">Elétrica (ELE)</option>
+<option value="motor">Motor (MOT)</option>
+<option value="usinagem">Usinagem CNC (USI)</option>
+<option value="hidraulica">Hidráulica &amp; Pneumática (HID)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">arrow_drop_down</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Vincular a uma categoria mestra do catálogo central.</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Technical Code / Slug -->
+<div>
+<label class="block font-label-code text-[12px] font-semibold text-on-surface mb-1">
+              Código / Slug Técnico <span class="text-on-surface-variant">(Somente Leitura)</span>
+</label>
+<div class="flex items-center">
+<span class="h-11 px-3 rounded-l bg-surface-container font-label-code text-label-code text-on-surface-variant flex items-center">
+                CAT-FUN-
+              </span>
+<input class="w-full h-11 px-3 rounded-r bg-surface-container text-on-surface font-label-code text-label-code font-bold cursor-not-allowed opacity-90 select-all" readonly="" type="text" value="01"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Utilizado na composição serial dos códigos de SKU e rastreabilidade QR.</span>
+</div>
+<!-- Almoxarifado Preferencial -->
+<div>
+<label class="block font-label-code text-[12px] font-semibold text-on-surface mb-1">
+              Almoxarifado Preferencial de Estocagem
+            </label>
+<div class="relative">
+<select class="w-full h-11 px-3 pr-8 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest appearance-none cursor-pointer">
+<option selected="" value="almox-central">Almoxarifado Central - Galpão 04 (Rua A / Prateleiras 01-12)</option>
+<option value="almox-sorocaba-2">Almoxarifado Satélite Sorocaba II (Doca B)</option>
+<option value="pulmao-estamparia">Estoque Pulmão - Estamparia Pesada</option>
+<option value="quarentena">Área de Quarentena e Inspeção de Entrada</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">warehouse</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Determina a rota padrão de conferência e picking no chão de fábrica.</span>
+</div>
+</div>
+<!-- Operational Description Textarea -->
+<div>
+<label class="block font-label-code text-[12px] font-semibold text-on-surface mb-1">
+            Descrição Operacional e Regras de Manuseio <span class="text-error">*</span>
+</label>
+<textarea class="w-full p-3 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest" required="" rows="3">Componentes estruturais e acabamentos externos de lataria estampada, para-choques, paralamas e peças de deformação programada da linha automotiva pesada.</textarea>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 block">Instrução visível aos operadores durante a abertura de requisições de estoque.</span>
+</div>
+<!-- Metadata & Audit Log Bar -->
+<div class="p-space-sm rounded bg-surface-container text-on-surface-variant font-label-code text-[11px] flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">history_toggle_off</span>
+<span>Criado em: <strong>12/03/2023</strong> por <strong>Eng. Marcos Silveira</strong></span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">update</span>
+<span>Última alteração: <strong>18/09/2023 às 14:20</strong> (Terminal BANCADA-03)</span>
+</div>
+</div>
+<!-- Bottom Action Bar (Clear separation between Destructive and Save actions) -->
+<div class="pt-space-md border-t border-surface-container flex flex-wrap items-center justify-between gap-space-sm">
+<div>
+<button class="h-11 px-4 rounded bg-error-container hover:bg-error text-on-error-container hover:text-on-error font-headline-md text-[14px] flex items-center gap-2 transition-colors" onclick="openModal('modal-exclusao')" type="button">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+<span>Excluir Subcategoria</span>
+</button>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-11 px-space-md rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-md text-[14px] transition-colors" onclick="resetForm()" type="button">
+              Descartar Alterações
+            </button>
+<button class="h-11 px-space-lg rounded bg-primary-container hover:opacity-95 text-on-primary font-headline-md text-[14px] flex items-center gap-2 transition-colors shadow-sm" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Salvar Alterações</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- Industrial Confirmation Modal / Warning Overlay (Hidden by default, triggered by Excluir button) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-inverse-surface/65 backdrop-blur-xs p-4 hidden" id="modal-exclusao">
+<div class="w-full max-w-xl rounded-xl bg-surface-container-lowest p-space-lg shadow-2xl animate-in fade-in zoom-in duration-150">
+<!-- Modal Header -->
+<div class="flex items-start justify-between pb-space-sm border-b border-surface-container">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-error-container text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">warning</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-[18px] text-on-surface">Confirmar Exclusão de Categoria / Subcategoria</h3>
+<span class="font-label-code text-label-code text-on-surface-variant">Protocolo de Integridade Referencial MES-SYS-04</span>
+</div>
+</div>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" onclick="closeModal('modal-exclusao')">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="py-space-md space-y-space-sm">
+<div class="p-space-sm rounded bg-error-container/60 text-on-error-container flex items-start gap-2">
+<span class="material-symbols-outlined text-[20px] text-error shrink-0 mt-0.5">error</span>
+<p class="font-headline-md text-[13px] font-semibold leading-snug">
+            Atenção: Não é possível excluir "Funilaria 1" pois existem 18 produtos associados ativamente a este registro.
+          </p>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+          Para garantir a integridade do catálogo e rastreabilidade dos lotes já produzidos, transfira previamente todos os produtos vinculados para outra categoria no módulo de Estoque ou inative temporariamente a subcategoria.
+        </p>
+<!-- Sample Affected Items Box -->
+<div class="p-space-sm rounded bg-surface-container-low">
+<span class="font-label-code text-label-code text-on-surface-variant uppercase font-semibold block mb-1">
+            Exemplos de SKUs Vinculados Afetados:
+          </span>
+<ul class="font-label-code text-[12px] text-on-surface space-y-1">
+<li class="flex items-center justify-between">
+<span>• SKU-PC-001 (Para-choque Dianteiro Reforçado)</span>
+<span class="text-tertiary">14 un em estoque</span>
+</li>
+<li class="flex items-center justify-between">
+<span>• SKU-LT-108 (Painel Traseiro Estampado 2mm)</span>
+<span class="text-tertiary">32 un em estoque</span>
+</li>
+<li class="flex items-center justify-between">
+<span>• SKU-SP-014 (Suporte Frontal Absorvedor de Impacto)</span>
+<span class="text-tertiary">08 un em estoque</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Modal Action Buttons -->
+<div class="pt-space-sm border-t border-surface-container flex flex-wrap items-center justify-end gap-space-sm">
+<a class="h-10 px-4 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-md text-[13px] flex items-center gap-1.5 transition-colors" data-path="estoque" href="#">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+<span>Ver Produtos Vinculados no Estoque</span>
+</a>
+<button class="h-10 px-space-md rounded bg-inverse-surface hover:opacity-95 text-inverse-on-surface font-headline-md text-[13px] transition-colors" onclick="closeModal('modal-exclusao')">
+          Entendido / Fechar
+        </button>
+</div>
+</div>
+</div>
+<!-- Generic Creation Modal for New Category / Subcategory -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-inverse-surface/65 backdrop-blur-xs p-4 hidden" id="modal-criacao">
+<div class="w-full max-w-lg rounded-xl bg-surface-container-lowest p-space-lg shadow-2xl animate-in fade-in zoom-in duration-150">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+<h3 class="font-headline-lg text-[18px] text-on-surface" id="modal-criacao-title">Nova Categoria</h3>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant" onclick="closeModal('modal-criacao')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="py-space-md space-y-space-sm">
+<div>
+<label class="block font-label-code text-[12px] font-semibold text-on-surface mb-1">Nome do Item *</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Ex: Sistemas Hidráulicos" type="text"/>
+</div>
+<div>
+<label class="block font-label-code text-[12px] font-semibold text-on-surface mb-1">Sigla / Prefixo de SKU *</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-low text-on-surface font-label-code text-label-code uppercase focus:outline-none focus:ring-1 focus:ring-primary" maxlength="4" placeholder="Ex: HID" type="text"/>
+</div>
+</div>
+<div class="pt-space-sm border-t border-surface-container flex items-center justify-end gap-space-sm">
+<button class="h-10 px-4 rounded bg-surface-container text-on-surface font-headline-md text-[13px]" onclick="closeModal('modal-criacao')">Cancelar</button>
+<button class="h-10 px-4 rounded bg-primary-container text-on-primary font-headline-md text-[13px]" onclick="closeModal('modal-criacao'); showToast('Registro criado com sucesso!');">Criar Registro</button>
+</div>
+</div>
+</div>
+<!-- Inline Toast Notification Component -->
+<div class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-lg bg-inverse-surface text-inverse-on-surface shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none" id="toast-notification">
+<span class="material-symbols-outlined text-[#22c55e] text-[20px]">check_circle</span>
+<span class="font-body-md text-[14px]" id="toast-message">Operação realizada com sucesso!</span>
+</div>
+<!-- Interactive Logic for Tree Behavior and Modals -->
+<script>
+    function openModal(id) {
+      if (id === 'nova-categoria') {
+        document.getElementById('modal-criacao-title').textContent = 'Nova Categoria Mestra';
+        document.getElementById('modal-criacao').classList.remove('hidden');
+      } else if (id === 'nova-subcategoria') {
+        document.getElementById('modal-criacao-title').textContent = 'Nova Subcategoria';
+        document.getElementById('modal-criacao').classList.remove('hidden');
+      } else {
+        const modal = document.getElementById(id);
+        if (modal) modal.classList.remove('hidden');
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-notification');
+      const msgEl = document.getElementById('toast-message');
+      msgEl.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    function resetForm() {
+      document.getElementById('edit-subcategory-form').reset();
+      showToast('Formulário restaurado aos valores originais.');
+    }
+
+    // Interactive Tree view toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const treeNodes = document.querySelectorAll('.tree-node');
+      treeNodes.forEach(node => {
+        const header = node.querySelector(':scope > div:first-child');
+        const children = node.querySelector('.node-children');
+        const chevron = node.querySelector('.node-chevron');
+
+        if (header && children && chevron) {
+          header.addEventListener('click', (e) => {
+            // Toggle visibility
+            const isHidden = children.classList.contains('hidden');
+            if (isHidden) {
+              children.classList.remove('hidden');
+              chevron.textContent = 'expand_more';
+            } else {
+              children.classList.add('hidden');
+              chevron.textContent = 'chevron_right';
+            }
+          });
+        }
+      });
+
+      // Expand / Collapse All buttons
+      const btnExpandAll = document.getElementById('btn-expand-all');
+      const btnCollapseAll = document.getElementById('btn-collapse-all');
+
+      if (btnExpandAll && btnCollapseAll) {
+        btnExpandAll.addEventListener('click', () => {
+          document.querySelectorAll('.node-children').forEach(c => c.classList.remove('hidden'));
+          document.querySelectorAll('.node-chevron').forEach(icon => icon.textContent = 'expand_more');
+        });
+
+        btnCollapseAll.addEventListener('click', () => {
+          document.querySelectorAll('.node-children').forEach(c => c.classList.add('hidden'));
+          document.querySelectorAll('.node-chevron').forEach(icon => icon.textContent = 'chevron_right');
+        });
+      }
+
+      // Quick filter text search in tree
+      const searchInput = document.getElementById('tree-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const val = e.target.value.toLowerCase();
+          document.querySelectorAll('.tree-node').forEach(node => {
+            const text = node.textContent.toLowerCase();
+            if (text.includes(val)) {
+              node.classList.remove('hidden');
+              const children = node.querySelector('.node-children');
+              if (children && val.length > 0) children.classList.remove('hidden');
+            } else {
+              node.classList.add('hidden');
+            }
+          });
+        });
+      }
+    });
+  </script>
+</div></main></div></body></html>
