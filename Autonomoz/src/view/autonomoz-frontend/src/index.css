@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-surface: #f8f9ff;
+    --color-surface-dim: #cbdbf5;
+    --color-surface-bright: #f8f9ff;
+    --color-surface-variant: #d3e4fe;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #eff4ff;
+    --color-surface-container: #e5eeff;
+    --color-surface-container-high: #dce9ff;
+    --color-surface-container-highest: #d3e4fe;
+
+    --color-on-surface: #0b1c30;
+    --color-on-surface-variant: #5a4138;
+    --color-inverse-surface: #213145;
+    --color-inverse-on-surface: #eaf1ff;
+    --color-inverse-primary: #ffb599;
+
+    --color-outline: #8e7166;
+    --color-outline-variant: #e2bfb2;
+    --color-background: #f8f9ff;
+    --color-on-background: #0b1c30;
+  }
+
+  .dark {
+    --color-surface: #0b121e;
+    --color-surface-dim: #080d17;
+    --color-surface-bright: #162032;
+    --color-surface-variant: #1a273e;
+    --color-surface-container-lowest: #0e1726;
+    --color-surface-container-low: #131f33;
+    --color-surface-container: #182842;
+    --color-surface-container-high: #1e3150;
+    --color-surface-container-highest: #263c61;
+
+    --color-on-surface: #f1f5f9;
+    --color-on-surface-variant: #cbd5e1;
+    --color-inverse-surface: #f8f9ff;
+    --color-inverse-on-surface: #0b1c30;
+    --color-inverse-primary: #a33900;
+
+    --color-outline: #475569;
+    --color-outline-variant: #334155;
+    --color-background: #0b121e;
+    --color-on-background: #f1f5f9;
+  }
+
+  * {
+    border-color: var(--color-outline-variant);
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+}
+
+@theme {
+  --color-primary: #a33900;
+  --color-primary-container: #cc4900;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #fffbff;
+  --color-primary-fixed: #ffdbce;
+  --color-primary-fixed-dim: #ffb599;
+  --color-on-primary-fixed: #370e00;
+  --color-on-primary-fixed-variant: #7f2b00;
+
+  --color-secondary: #565e74;
+  --color-secondary-container: #dae2fd;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #5c647a;
+  --color-secondary-fixed: #dae2fd;
+  --color-secondary-fixed-dim: #bec6e0;
+  --color-on-secondary-fixed: #131b2e;
+  --color-on-secondary-fixed-variant: #3f465c;
+
+  --color-tertiary: #006194;
+  --color-tertiary-container: #007bb9;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #fdfcff;
+  --color-tertiary-fixed: #cce5ff;
+  --color-tertiary-fixed-dim: #93ccff;
+  --color-on-tertiary-fixed: #001d31;
+  --color-on-tertiary-fixed-variant: #004b73;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+
+  --color-surface: var(--color-surface);
+  --color-surface-dim: var(--color-surface-dim);
+  --color-surface-bright: var(--color-surface-bright);
+  --color-surface-variant: var(--color-surface-variant);
+  --color-surface-container-lowest: var(--color-surface-container-lowest);
+  --color-surface-container-low: var(--color-surface-container-low);
+  --color-surface-container: var(--color-surface-container);
+  --color-surface-container-high: var(--color-surface-container-high);
+  --color-surface-container-highest: var(--color-surface-container-highest);
+
+  --color-on-surface: var(--color-on-surface);
+  --color-on-surface-variant: var(--color-on-surface-variant);
+  --color-inverse-surface: var(--color-inverse-surface);
+  --color-inverse-on-surface: var(--color-inverse-on-surface);
+  --color-inverse-primary: var(--color-inverse-primary);
+
+  --color-outline: var(--color-outline);
+  --color-outline-variant: var(--color-outline-variant);
+  --color-background: var(--color-background);
+  --color-on-background: var(--color-on-background);
+
+  --font-body-sm: 'IBM Plex Sans', sans-serif;
+  --font-body-md: 'IBM Plex Sans', sans-serif;
+  --font-body-lg: 'IBM Plex Sans', sans-serif;
+  --font-headline-sm: 'IBM Plex Sans', sans-serif;
+  --font-headline-md: 'IBM Plex Sans', sans-serif;
+  --font-headline-lg: 'IBM Plex Sans', sans-serif;
+  --font-headline-xl: 'IBM Plex Sans', sans-serif;
+  --font-label-sm: 'IBM Plex Sans', sans-serif;
+  --font-label-code: 'JetBrains Mono', monospace;
+  --font-label-metric: 'JetBrains Mono', monospace;
+
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter: 1.25rem;
+  --spacing-margin: 1.5rem;
+
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+}
+
+/* Custom Utilities & Animations */
+.font-label-metric {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+.font-label-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.material-symbols-outlined.fill-1 {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Focus ring standard */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(142, 113, 102, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(142, 113, 102, 0.5);
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
