@@ -4,15 +4,9 @@ import { api } from '../services/api';
 export const SidebarContext = createContext(null);
 
 export function SidebarProvider({ children }) {
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    return localStorage.getItem('autonomoz_sidebar_collapsed') === 'true';
-  });
+  const [isHovered, setIsHovered] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeAlertsCount, setActiveAlertsCount] = useState(0);
-
-  useEffect(() => {
-    localStorage.setItem('autonomoz_sidebar_collapsed', isCollapsed ? 'true' : 'false');
-  }, [isCollapsed]);
 
   // Fetch active alerts count periodically or on mount
   useEffect(() => {
@@ -37,16 +31,15 @@ export function SidebarProvider({ children }) {
     };
   }, []);
 
-  const toggleSidebar = () => setIsCollapsed(prev => !prev);
   const toggleMobileSidebar = () => setIsMobileOpen(prev => !prev);
   const closeMobileSidebar = () => setIsMobileOpen(false);
+  const isCollapsed = !isHovered && !isMobileOpen;
 
   return (
     <SidebarContext.Provider
       value={{
         isCollapsed,
-        setIsCollapsed,
-        toggleSidebar,
+        setIsHovered,
         isMobileOpen,
         setIsMobileOpen,
         toggleMobileSidebar,

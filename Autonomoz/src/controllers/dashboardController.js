@@ -33,7 +33,7 @@ class DashboardController {
             const [movimentacoes] = await pool.query(`
                 SELECT 
                     COUNT(*) AS total_movimentacoes,
-                    COALESCE(SUM(CASE WHEN DATE(data_movimento) = CURDATE() THEN 1 ELSE 0 END), 0) AS movimentacoes_hoje
+                    COALESCE(SUM(CASE WHEN DATE(registrado_em) = CURDATE() THEN 1 ELSE 0 END), 0) AS movimentacoes_hoje
                 FROM Movimentacao
             `);
 
@@ -53,7 +53,7 @@ class DashboardController {
                     m.tipo_movimento,
                     m.quantidade,
                     m.motivo_saida,
-                    m.data_movimento,
+                    m.registrado_em AS data_movimento,
                     lp.codigo_lote,
                     p.nome_produto,
                     u.nome_completo AS nome_usuario
@@ -61,7 +61,7 @@ class DashboardController {
                 LEFT JOIN Lote_Produto lp ON m.fk_lote = lp.id_lote
                 LEFT JOIN Produto p ON lp.fk_produto = p.id_produto
                 LEFT JOIN Usuarios u ON m.fk_usuario = u.id_usuario
-                ORDER BY m.data_movimento DESC
+                ORDER BY m.registrado_em DESC
                 LIMIT 10
             `);
 
@@ -71,13 +71,13 @@ class DashboardController {
                     a.id_alerta,
                     a.tipo_alerta,
                     a.descricao,
-                    a.created_at,
+                    a.gerado_em AS created_at,
                     p.nome_produto,
                     p.codigo_item
                 FROM Alertas_Estoque a
                 LEFT JOIN Produto p ON a.fk_produto = p.id_produto
                 WHERE a.resolvido = FALSE
-                ORDER BY a.created_at DESC
+                ORDER BY a.gerado_em DESC
                 LIMIT 5
             `);
 

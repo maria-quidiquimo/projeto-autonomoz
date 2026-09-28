@@ -257,7 +257,7 @@ CREATE TABLE Vendas (
     valor_venda          DECIMAL(14,2) NOT NULL,
     data_venda           DATE NOT NULL DEFAULT (CURRENT_DATE),
     data_entrega_final   DATE NULL,
-    status_venda         ENUM('PENDENTE', 'FINALIZADA') NOT NULL DEFAULT 'PENDENTE',
+    status_venda         ENUM('PENDENTE', 'FINALIZADA', 'PAGO', 'CANCELADO') NOT NULL DEFAULT 'PENDENTE',
 
     observacoes          TEXT NULL,
     criado_em            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

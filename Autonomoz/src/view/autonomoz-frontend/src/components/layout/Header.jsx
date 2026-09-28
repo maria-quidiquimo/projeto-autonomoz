@@ -42,7 +42,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-30 flex items-center justify-between px-4 sm:px-6 transition-all duration-200 left-0 ${
-        isCollapsed ? 'lg:left-[72px]' : 'lg:left-64'
+        isCollapsed ? 'lg:left-18' : 'lg:left-64'
       }`}
     >
       {/* Left items: Mobile toggle + Date/Time + Line Status */}

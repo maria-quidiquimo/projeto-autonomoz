@@ -22,7 +22,7 @@ export default function Sidebar() {
   const { user, isGerente, logout } = useAuth();
   const {
     isCollapsed,
-    toggleSidebar,
+    setIsHovered,
     isMobileOpen,
     closeMobileSidebar,
     activeAlertsCount,
@@ -68,7 +68,7 @@ export default function Sidebar() {
               onClick={closeMobileSidebar}
               title={isCollapsed ? item.label : undefined}
               className={({ isActive }) =>
-                `flex items-center justify-between px-3 py-2.5 rounded transition-all min-h-[44px] group ${
+                `flex items-center justify-between px-3 py-2.5 rounded transition-all min-h-11 group ${
                   isActive
                     ? 'bg-primary text-on-primary font-bold shadow-xs'
                     : 'text-slate-300 hover:bg-slate-800 hover:text-white'
@@ -102,23 +102,13 @@ export default function Sidebar() {
 
       {/* Footer / User Profile & Collapse Toggle */}
       <div className="p-3 border-t border-slate-700/50 bg-[#0f1722] flex flex-col gap-2">
-        <div className="hidden lg:flex items-center justify-between">
+        <div className="hidden lg:flex items-center">
           {!isCollapsed && (
             <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded font-label-code text-[11px] text-cyan-300 bg-cyan-950/50 border border-cyan-800/40">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
               Planta Principal
             </span>
           )}
-          <button
-            type="button"
-            onClick={toggleSidebar}
-            className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors ml-auto"
-            title={isCollapsed ? 'Expandir menu' : 'Recolher menu'}
-          >
-            <span className="material-symbols-outlined text-[20px]">
-              {isCollapsed ? 'chevron_right' : 'chevron_left'}
-            </span>
-          </button>
         </div>
 
         <div className="flex items-center justify-between gap-2 pt-1">
@@ -154,9 +144,18 @@ export default function Sidebar() {
     <>
       {/* Desktop Fixed Sidebar */}
       <aside
+        aria-label="Navegação principal"
         className={`hidden lg:block fixed left-0 top-0 h-full z-40 transition-all duration-200 shadow-xl border-r border-slate-800 ${
-          isCollapsed ? 'w-[72px]' : 'w-64'
+          isCollapsed ? 'w-18' : 'w-64'
         }`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsHovered(true)}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) {
+            setIsHovered(false);
+          }
+        }}
       >
         {sidebarContent}
       </aside>
@@ -171,6 +170,7 @@ export default function Sidebar() {
 
       {/* Mobile Drawer */}
       <aside
+        aria-label="Navegação móvel"
         className={`lg:hidden fixed left-0 top-0 h-full w-64 z-50 transition-transform duration-200 shadow-2xl ${
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
