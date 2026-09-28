@@ -2,7 +2,7 @@
 -- AUTONOMOZ - INDUSTRIAL CONTROL SYSTEM
 -- Banco de Dados: autonomoz_db
 --
--- Versão auditada e 100% testada (SENAI/SESI Itu, v8.1 - 2026)
+-- Versão auditada e 100% testada (SENAI/SESI Itu, v9.1 - 2026)
 -- Motor: MySQL 8.0+ / MariaDB 10.5+  |  Engine: InnoDB
 --
 -- ESTRUTURA DESTE ARQUIVO:
