@@ -6,7 +6,13 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "npx nodemon src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
+    "test:coverage": "jest --coverage --runInBand --detectOpenHandles --forceExit",
+    "test:usuarios": "jest src/__tests__/usuarios.test.js --runInBand",
+    "test:produtos": "jest src/__tests__/produtos.test.js --runInBand",
+    "test:lotes": "jest src/__tests__/lotes.test.js --runInBand",
+    "test:producao": "jest src/__tests__/ordemProducao.test.js --runInBand",
+    "test:pipeline": "jest src/__tests__/pipeline.test.js --runInBand"
   },
   "repository": {
     "type": "git",
@@ -30,6 +36,8 @@
     "mysql2": "^3.23.2"
   },
   "devDependencies": {
-    "mammoth": "^1.12.2"
+    "jest": "^30.5.2",
+    "mammoth": "^1.12.2",
+    "supertest": "^7.2.2"
   }
 }

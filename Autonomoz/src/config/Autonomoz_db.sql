@@ -376,16 +376,14 @@ INSERT INTO Fornecedor (razao_social, contato_email, contato_telefone) VALUES
 
 -- Seed de Cargo, necessário para o UPDATE da Parte 4 funcionar
 INSERT INTO Cargo (nome_cargo, descricao) VALUES
-('Gerente Geral', 'Responsável geral pela operação'),
-('Mecânico', 'Manutenção e reparo de veículos'),
-('Auxiliar de Estoque', 'Controle de entrada e saída de peças'),
-('Eletricista', 'Serviços elétricos e instalação de componentes');
+('Gerente', 'Gestão e supervisão geral'),
+('Funcionario', 'Operações de estoque e produção');
 
 INSERT INTO Usuarios (matricula, nome_completo, cpf, data_nascimento, senha_hash, tipo_acesso, cargo_descritivo, fk_usuario_criador) VALUES
-('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2b$10$rM4uNG.CIlK1tGPjHmvZKuOfrqmqT2Ykmn.gBl1asgjngJXxHEXli', 'GERENTE', 'Gerente Geral', NULL),
-('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2b$10$rM4uNG.CIlK1tGPjHmvZKuOfrqmqT2Ykmn.gBl1asgjngJXxHEXli', 'FUNCIONARIO', 'Mecânico', 1),
-('FUNC-002', 'Maria Eduarda Barreto', '333.444.555-66', '2008-07-15', '$2b$10$rM4uNG.CIlK1tGPjHmvZKuOfrqmqT2Ykmn.gBl1asgjngJXxHEXli', 'FUNCIONARIO', 'Auxiliar de Estoque', 1),
-('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2b$10$rM4uNG.CIlK1tGPjHmvZKuOfrqmqT2Ykmn.gBl1asgjngJXxHEXli', 'FUNCIONARIO', 'Eletricista', 1);
+('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'GERENTE', 'Gerente', NULL),
+('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'FUNCIONARIO', 'Funcionario', 1),
+('FUNC-002', 'Maria Eduarda Barreto', '333.444.555-66', '2008-07-15', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'FUNCIONARIO', 'Funcionario', 1),
+('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'FUNCIONARIO', 'Funcionario', 1);
 
 INSERT INTO Produto (codigo_item, nome_produto, descricao, fk_subcategoria, fk_fornecedor, unidade_medida, valor_unitario, estoque_minimo, estoque_atual) VALUES
 ('PC-001', 'Para-choque Dianteiro', 'Para-choque em ABS reforçado', 1, 1, 'UN', 350.00, 5, 12),
@@ -564,7 +562,7 @@ ALTER TABLE Usuarios ADD CONSTRAINT fk_usuarios_cargo
 -- a coluna era 'cargo_id' (não existe), o correto é 'fk_cargo';
 -- e o placeholder ID_DO_CARGO_GERENTE foi substituído pelo id real de Cargo.
 UPDATE Usuarios
-SET fk_cargo = (SELECT id_cargo FROM Cargo WHERE nome_cargo = 'Gerente Geral')
+SET fk_cargo = (SELECT id_cargo FROM Cargo WHERE nome_cargo = 'Gerente')
 WHERE id_usuario = 1;
 
 -- Conferência

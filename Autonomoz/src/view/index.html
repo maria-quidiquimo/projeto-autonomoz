@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomoz API - Testador & Playground</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" id="swagger-css" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --bg-body: #090d16;
+            --bg-surface: #111827;
+            --bg-card: #162032;
+            --border: #243046;
+            --text-main: #f3f4f6;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --get-color: #10b981;
+            --post-color: #3b82f6;
+            --put-color: #f59e0b;
+            --patch-color: #8b5cf6;
+            --delete-color: #ef4444;
+            --radius: 8px;
+            --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(17, 24, 39, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 0.85rem 1.5rem;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: white;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+        }
+
+        .brand h1 { font-size: 1.15rem; font-weight: 700; color: #fff; }
+        .brand span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: #1e293b;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+        }
+
+        .view-switchers {
+            display: flex;
+            gap: 0.5rem;
+            background: #0f172a;
+            padding: 4px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .view-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+        }
+
+        /* Auth Bar */
+        .auth-bar {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+        }
+
+        .auth-inputs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        input, select, textarea {
+            background: #0d1320;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+            transition: border 0.15s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn {
+            border: none;
+            background: #1e293b;
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover { background: #28374d; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .btn-danger:hover { background: rgba(239, 68, 68, 0.25); }
+
+        .badge-status {
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-logged {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-unlogged {
+            background: rgba(239, 68, 68, 0.12);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        /* Layout */
+        .main-container {
+            display: flex;
+            max-width: 1560px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            gap: 1.5rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 130px;
+            height: calc(100vh - 150px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .search-box { position: relative; margin-bottom: 0.5rem; }
+        .search-box input { width: 100%; padding-left: 28px; }
+        .search-icon {
+            position: absolute;
+            left: 9px;
+            top: 8px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .nav-category {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin: 0.6rem 0 0.2rem 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            border-radius: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.83rem;
+            transition: all 0.15s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--bg-card);
+            color: #fff;
+        }
+
+        .nav-item.active {
+            border-left: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-badge {
+            background: #1e293b;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            padding: 1px 6px;
+            border-radius: 999px;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .section-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Endpoint Card */
+        .endpoint-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.15s ease;
+        }
+
+        .endpoint-card:hover { border-color: #3b4d68; }
+
+        .endpoint-header {
+            padding: 0.8rem 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            gap: 0.75rem;
+            user-select: none;
+        }
+
+        .endpoint-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        .method-badge {
+            font-size: 0.74rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            color: #fff;
+            min-width: 62px;
+            text-align: center;
+        }
+
+        .method-get { background: var(--get-color); }
+        .method-post { background: var(--post-color); }
+        .method-put { background: var(--put-color); }
+        .method-patch { background: var(--patch-color); }
+        .method-delete { background: var(--delete-color); }
+
+        .endpoint-path {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .endpoint-desc {
+            font-family: var(--font);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .endpoint-tags {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-auth {
+            font-size: 0.7rem;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: #1e293b;
+            color: #94a3b8;
+            border: 1px solid var(--border);
+        }
+
+        .tag-gerente {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fcd34d;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .tag-public {
+            background: rgba(16, 185, 129, 0.12);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .endpoint-body {
+            padding: 1rem 1.1rem;
+            border-top: 1px solid var(--border);
+            background: #0f1624;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .param-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .form-group label {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .json-editor-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .json-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .json-editor {
+            width: 100%;
+            height: 140px;
+            background: #090e17;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: #a5f3fc;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.82rem;
+            padding: 8px 10px;
+            resize: vertical;
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Response Box */
+        .response-container {
+            background: #080c14;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .response-header {
+            background: #0e1522;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .status-pill {
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.72rem;
+        }
+
+        .status-pill.s2xx { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .status-pill.s4xx { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .status-pill.s5xx { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+        .response-content {
+            padding: 10px 12px;
+            max-height: 260px;
+            overflow-y: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        #swagger-view {
+            display: none;
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 1rem;
+            min-height: 80vh;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="brand">
+                <div class="brand-logo">A</div>
+                <div>
+                    <h1>Autonomoz Backend API</h1>
+                </div>
+                <span>v1.0.0</span>
+            </div>
+
+            <!-- View Switcher -->
+            <div class="view-switchers">
+                <button class="view-btn active" id="btn-view-playground" onclick="switchView('playground')">
+                    ⚡ Testador Rápido (Playground)
+                </button>
+                <button class="view-btn" id="btn-view-swagger" onclick="switchView('swagger')">
+                    📖 Swagger UI
+                </button>
+            </div>
+        </div>
+
+        <!-- Auth Bar -->
+        <div class="auth-bar">
+            <div style="font-weight: 600; color: #fff; display: flex; align-items: center; gap: 5px;">
+                🔑 Autenticação (JWT):
+            </div>
+            
+            <div class="auth-inputs">
+                <input type="text" id="login-matricula" value="GER-001" placeholder="Matrícula (ex: GER-001)" style="width: 140px;">
+                <input type="password" id="login-senha" value="123" placeholder="Senha" style="width: 110px;">
+                <button class="btn btn-primary" onclick="executarLoginRapido()">Entrar & Salvar Token</button>
+                <input type="text" id="manual-jwt" placeholder="Ou cole o Bearer Token..." style="flex: 1; min-width: 220px;" onchange="salvarTokenManual(this.value)">
+                <button class="btn btn-danger" onclick="limparToken()">Limpar</button>
+            </div>
+
+            <div id="auth-status-badge" class="badge-status badge-unlogged">
+                ⚪ Não autenticado
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="app-sidebar">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="route-filter" placeholder="Filtrar rotas..." oninput="filtrarRotas(this.value)">
+            </div>
+
+            <div class="nav-category">Módulos do Sistema</div>
+            <a href="#sec-usuarios" class="nav-item active"><span class="nav-text">👤 Usuários & Login</span><span class="nav-badge">7</span></a>
+            <a href="#sec-produtos" class="nav-item"><span class="nav-text">📦 Produtos</span><span class="nav-badge">5</span></a>
+            <a href="#sec-lotes" class="nav-item"><span class="nav-text">🏷️ Lotes</span><span class="nav-badge">5</span></a>
+            <a href="#sec-movimentacoes" class="nav-item"><span class="nav-text">🔄 Movimentações</span><span class="nav-badge">6</span></a>
+            <a href="#sec-categorias" class="nav-item"><span class="nav-text">📂 Categorias</span><span class="nav-badge">5</span></a>
+            <a href="#sec-subcategorias" class="nav-item"><span class="nav-text">🗂️ Subcategorias</span><span class="nav-badge">5</span></a>
+            <a href="#sec-fornecedores" class="nav-item"><span class="nav-text">🚚 Fornecedores</span><span class="nav-badge">5</span></a>
+            <a href="#sec-ordens" class="nav-item"><span class="nav-text">⚙️ Ordens de Produção</span><span class="nav-badge">5</span></a>
+            <a href="#sec-op-materiais" class="nav-item"><span class="nav-text">🧱 OP - Materiais</span><span class="nav-badge">5</span></a>
+            <a href="#sec-op-funcionarios" class="nav-item"><span class="nav-text">👷 OP - Funcionários</span><span class="nav-badge">5</span></a>
+            <a href="#sec-vendas" class="nav-item"><span class="nav-text">💰 Vendas</span><span class="nav-badge">5</span></a>
+            <a href="#sec-alertas" class="nav-item"><span class="nav-text">🔔 Alertas de Estoque</span><span class="nav-badge">5</span></a>
+            <a href="#sec-cargos" class="nav-item"><span class="nav-text">👔 Cargos</span><span class="nav-badge">5</span></a>
+            <a href="#sec-localizacoes" class="nav-item"><span class="nav-text">📍 Localizações</span><span class="nav-badge">3</span></a>
+            <a href="#sec-logs" class="nav-item"><span class="nav-text">📜 Logs do Sistema</span><span class="nav-badge">5</span></a>
+        </aside>
+
+        <!-- Content Area: Playground -->
+        <main class="content" id="playground-view">
+            
+            <!-- SEÇÃO: USUÁRIOS & AUTH -->
+            <div class="section-block" id="sec-usuarios">
+                <h2 class="section-title">👤 Usuários & Autenticação</h2>
+                
+                <!-- POST /api/usuarios/login -->
+                <div class="endpoint-card" data-endpoint="/api/usuarios/login">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/usuarios/login</span>
+                            <span class="endpoint-desc">Autentica usuário e gera JWT</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-public">Público</span></div>
+                    </div>
+                    <div class="endpoint-body">
+                        <div class="json-editor-container">
+                            <div class="json-header">
+                                <span>Payload JSON (Body):</span>
+                                <div>
+                                    <button class="btn" style="padding: 2px 6px; font-size: 0.72rem;" onclick="setLogin('GER-001','123')">Gerente GER-001</button>
+                                    <button class="btn" style="padding: 2px 6px; font-size: 0.72rem;" onclick="setLogin('FUNC-001','123')">Func FUNC-001</button>
+                                </div>
+                            </div>
+                            <textarea class="json-editor" id="body-login">{
+  "matricula": "GER-001",
+  "senha": "123"
+}</textarea>
+                        </div>
+                        <div class="action-row">
+                            <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/usuarios/login', 'body-login', this, true)">
+                                ▶️ Enviar Login
+                            </button>
+                        </div>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- GET /api/usuarios -->
+                <div class="endpoint-card" data-endpoint="/api/usuarios">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/usuarios</span>
+                            <span class="endpoint-desc">Listar todos os usuários ativos</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/usuarios', null, this)">▶️ Listar Usuários</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- GET /api/usuarios/cargos -->
+                <div class="endpoint-card" data-endpoint="/api/usuarios/cargos">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/usuarios/cargos</span>
+                            <span class="endpoint-desc">Buscar lista de cargos dos usuários</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/usuarios/cargos', null, this)">▶️ Buscar Cargos</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- GET /api/usuarios/:id -->
+                <div class="endpoint-card" data-endpoint="/api/usuarios/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/usuarios/{id}</span>
+                            <span class="endpoint-desc">Buscar usuário por ID</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Usuário</label>
+                                <input type="number" id="param-usuario-get-id" value="1">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/usuarios/' + getVal('param-usuario-get-id'), null, this)">▶️ Buscar por ID</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- POST /api/usuarios -->
+                <div class="endpoint-card" data-endpoint="/api/usuarios">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/usuarios</span>
+                            <span class="endpoint-desc">Cadastrar novo colaborador</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-gerente">Auth + Gerente</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato do Back-End):</div>
+                            <textarea class="json-editor" id="body-usuario-post">{
+  "nome": "Carlos Roberto Souza",
+  "matricula": "FUNC-005",
+  "senha": "123",
+  "fk_cargo": 2
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/usuarios', 'body-usuario-post', this)">▶️ Cadastrar Usuário</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- PUT /api/usuarios/:id -->
+                <div class="endpoint-card" data-endpoint="/api/usuarios/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/usuarios/{id}</span>
+                            <span class="endpoint-desc">Atualizar dados do colaborador</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-gerente">Auth + Gerente</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Usuário</label>
+                                <input type="number" id="param-usuario-put-id" value="2">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato do Back-End):</div>
+                            <textarea class="json-editor" id="body-usuario-put">{
+  "nome": "Lucas Felipe Sola Atualizado",
+  "fk_cargo": 2
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/usuarios/' + getVal('param-usuario-put-id'), 'body-usuario-put', this)">▶️ Atualizar Usuário</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- DELETE /api/usuarios/:id -->
+                <div class="endpoint-card" data-endpoint="/api/usuarios/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-delete">DELETE</span>
+                            <span class="endpoint-path">/api/usuarios/{id}</span>
+                            <span class="endpoint-desc">Desativar / Excluir usuário</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-gerente">Auth + Gerente</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Usuário a Excluir</label>
+                                <input type="number" id="param-usuario-del-id" value="4">
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" onclick="enviarRequisicao('DELETE', '/api/usuarios/' + getVal('param-usuario-del-id'), null, this)">🗑️ Excluir Usuário</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: PRODUTOS -->
+            <div class="section-block" id="sec-produtos">
+                <h2 class="section-title">📦 Produtos</h2>
+                
+                <!-- GET /api/produtos -->
+                <div class="endpoint-card" data-endpoint="/api/produtos">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/produtos</span>
+                            <span class="endpoint-desc">Listar todos os produtos ativos</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-public">Público</span></div>
+                    </div>
+                    <div class="endpoint-body">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/produtos', null, this)">▶️ Listar Produtos</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- GET /api/produtos/:id -->
+                <div class="endpoint-card" data-endpoint="/api/produtos/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/produtos/{id}</span>
+                            <span class="endpoint-desc">Buscar produto por ID</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-public">Público</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Produto</label>
+                                <input type="number" id="param-prod-id" value="1">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/produtos/' + getVal('param-prod-id'), null, this)">▶️ Buscar Produto</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- POST /api/produtos -->
+                <div class="endpoint-card" data-endpoint="/api/produtos">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/produtos</span>
+                            <span class="endpoint-desc">Cadastrar novo produto</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-public">Público</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo com TODOS os campos do Back-End):</div>
+                            <textarea class="json-editor" id="body-prod-post" style="height: 200px;">{
+  "codigo_item": "PC-005",
+  "nome_produto": "Grade Frontal Esportiva",
+  "descricao": "Grade dianteira em acabamento black piano",
+  "fk_subcategoria": 1,
+  "fk_fornecedor": 1,
+  "unidade_medida": "UN",
+  "valor_unitario": 420.00,
+  "estoque_minimo": 5,
+  "estoque_atual": 15
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/produtos', 'body-prod-post', this)">▶️ Cadastrar Produto</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- PUT /api/produtos/:id -->
+                <div class="endpoint-card" data-endpoint="/api/produtos/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/produtos/{id}</span>
+                            <span class="endpoint-desc">Atualizar produto existente</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-public">Público</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Produto</label>
+                                <input type="number" id="param-prod-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo com TODOS os campos do Back-End):</div>
+                            <textarea class="json-editor" id="body-prod-put" style="height: 200px;">{
+  "codigo_item": "PC-001",
+  "nome_produto": "Para-choque Dianteiro Reforçado",
+  "descricao": "Para-choque em ABS reforçado com proteção UV",
+  "fk_subcategoria": 1,
+  "fk_fornecedor": 1,
+  "unidade_medida": "UN",
+  "valor_unitario": 375.00,
+  "estoque_minimo": 6,
+  "estoque_atual": 12
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/produtos/' + getVal('param-prod-put-id'), 'body-prod-put', this)">▶️ Atualizar Produto</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- DELETE /api/produtos/:id -->
+                <div class="endpoint-card" data-endpoint="/api/produtos/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-delete">DELETE</span>
+                            <span class="endpoint-path">/api/produtos/{id}</span>
+                            <span class="endpoint-desc">Desativar / Excluir produto</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-public">Público</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Produto a Excluir</label>
+                                <input type="number" id="param-prod-del-id" value="4">
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" onclick="enviarRequisicao('DELETE', '/api/produtos/' + getVal('param-prod-del-id'), null, this)">🗑️ Excluir Produto</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: LOTES -->
+            <div class="section-block" id="sec-lotes">
+                <h2 class="section-title">🏷️ Lotes de Produtos (Lote_Produto)</h2>
+                
+                <div class="endpoint-card" data-endpoint="/api/lotes">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/lotes</span>
+                            <span class="endpoint-desc">Listar todos os lotes cadastrados</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/lotes', null, this)">▶️ Listar Lotes</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/lotes/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/lotes/{id}</span>
+                            <span class="endpoint-desc">Buscar lote por ID</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Lote</label>
+                                <input type="number" id="param-lote-id" value="1">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/lotes/' + getVal('param-lote-id'), null, this)">▶️ Buscar Lote</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/lotes">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/lotes</span>
+                            <span class="endpoint-desc">Cadastrar novo lote</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da tabela Lote_Produto):</div>
+                            <textarea class="json-editor" id="body-lote-post" style="height: 180px;">{
+  "codigo_lote": "LOTE-2026-005",
+  "fk_produto": 1,
+  "fk_fornecedor": 1,
+  "quantidade": 25,
+  "localizacao_fisica": "Prateleira A3, Corredor 2",
+  "data_entrada": "2026-09-21 10:00:00",
+  "data_validade": null,
+  "ativo": true
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/lotes', 'body-lote-post', this)">▶️ Cadastrar Lote</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/lotes/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/lotes/{id}</span>
+                            <span class="endpoint-desc">Atualizar lote</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Lote</label>
+                                <input type="number" id="param-lote-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON:</div>
+                            <textarea class="json-editor" id="body-lote-put">{
+  "codigo_lote": "LOTE-2026-001",
+  "quantidade": 15,
+  "localizacao_fisica": "Prateleira A3, Corredor 2",
+  "data_validade": null,
+  "ativo": true
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/lotes/' + getVal('param-lote-put-id'), 'body-lote-put', this)">▶️ Atualizar Lote</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/lotes/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-delete">DELETE</span>
+                            <span class="endpoint-path">/api/lotes/{id}</span>
+                            <span class="endpoint-desc">Excluir lote</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Lote</label>
+                                <input type="number" id="param-lote-del-id" value="4">
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" onclick="enviarRequisicao('DELETE', '/api/lotes/' + getVal('param-lote-del-id'), null, this)">🗑️ Excluir Lote</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: MOVIMENTAÇÕES -->
+            <div class="section-block" id="sec-movimentacoes">
+                <h2 class="section-title">🔄 Movimentações de Estoque</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/movimentacoes">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/movimentacoes</span>
+                            <span class="endpoint-desc">Histórico completo de movimentações</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/movimentacoes', null, this)">▶️ Listar Movimentações</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/movimentacoes">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/movimentacoes</span>
+                            <span class="endpoint-desc">Lançar movimentação (ENTRADA / SAIDA)</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da tabela Movimentacao):</div>
+                            <textarea class="json-editor" id="body-mov-post" style="height: 140px;">{
+  "fk_lote": 1,
+  "tipo_movimento": "ENTRADA",
+  "quantidade": 5,
+  "motivo_saida": null
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/movimentacoes', 'body-mov-post', this)">▶️ Registrar Movimentação</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/movimentacoes/ajuste">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/movimentacoes/ajuste</span>
+                            <span class="endpoint-desc">Ajuste de inventário no lote</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Ajuste de Inventário):</div>
+                            <textarea class="json-editor" id="body-mov-ajuste">{
+  "fk_lote": 1,
+  "quantidade_ajuste": 3,
+  "motivo": "Ajuste após contagem física de inventário"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/movimentacoes/ajuste', 'body-mov-ajuste', this)">▶️ Registrar Ajuste</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: CATEGORIAS -->
+            <div class="section-block" id="sec-categorias">
+                <h2 class="section-title">📂 Categorias</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/categorias">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/categorias</span>
+                            <span class="endpoint-desc">Listar todas as categorias</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/categorias', null, this)">▶️ Listar Categorias</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/categorias">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/categorias</span>
+                            <span class="endpoint-desc">Criar nova categoria</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da Categoria):</div>
+                            <textarea class="json-editor" id="body-cat-post">{
+  "nome_categoria": "Acessórios",
+  "descricao": "Itens de personalização e acabamento veicular"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/categorias', 'body-cat-post', this)">▶️ Criar Categoria</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/categorias/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/categorias/{id}</span>
+                            <span class="endpoint-desc">Atualizar categoria</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID da Categoria</label>
+                                <input type="number" id="param-cat-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON:</div>
+                            <textarea class="json-editor" id="body-cat-put">{
+  "nome_categoria": "Funilaria Pesada",
+  "descricao": "Componentes estruturais e para-choques reforçados"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/categorias/' + getVal('param-cat-put-id'), 'body-cat-put', this)">▶️ Atualizar Categoria</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: SUBCATEGORIAS -->
+            <div class="section-block" id="sec-subcategorias">
+                <h2 class="section-title">🗂️ Subcategorias (Sub_Categoria)</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/subcategoria">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/subcategoria</span>
+                            <span class="endpoint-desc">Listar todas as subcategorias</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/subcategoria', null, this)">▶️ Listar Subcategorias</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/subcategoria">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/subcategoria</span>
+                            <span class="endpoint-desc">Cadastrar subcategoria</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da Sub_Categoria):</div>
+                            <textarea class="json-editor" id="body-subcat-post">{
+  "fk_categoria": 1,
+  "nome_subcategoria": "Funilaria 3",
+  "descricao": "Portas, capôs e para-lamas dianteiros"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/subcategoria', 'body-subcat-post', this)">▶️ Criar Subcategoria</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/subcategoria/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/subcategoria/{id}</span>
+                            <span class="endpoint-desc">Atualizar subcategoria</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID da Subcategoria</label>
+                                <input type="number" id="param-subcat-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON:</div>
+                            <textarea class="json-editor" id="body-subcat-put">{
+  "fk_categoria": 1,
+  "nome_subcategoria": "Funilaria 1 Atualizada",
+  "descricao": "Painéis frontais e para-choques atualizados"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/subcategoria/' + getVal('param-subcat-put-id'), 'body-subcat-put', this)">▶️ Atualizar Subcategoria</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: FORNECEDORES -->
+            <div class="section-block" id="sec-fornecedores">
+                <h2 class="section-title">🚚 Fornecedores</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/fornecedores">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/fornecedores</span>
+                            <span class="endpoint-desc">Listar todos os fornecedores</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/fornecedores', null, this)">▶️ Listar Fornecedores</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/fornecedores">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/fornecedores</span>
+                            <span class="endpoint-desc">Cadastrar novo fornecedor</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da tabela Fornecedor):</div>
+                            <textarea class="json-editor" id="body-forn-post">{
+  "razao_social": "Auto Peças Campinas Ltda",
+  "contato_email": "vendas@autopecascampinas.com.br",
+  "contato_telefone": "(19) 3214-5588",
+  "ativo": true
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/fornecedores', 'body-forn-post', this)">▶️ Cadastrar Fornecedor</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/fornecedores/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/fornecedores/{id}</span>
+                            <span class="endpoint-desc">Atualizar fornecedor</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Fornecedor</label>
+                                <input type="number" id="param-forn-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON:</div>
+                            <textarea class="json-editor" id="body-forn-put">{
+  "razao_social": "Metalúrgica Salto Atualizada",
+  "contato_email": "contato@metalsalto.com.br",
+  "contato_telefone": "(11) 4028-9999",
+  "ativo": true
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/fornecedores/' + getVal('param-forn-put-id'), 'body-forn-put', this)">▶️ Atualizar Fornecedor</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: ORDENS DE PRODUÇÃO -->
+            <div class="section-block" id="sec-ordens">
+                <h2 class="section-title">⚙️ Ordens de Produção (Ordem_Producao)</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/ordem_producao">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/ordem_producao</span>
+                            <span class="endpoint-desc">Listar todas as Ordens de Produção</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/ordem_producao', null, this)">▶️ Listar OPs</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/ordem_producao">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/ordem_producao</span>
+                            <span class="endpoint-desc">Criar nova Ordem de Produção</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da Ordem_Producao):</div>
+                            <textarea class="json-editor" id="body-op-post" style="height: 170px;">{
+  "nome_projeto": "Montagem Para-choque Reforçado",
+  "descricao": "Lote especial de para-choques dianteiros em ABS",
+  "fk_usuario_responsavel": 1,
+  "data_inicio": "2026-09-22 08:00:00",
+  "data_previsao_entrega": "2026-10-15 18:00:00",
+  "status_ordem": "EM_ANDAMENTO"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/ordem_producao', 'body-op-post', this)">▶️ Criar OP</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/ordem_producao/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/ordem_producao/{id}</span>
+                            <span class="endpoint-desc">Atualizar status da OP</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID da OP</label>
+                                <input type="number" id="param-op-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON:</div>
+                            <textarea class="json-editor" id="body-op-put">{
+  "nome_projeto": "Montagem Para-choque Reforçado",
+  "descricao": "Produção finalizada e inspecionada",
+  "fk_usuario_responsavel": 1,
+  "data_previsao_entrega": "2026-10-10 18:00:00",
+  "status_ordem": "CONCLUIDA"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/ordem_producao/' + getVal('param-op-put-id'), 'body-op-put', this)">▶️ Atualizar OP</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: OP MATERIAIS -->
+            <div class="section-block" id="sec-op-materiais">
+                <h2 class="section-title">🧱 Materiais da OP (Ordem_Producao_Materiais)</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/ordem_producao_materiais">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/ordem_producao_materiais</span>
+                            <span class="endpoint-desc">Listar todos os materiais alocados em OPs</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/ordem_producao_materiais', null, this)">▶️ Listar Materiais das OPs</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/ordem_producao_materiais">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/ordem_producao_materiais</span>
+                            <span class="endpoint-desc">Vincular produto/material a uma OP</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato de Ordem_Producao_Materiais):</div>
+                            <textarea class="json-editor" id="body-op-mat-post">{
+  "fk_ordem_producao": 1,
+  "fk_produto": 1,
+  "quantidade_utilizada": 4
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/ordem_producao_materiais', 'body-op-mat-post', this)">▶️ Adicionar Material</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: OP FUNCIONÁRIOS -->
+            <div class="section-block" id="sec-op-funcionarios">
+                <h2 class="section-title">👷 Funcionários da OP (Ordem_Producao_Funcionarios)</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/ordem_producao_funcionario">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/ordem_producao_funcionario</span>
+                            <span class="endpoint-desc">Listar funcionários alocados em OPs</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/ordem_producao_funcionario', null, this)">▶️ Listar Alocações</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/ordem_producao_funcionario">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/ordem_producao_funcionario</span>
+                            <span class="endpoint-desc">Alocar colaborador em uma OP</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato de Ordem_Producao_Funcionarios):</div>
+                            <textarea class="json-editor" id="body-op-func-post">{
+  "fk_ordem_producao": 1,
+  "fk_usuario": 2,
+  "data_alocacao": "2026-09-22 08:00:00"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/ordem_producao_funcionario', 'body-op-func-post', this)">▶️ Alocar Colaborador</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: VENDAS -->
+            <div class="section-block" id="sec-vendas">
+                <h2 class="section-title">💰 Vendas</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/vendas">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/vendas</span>
+                            <span class="endpoint-desc">Listar histórico de vendas</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/vendas', null, this)">▶️ Listar Vendas</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/vendas">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/vendas</span>
+                            <span class="endpoint-desc">Registrar nova venda comercial</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-gerente">Auth + Gerente</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da tabela Vendas):</div>
+                            <textarea class="json-editor" id="body-vendas-post" style="height: 180px;">{
+  "fk_ordem_producao": 1,
+  "fk_usuario_gerente": 1,
+  "valor_venda": 4500.00,
+  "data_venda": "2026-09-21 14:30:00",
+  "data_entrega_final": "2026-10-08 17:00:00",
+  "status_venda": "PENDENTE",
+  "observacoes": "Pedido faturado com nota fiscal eletrônica"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/vendas', 'body-vendas-post', this)">▶️ Cadastrar Venda</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/vendas/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/vendas/{id}</span>
+                            <span class="endpoint-desc">Atualizar venda</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-gerente">Auth + Gerente</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID da Venda</label>
+                                <input type="number" id="param-venda-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON:</div>
+                            <textarea class="json-editor" id="body-venda-put">{
+  "valor_venda": 4800.00,
+  "data_entrega_final": "2026-10-12 17:00:00",
+  "status_venda": "CONCLUIDA",
+  "observacoes": "Mercadoria entregue e conferida"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/vendas/' + getVal('param-venda-put-id'), 'body-venda-put', this)">▶️ Atualizar Venda</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: ALERTAS DE ESTOQUE -->
+            <div class="section-block" id="sec-alertas">
+                <h2 class="section-title">🔔 Alertas de Estoque (Alertas_Estoque)</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/alertas_estoque">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/alertas_estoque</span>
+                            <span class="endpoint-desc">Listar alertas de estoque</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/alertas_estoque', null, this)">▶️ Checar Alertas</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/alertas_estoque">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/alertas_estoque</span>
+                            <span class="endpoint-desc">Criar alerta de estoque</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato de Alertas_Estoque):</div>
+                            <textarea class="json-editor" id="body-alerta-post">{
+  "tipo_alerta": "ESTOQUE_BAIXO",
+  "fk_produto": 2,
+  "fk_lote": 2,
+  "descricao": "Estoque atingiu o limite crítico de segurança",
+  "resolvido": false
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/alertas_estoque', 'body-alerta-post', this)">▶️ Gerar Alerta</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/alertas_estoque/:id">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-put">PUT</span>
+                            <span class="endpoint-path">/api/alertas_estoque/{id}</span>
+                            <span class="endpoint-desc">Marcar alerta como resolvido</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>ID do Alerta</label>
+                                <input type="number" id="param-alerta-put-id" value="1">
+                            </div>
+                        </div>
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON:</div>
+                            <textarea class="json-editor" id="body-alerta-put">{
+  "resolvido": true
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('PUT', '/api/alertas_estoque/' + getVal('param-alerta-put-id'), 'body-alerta-put', this)">▶️ Resolver Alerta</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: CARGOS -->
+            <div class="section-block" id="sec-cargos">
+                <h2 class="section-title">👔 Cargos</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/cargos">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/cargos</span>
+                            <span class="endpoint-desc">Listar todos os cargos</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/cargos', null, this)">▶️ Listar Cargos</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/cargos">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/cargos</span>
+                            <span class="endpoint-desc">Cadastrar novo cargo</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth tag-gerente">Auth + Gerente</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da tabela Cargo):</div>
+                            <textarea class="json-editor" id="body-cargo-post">{
+  "nome_cargo": "Funcionario",
+  "descricao": "Operações de estoque e produção"
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/cargos', 'body-cargo-post', this)">▶️ Cadastrar Cargo</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: LOCALIZAÇÕES -->
+            <div class="section-block" id="sec-localizacoes">
+                <h2 class="section-title">📍 Localizações Físicas do Estoque</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/localizacoes">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/localizacoes</span>
+                            <span class="endpoint-desc">Listar localizações distintas com lotes ativos</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/localizacoes', null, this)">▶️ Listar Localizações</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/localizacoes/lotes">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/localizacoes/lotes</span>
+                            <span class="endpoint-desc">Buscar lotes por filtro de localização</span>
+                        </div>
+                        <div class="endpoint-tags"><span class="tag-auth">Auth</span></div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="param-grid">
+                            <div class="form-group">
+                                <label>Nome da Localização</label>
+                                <input type="text" id="param-loc-nome" value="Prateleira A3, Corredor 2">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/localizacoes/lotes?localizacao=' + encodeURIComponent(getVal('param-loc-nome')), null, this)">▶️ Buscar Lotes nesta Localização</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO: LOGS DO SISTEMA -->
+            <div class="section-block" id="sec-logs">
+                <h2 class="section-title">📜 Logs do Sistema (Auditoria)</h2>
+
+                <div class="endpoint-card" data-endpoint="/api/logs_sistema">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="endpoint-path">/api/logs_sistema</span>
+                            <span class="endpoint-desc">Listar logs de auditoria</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <button class="btn btn-primary" onclick="enviarRequisicao('GET', '/api/logs_sistema', null, this)">▶️ Consultar Logs</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="endpoint-card" data-endpoint="/api/logs_sistema">
+                    <div class="endpoint-header" onclick="toggleCard(this)">
+                        <div class="endpoint-info">
+                            <span class="method-badge method-post">POST</span>
+                            <span class="endpoint-path">/api/logs_sistema</span>
+                            <span class="endpoint-desc">Registrar log manual</span>
+                        </div>
+                    </div>
+                    <div class="endpoint-body" style="display: none;">
+                        <div class="json-editor-container">
+                            <div class="json-header">Payload JSON (Modelo exato da tabela Logs_Sistema):</div>
+                            <textarea class="json-editor" id="body-log-post">{
+  "tipo_evento": "AUDITORIA_MANUAL",
+  "mensagem": "Verificação manual dos sensores do galpão",
+  "fk_usuario": 1
+}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="enviarRequisicao('POST', '/api/logs_sistema', 'body-log-post', this)">▶️ Criar Registro de Log</button>
+                        <div class="response-container" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Swagger View -->
+        <div id="swagger-view" style="flex: 1;">
+            <div id="swagger-ui-target"></div>
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js" async></script>
+    <script>
+        let jwtToken = localStorage.getItem('autonomoz_token') || '';
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (jwtToken) {
+                document.getElementById('manual-jwt').value = jwtToken;
+                decodificarToken(jwtToken);
+            } else {
+                atualizarBadgeStatus(false);
+            }
+        });
+
+        function getVal(id) {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : '';
+        }
+
+        function setLogin(mat, pass) {
+            document.getElementById('body-login').value = JSON.stringify({ matricula: mat, senha: pass }, null, 2);
+            document.getElementById('login-matricula').value = mat;
+            document.getElementById('login-senha').value = pass;
+            showToast(`Dados de ${mat} preenchidos!`);
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function toggleCard(headerEl) {
+            const body = headerEl.nextElementSibling;
+            body.style.display = body.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function decodificarToken(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                currentUser = JSON.parse(jsonPayload);
+                atualizarBadgeStatus(true, currentUser);
+            } catch (e) {
+                atualizarBadgeStatus(true, { matricula: 'Token ativo' });
+            }
+        }
+
+        function atualizarBadgeStatus(autenticado, user) {
+            const badge = document.getElementById('auth-status-badge');
+            if (autenticado && user) {
+                badge.className = 'badge-status badge-logged';
+                badge.textContent = `🟢 Logado: ${user.tipo_acesso || user.matricula || 'Ativo'}`;
+            } else {
+                badge.className = 'badge-status badge-unlogged';
+                badge.textContent = '⚪ Não autenticado';
+            }
+        }
+
+        function salvarTokenManual(token) {
+            jwtToken = token.trim();
+            if (jwtToken) {
+                localStorage.setItem('autonomoz_token', jwtToken);
+                decodificarToken(jwtToken);
+                showToast('Token JWT manual salvo com sucesso!');
+            } else {
+                limparToken();
+            }
+        }
+
+        function limparToken() {
+            jwtToken = '';
+            localStorage.removeItem('autonomoz_token');
+            document.getElementById('manual-jwt').value = '';
+            atualizarBadgeStatus(false);
+            showToast('Token removido.');
+        }
+
+        async function executarLoginRapido() {
+            const matricula = document.getElementById('login-matricula').value.trim();
+            const senha = document.getElementById('login-senha').value.trim();
+
+            if (!matricula || !senha) {
+                showToast('Preencha matrícula e senha.');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/usuarios/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ matricula, senha })
+                });
+
+                const data = await res.json();
+                if (res.ok && data.token) {
+                    jwtToken = data.token;
+                    localStorage.setItem('autonomoz_token', jwtToken);
+                    document.getElementById('manual-jwt').value = jwtToken;
+                    decodificarToken(jwtToken);
+                    showToast('Login com sucesso! Token JWT ativo.');
+                } else {
+                    showToast('Erro no login: ' + (data.error || data.mensagem || 'Credenciais inválidas'));
+                }
+            } catch (err) {
+                showToast('Erro ao conectar ao servidor.');
+            }
+        }
+
+        async function enviarRequisicao(method, url, bodyInputId, btnEl, isLogin = false) {
+            const cardBody = btnEl.closest('.endpoint-body');
+            const respContainer = cardBody.querySelector('.response-container');
+            
+            respContainer.style.display = 'flex';
+            respContainer.innerHTML = '<div style="padding: 12px; color: var(--text-muted);">Enviando requisição...</div>';
+            btnEl.disabled = true;
+
+            let bodyContent = null;
+            if (bodyInputId) {
+                const val = document.getElementById(bodyInputId).value.trim();
+                if (val) {
+                    try {
+                        bodyContent = JSON.parse(val);
+                    } catch (e) {
+                        try {
+                            bodyContent = eval('(' + val + ')');
+                        } catch (err) {
+                            respContainer.innerHTML = `<div style="padding: 12px; color: #f87171;">❌ JSON inválido no corpo: ${e.message}</div>`;
+                            btnEl.disabled = false;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            const headers = { 'Accept': 'application/json' };
+            if (bodyContent) headers['Content-Type'] = 'application/json';
+            if (jwtToken) headers['Authorization'] = 'Bearer ' + jwtToken;
+
+            const startTime = performance.now();
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: headers,
+                    body: bodyContent ? JSON.stringify(bodyContent) : undefined
+                });
+
+                const endTime = performance.now();
+                const latency = Math.round(endTime - startTime);
+
+                let responseData;
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    responseData = await response.json();
+                } else {
+                    responseData = await response.text();
+                }
+
+                if (isLogin && response.ok && responseData.token) {
+                    jwtToken = responseData.token;
+                    localStorage.setItem('autonomoz_token', jwtToken);
+                    document.getElementById('manual-jwt').value = jwtToken;
+                    decodificarToken(jwtToken);
+                    showToast('Token JWT capturado automaticamente!');
+                }
+
+                const statusClass = response.ok ? 's2xx' : (response.status < 500 ? 's4xx' : 's5xx');
+                const formattedJson = typeof responseData === 'object' 
+                    ? JSON.stringify(responseData, null, 2) 
+                    : responseData;
+
+                respContainer.innerHTML = `
+                    <div class="response-header">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="status-pill ${statusClass}">${response.status} ${response.statusText || ''}</span>
+                            <span style="color: var(--text-muted); font-size: 0.75rem;">⏱️ ${latency}ms</span>
+                        </div>
+                        <button class="btn" style="padding: 2px 7px; font-size: 0.72rem;" onclick="copiarTexto(this)">📋 Copiar</button>
+                    </div>
+                    <pre class="response-content">${escapeHtml(formattedJson)}</pre>
+                `;
+
+            } catch (error) {
+                respContainer.innerHTML = `
+                    <div class="response-header">
+                        <span class="status-pill s5xx">ERRO</span>
+                    </div>
+                    <div class="response-content" style="color: #f87171;">
+                        Falha na conexão: ${error.message}
+                    </div>
+                `;
+            } finally {
+                btnEl.disabled = false;
+            }
+        }
+
+        function escapeHtml(str) {
+            if (typeof str !== 'string') return str;
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function copiarTexto(btn) {
+            const pre = btn.closest('.response-container').querySelector('pre');
+            if (pre) {
+                navigator.clipboard.writeText(pre.innerText);
+                showToast('Copiado para a área de transferência!');
+            }
+        }
+
+        function filtrarRotas(query) {
+            const q = query.toLowerCase().trim();
+            const cards = document.querySelectorAll('.endpoint-card');
+            cards.forEach(card => {
+                const endpoint = card.getAttribute('data-endpoint') || '';
+                const text = card.innerText.toLowerCase();
+                card.style.display = (endpoint.toLowerCase().includes(q) || text.includes(q)) ? 'block' : 'none';
+            });
+        }
+
+        let swaggerInitialized = false;
+        function switchView(view) {
+            const btnPlay = document.getElementById('btn-view-playground');
+            const btnSwag = document.getElementById('btn-view-swagger');
+            const playView = document.getElementById('playground-view');
+            const swagView = document.getElementById('swagger-view');
+            const sidebar = document.getElementById('app-sidebar');
+
+            if (view === 'playground') {
+                btnPlay.classList.add('active');
+                btnSwag.classList.remove('active');
+                playView.style.display = 'flex';
+                sidebar.style.display = 'flex';
+                swagView.style.display = 'none';
+            } else {
+                btnPlay.classList.remove('active');
+                btnSwag.classList.add('active');
+                playView.style.display = 'none';
+                sidebar.style.display = 'none';
+                swagView.style.display = 'block';
+
+                if (!swaggerInitialized && window.SwaggerUIBundle) {
+                    initSwaggerUI();
+                    swaggerInitialized = true;
+                }
+            }
+        }
+
+        function initSwaggerUI() {
+            const spec = {
+                openapi: "3.0.0",
+                info: {
+                    title: "Autonomoz ERP API",
+                    version: "1.0.0",
+                    description: "Documentação de todas as rotas e modelos do banco de dados Autonomoz"
+                },
+                servers: [{ url: "/api" }],
+                components: {
+                    securitySchemes: {
+                        bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" }
+                    }
+                }
+            };
+
+            SwaggerUIBundle({
+                dom_id: '#swagger-ui-target',
+                spec: spec,
+                presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset]
+            });
+        }
+    </script>
+</body>
+</html>
