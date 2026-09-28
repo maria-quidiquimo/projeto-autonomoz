@@ -35,8 +35,8 @@ class MovimentacaoController {
             const usuarioId = req.usuario?.id_usuario || req.body.fk_usuario;
             const dados = { ...req.body, fk_usuario: usuarioId };
             const resultado = await movimentacaoService.ajustarEstoque(dados);
-            res.status(201).json({
-                mensagem: 'Ajuste de inventário registrado com sucesso.',
+            res.status(200).json({
+                mensagem: 'Ajuste de inventário realizado com sucesso.',
                 movimentacao: resultado
             });
         } catch (erro) {

@@ -4,6 +4,7 @@ const produtoRepository = require('../repositories/produtoRepository');
 const categoriaRepository = require('../repositories/categoriaRepository');
 const subcategoriaRepository = require('../repositories/subcategoriaRepository');
 const localizacaoRepository = require('../repositories/localizacaoRepository');
+const { headerOperador } = require('./helpers/authHelper');
 
 jest.mock('../config/database');
 
@@ -19,7 +20,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
       ];
       jest.spyOn(produtoRepository, 'listarTodos').mockResolvedValue(mockProdutos);
 
-      const res = await request(app).get('/api/produtos');
+      const res = await request(app).get('/api/produtos').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(Array.isArray(res.body)).toBe(true);
@@ -33,7 +34,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
         nome_produto: 'Resina Epóxi'
       });
 
-      const res = await request(app).get('/api/produtos/1');
+      const res = await request(app).get('/api/produtos/1').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.id_produto).toBe(1);
@@ -42,7 +43,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
     it('deve retornar 404 ao buscar produto inexistente (GET /api/produtos/:id)', async () => {
       jest.spyOn(produtoRepository, 'buscarPorId').mockResolvedValue(null);
 
-      const res = await request(app).get('/api/produtos/999');
+      const res = await request(app).get('/api/produtos/999').set(headerOperador());
 
       expect(res.status).toBe(404);
       expect(res.body.mensagem).toMatch(/não encontrado/i);
@@ -65,6 +66,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
 
       const res = await request(app)
         .post('/api/produtos')
+        .set(headerOperador())
         .send(novoProduto);
 
       expect(res.status).toBe(201);
@@ -75,6 +77,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
     it('deve retornar 400 ao tentar cadastrar produto sem código do item', async () => {
       const res = await request(app)
         .post('/api/produtos')
+        .set(headerOperador())
         .send({ nome_produto: 'Produto Sem Código' });
 
       expect(res.status).toBe(400);
@@ -84,6 +87,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
     it('deve retornar 400 ao tentar cadastrar produto com estoque mínimo negativo', async () => {
       const res = await request(app)
         .post('/api/produtos')
+        .set(headerOperador())
         .send({ codigo_item: 'PRD-NEG', estoque_minimo: -5 });
 
       expect(res.status).toBe(400);
@@ -96,6 +100,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
 
       const res = await request(app)
         .put('/api/produtos/1')
+        .set(headerOperador())
         .send({ nome_produto: 'Resina Epóxi Atualizada' });
 
       expect(res.status).toBe(200);
@@ -106,7 +111,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
       jest.spyOn(produtoRepository, 'buscarPorId').mockResolvedValue({ id_produto: 1 });
       jest.spyOn(produtoRepository, 'excluir').mockResolvedValue({ affectedRows: 1 });
 
-      const res = await request(app).delete('/api/produtos/1');
+      const res = await request(app).delete('/api/produtos/1').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/removido/i);
@@ -119,7 +124,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
         { id_categoria: 1, nome_categoria: 'Matérias-Primas' }
       ]);
 
-      const res = await request(app).get('/api/categorias');
+      const res = await request(app).get('/api/categorias').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(1);
@@ -130,6 +135,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
 
       const res = await request(app)
         .post('/api/categorias')
+        .set(headerOperador())
         .send({ nome_categoria: 'Embalagens', descricao: 'Caixas e fitas' });
 
       expect(res.status).toBe(201);
@@ -141,7 +147,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
         { id_subcategoria: 1, nome_subcategoria: 'Químicos' }
       ]);
 
-      const res = await request(app).get('/api/subcategoria');
+      const res = await request(app).get('/api/subcategoria').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(1);
@@ -154,7 +160,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
         { id_localizacao: 1, nome_localizacao: 'Setor A - Prateleira 3' }
       ]);
 
-      const res = await request(app).get('/api/localizacoes');
+      const res = await request(app).get('/api/localizacoes').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(1);
@@ -165,7 +171,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
         { id_lote: 10, codigo_lote: 'LOTE-2026-01', localizacao_fisica: 'Setor A' }
       ]);
 
-      const res = await request(app).get('/api/localizacoes/lotes?nome=Setor A');
+      const res = await request(app).get('/api/localizacoes/lotes?nome=Setor A').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(1);

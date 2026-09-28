@@ -6,6 +6,7 @@ const produtoRepository = require('../repositories/produtoRepository');
 const loteRepository = require('../repositories/loteRepository');
 const ordemProducaoRepository = require('../repositories/ordemProducaoRepository');
 const db = require('../config/database');
+const { headerOperador } = require('./helpers/authHelper');
 
 jest.mock('../config/database');
 jest.mock('../services/logAuditoriaHelper', () => ({
@@ -24,7 +25,7 @@ describe('Integração do Pipeline e Relatório Consolidado', () => {
     });
 
     it('deve configurar cabeçalhos CORS corretamente', async () => {
-      const res = await request(app).get('/api/produtos');
+      const res = await request(app).get('/api/produtos').set(headerOperador());
       expect(res.headers).toHaveProperty('access-control-allow-origin');
     });
 
@@ -33,8 +34,9 @@ describe('Integração do Pipeline e Relatório Consolidado', () => {
 
       const res = await request(app)
         .post('/api/produtos')
-        .send({ codigo_item: 'JSON-TEST', nome_produto: 'Teste JSON' })
-        .set('Content-Type', 'application/json');
+        .set(headerOperador())
+        .set('Content-Type', 'application/json')
+        .send({ codigo_item: 'JSON-TEST', nome_produto: 'Teste JSON' });
 
       expect(res.status).toBe(201);
       expect(res.body.codigo_item).toBe('JSON-TEST');

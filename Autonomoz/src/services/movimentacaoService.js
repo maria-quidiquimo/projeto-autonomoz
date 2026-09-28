@@ -34,7 +34,8 @@ class MovimentacaoService {
 
         // Motivo obrigatório para SAIDA e AJUSTES de inventário
         const exigeMotivo = ['SAIDA', 'AJUSTE_POSITIVO', 'AJUSTE_NEGATIVO'].includes(dados.tipo_movimento);
-        if (exigeMotivo && (!dados.motivo_saida || dados.motivo_saida.trim() === '')) {
+        const motivo = dados.motivo_saida || dados.justificativa || dados.motivo;
+        if (exigeMotivo && (!motivo || motivo.trim() === '')) {
             throw new Error(`O motivo/justificativa é obrigatório para operações de ${dados.tipo_movimento}.`);
         }
 
@@ -58,32 +59,31 @@ class MovimentacaoService {
             // 2. Validação explicita de saldo suficiente para SAIDA (ISSUE #10)
             if (dados.tipo_movimento === 'SAIDA' && dados.quantidade > lote.quantidade) {
                 const identificadorLote = lote.codigo_lote || dados.fk_lote;
-                throw new Error(`Saldo insuficiente no lote ${identificadorLote}: disponível ${lote.quantidade}, solicitado ${dados.quantidade}`);
+                throw new Error(
+                    `Saldo insuficiente no lote ${identificadorLote}. Solicitado: ${dados.quantidade}, Disponível: ${lote.quantidade}.`
+                );
             }
 
-            // Validação de saldo para AJUSTE_NEGATIVO
-            if (dados.tipo_movimento === 'AJUSTE_NEGATIVO' && dados.quantidade > lote.quantidade) {
-                throw new Error(`Quantidade insuficiente no lote. Disponível: ${lote.quantidade}, solicitado: ${dados.quantidade}.`);
+            // 3. Atualizar a quantidade no Lote
+            let novaQuantidade = lote.quantidade;
+            if (dados.tipo_movimento === 'ENTRADA' || dados.tipo_movimento === 'AJUSTE_POSITIVO') {
+                novaQuantidade += dados.quantidade;
+            } else if (dados.tipo_movimento === 'SAIDA' || dados.tipo_movimento === 'AJUSTE_NEGATIVO') {
+                novaQuantidade -= dados.quantidade;
+                if (novaQuantidade < 0) novaQuantidade = 0;
             }
-
-            const isSaidaOuAjusteNegativo = ['SAIDA', 'AJUSTE_NEGATIVO'].includes(dados.tipo_movimento);
-
-            // 3. Atualizar quantidade do Lote_Produto
-            const novaQtdLote = isSaidaOuAjusteNegativo
-                ? lote.quantidade - dados.quantidade
-                : lote.quantidade + dados.quantidade;
 
             await conexao.query(
                 'UPDATE Lote_Produto SET quantidade = ? WHERE id_lote = ?',
-                [novaQtdLote, dados.fk_lote]
+                [novaQuantidade, dados.fk_lote]
             );
 
-            // 4. Recalcular e atualizar estoque_atual do Produto
-            const [somaLotes] = await conexao.query(
+            // 4. Recalcular e atualizar o estoque_atual do Produto (ISSUE #09)
+            const [soma] = await conexao.query(
                 'SELECT COALESCE(SUM(quantidade), 0) AS total FROM Lote_Produto WHERE fk_produto = ? AND ativo = TRUE',
                 [lote.fk_produto]
             );
-            const estoqueAtual = somaLotes[0].total;
+            const estoqueAtual = soma[0]?.total || 0;
 
             await conexao.query(
                 'UPDATE Produto SET estoque_atual = ? WHERE id_produto = ?',
@@ -98,7 +98,7 @@ class MovimentacaoService {
                 dados.fk_usuario,
                 dados.tipo_movimento,
                 dados.quantidade,
-                dados.motivo_saida || null
+                motivo || null
             ]);
 
             await conexao.commit();
@@ -110,11 +110,11 @@ class MovimentacaoService {
 
             await registrarLog(
                 tipoLog,
-                `${dados.tipo_movimento} de ${dados.quantidade} unidades no lote ${lote.codigo_lote}.${dados.motivo_saida ? ' Motivo: ' + dados.motivo_saida : ''}`,
+                `${dados.tipo_movimento} de ${dados.quantidade} unidades no lote ${lote.codigo_lote || dados.fk_lote}.${motivo ? ' Motivo: ' + motivo : ''}`,
                 dados.fk_usuario
             );
 
-            return { id_movimentacao: resultado.insertId, ...dados };
+            return { id_movimentacao: resultado.insertId, ...dados, motivo_saida: motivo };
         } catch (error) {
             await conexao.rollback();
             throw error;
@@ -127,22 +127,33 @@ class MovimentacaoService {
         if (!dados.fk_lote || !dados.fk_usuario) {
             throw new Error('Lote (fk_lote) e Usuário (fk_usuario) são obrigatórios.');
         }
-        if (dados.quantidade_ajuste === undefined || dados.quantidade_ajuste === 0) {
-            throw new Error('A quantidade de ajuste deve ser diferente de zero.');
-        }
-        if (!dados.motivo || dados.motivo.trim() === '') {
+        
+        const motivo = dados.justificativa || dados.motivo || dados.motivo_saida;
+        if (!motivo || motivo.trim() === '') {
             throw new Error('O motivo do ajuste de inventário é obrigatório.');
         }
 
-        const tipo_movimento = dados.quantidade_ajuste > 0 ? 'AJUSTE_POSITIVO' : 'AJUSTE_NEGATIVO';
-        const quantidade = Math.abs(dados.quantidade_ajuste);
+        let tipo_movimento = dados.tipo_movimento;
+        let quantidade = Number(dados.quantidade_ajuste !== undefined ? dados.quantidade_ajuste : dados.quantidade);
+
+        if (dados.tipo_ajuste === 'NEGATIVO' || quantidade < 0) {
+            tipo_movimento = 'AJUSTE_NEGATIVO';
+            quantidade = Math.abs(quantidade);
+        } else if (dados.tipo_ajuste === 'POSITIVO' || !tipo_movimento) {
+            tipo_movimento = 'AJUSTE_POSITIVO';
+            quantidade = Math.abs(quantidade);
+        }
+
+        if (!quantidade || quantidade <= 0) {
+            throw new Error('A quantidade de ajuste deve ser maior que zero.');
+        }
 
         return await this.cadastrar({
             fk_lote: dados.fk_lote,
             fk_usuario: dados.fk_usuario,
             tipo_movimento,
             quantidade,
-            motivo_saida: dados.motivo
+            motivo_saida: motivo
         });
     }
 

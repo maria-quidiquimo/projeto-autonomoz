@@ -3,6 +3,7 @@ const app = require('../app');
 const ordemProducaoRepository = require('../repositories/ordemProducaoRepository');
 const ordemProducaoFuncionarioRepository = require('../repositories/ordemProducaoFuncionarioRepository');
 const ordemProducaoMateriaisRepository = require('../repositories/ordemProducaoMateriaisRepository');
+const { headerOperador } = require('./helpers/authHelper');
 
 jest.mock('../config/database');
 
@@ -18,7 +19,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       ];
       jest.spyOn(ordemProducaoRepository, 'listarTodos').mockResolvedValue(mockOrdens);
 
-      const res = await request(app).get('/api/ordem_producao');
+      const res = await request(app).get('/api/ordem_producao').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(Array.isArray(res.body)).toBe(true);
@@ -32,7 +33,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
         status_ordem: 'PLANEJADA'
       });
 
-      const res = await request(app).get('/api/ordem_producao/1');
+      const res = await request(app).get('/api/ordem_producao/1').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.id_ordem_producao).toBe(1);
@@ -41,7 +42,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
     it('deve retornar 404 para ordem inexistente (GET /api/ordem_producao/:id)', async () => {
       jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue(null);
 
-      const res = await request(app).get('/api/ordem_producao/999');
+      const res = await request(app).get('/api/ordem_producao/999').set(headerOperador());
 
       expect(res.status).toBe(404);
       expect(res.body.mensagem).toMatch(/não encontrada/i);
@@ -60,6 +61,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
 
       const res = await request(app)
         .post('/api/ordem_producao')
+        .set(headerOperador())
         .send(novaOrdem);
 
       expect(res.status).toBe(201);
@@ -70,6 +72,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
     it('deve retornar 400 ao cadastrar ordem sem nome do projeto', async () => {
       const res = await request(app)
         .post('/api/ordem_producao')
+        .set(headerOperador())
         .send({ descricao: 'Sem nome' });
 
       expect(res.status).toBe(400);
@@ -82,6 +85,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
 
       const res = await request(app)
         .put('/api/ordem_producao/1')
+        .set(headerOperador())
         .send({ status_ordem: 'CONCLUIDA' });
 
       expect(res.status).toBe(200);
@@ -92,7 +96,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({ id_ordem_producao: 1 });
       jest.spyOn(ordemProducaoRepository, 'excluir').mockResolvedValue({ affectedRows: 1 });
 
-      const res = await request(app).delete('/api/ordem_producao/1');
+      const res = await request(app).delete('/api/ordem_producao/1').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/removida/i);
@@ -105,7 +109,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
         { id: 1, fk_ordem_producao: 1, fk_usuario: 2, nome_funcionario: 'Operador 1' }
       ]);
 
-      const res = await request(app).get('/api/ordem_producao_funcionario');
+      const res = await request(app).get('/api/ordem_producao_funcionario').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(1);
@@ -116,6 +120,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
 
       const res = await request(app)
         .post('/api/ordem_producao_funcionario')
+        .set(headerOperador())
         .send({
           fk_ordem_producao: 1,
           fk_usuario: 2,
@@ -130,6 +135,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
     it('deve recusar alocação sem funcionário especificado (POST /api/ordem_producao_funcionario)', async () => {
       const res = await request(app)
         .post('/api/ordem_producao_funcionario')
+        .set(headerOperador())
         .send({ fk_ordem_producao: 1 });
 
       expect(res.status).toBe(400);
@@ -140,7 +146,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       jest.spyOn(ordemProducaoFuncionarioRepository, 'buscarPorId').mockResolvedValue({ id: 3 });
       jest.spyOn(ordemProducaoFuncionarioRepository, 'excluir').mockResolvedValue({ affectedRows: 1 });
 
-      const res = await request(app).delete('/api/ordem_producao_funcionario/3');
+      const res = await request(app).delete('/api/ordem_producao_funcionario/3').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/removido/i);
@@ -153,7 +159,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
         { id: 1, fk_ordem_producao: 1, fk_produto: 2, quantidade_utilizada: 10 }
       ]);
 
-      const res = await request(app).get('/api/ordem_producao_materiais');
+      const res = await request(app).get('/api/ordem_producao_materiais').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(1);
@@ -164,6 +170,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
 
       const res = await request(app)
         .post('/api/ordem_producao_materiais')
+        .set(headerOperador())
         .send({
           fk_ordem_producao: 1,
           fk_produto: 2,
@@ -179,7 +186,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       jest.spyOn(ordemProducaoMateriaisRepository, 'buscarPorId').mockResolvedValue({ id: 5 });
       jest.spyOn(ordemProducaoMateriaisRepository, 'excluir').mockResolvedValue({ affectedRows: 1 });
 
-      const res = await request(app).delete('/api/ordem_producao_materiais/5');
+      const res = await request(app).delete('/api/ordem_producao_materiais/5').set(headerOperador());
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/removido/i);

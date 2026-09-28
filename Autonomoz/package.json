@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "npx nodemon src/server.js",
+    "build": "npm --prefix src/view/autonomoz-frontend run build",
+    "build:frontend": "npm --prefix src/view/autonomoz-frontend run build",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:coverage": "jest --coverage --runInBand --detectOpenHandles --forceExit",
     "test:usuarios": "jest src/__tests__/usuarios.test.js --runInBand",
