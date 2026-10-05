@@ -1,4 +1,5 @@
 const db = require('../config/database');
+const { tratarErroBanco } = require('../helpers/tratarErroBanco'); // Importação do helper
 
 class LoteRepository {
 
@@ -8,6 +9,7 @@ class LoteRepository {
         const sqlTotal = `
             SELECT COUNT(*) AS total
             FROM Lote_Produto
+            WHERE ativo = TRUE
         `;
 
         const [resultadoTotal] = await db.query(sqlTotal);
@@ -17,6 +19,7 @@ class LoteRepository {
         const sql = `
             SELECT *
             FROM Lote_Produto
+            WHERE ativo = TRUE
             ORDER BY id_lote DESC
             LIMIT ? OFFSET ?
         `;
@@ -41,7 +44,7 @@ class LoteRepository {
         const sql = `
             SELECT *
             FROM Lote_Produto
-            WHERE id_lote = ?
+            WHERE id_lote = ? AND ativo = TRUE
         `;
 
         const [linhas] = await db.query(sql, [id]);
@@ -122,14 +125,21 @@ class LoteRepository {
     }
 
     async excluir(id) {
-        const sql = `
-            DELETE FROM Lote_Produto
-            WHERE id_lote = ?
-        `;
+        try {
+            // Soft Delete: Inativa o lote alterando o campo 'ativo' para FALSE
+            const sql = `
+                UPDATE Lote_Produto
+                SET ativo = FALSE
+                WHERE id_lote = ?
+            `;
 
-        const [resultado] = await db.query(sql, [id]);
+            const [resultado] = await db.query(sql, [id]);
 
-        return resultado;
+            return resultado;
+        } catch (error) {
+            // Trata o erro e lança a mensagem amigável da pasta helpers
+            tratarErroBanco(error, 'Lote');
+        }
     }
 }
 

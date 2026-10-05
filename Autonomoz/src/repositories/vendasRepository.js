@@ -1,4 +1,5 @@
 const db = require('../config/database');
+const { tratarErroBanco } = require('../helpers/tratarErroBanco');
 
 class VendasRepository {
     async listarTodos() {
@@ -33,9 +34,14 @@ class VendasRepository {
     }
 
     async excluir(id) {
-        const sql = 'DELETE FROM Vendas WHERE id_venda = ?';
-        const [resultado] = await db.query(sql, [id]);
-        return resultado;
+        try {
+            const sql = 'DELETE FROM Vendas WHERE id_venda = ?';
+            const [resultado] = await db.query(sql, [id]);
+            return resultado;
+        } catch (error) {
+            // Captura erros de FK (ex: itens/registros atrelados a esta venda) e lança a mensagem amigável
+            tratarErroBanco(error, 'Venda');
+        }
     }
 }
 

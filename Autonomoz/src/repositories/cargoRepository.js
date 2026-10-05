@@ -1,4 +1,5 @@
 const db = require('../config/database');
+const { tratarErroBanco } = require('../helpers/tratarErroBanco');
 
 class CargoRepository {
     async listarTodos() {
@@ -28,8 +29,14 @@ class CargoRepository {
     }
 
     async excluir(id) {
-        const [res] = await db.query('DELETE FROM Cargo WHERE id_cargo = ?', [id]);
-        return res.affectedRows > 0;
+        try {
+            // Mantém o DELETE físico, mas captura exceções de chave estrangeira (FK)
+            const [res] = await db.query('DELETE FROM Cargo WHERE id_cargo = ?', [id]);
+            return res.affectedRows > 0;
+        } catch (error) {
+            // Se houver usuários vinculados a este cargo, dispara a mensagem amigável
+            tratarErroBanco(error, 'Cargo');
+        }
     }
 }
 

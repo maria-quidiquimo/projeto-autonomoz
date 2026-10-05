@@ -1,14 +1,17 @@
 const db = require('../config/database');
+const { tratarErroBanco } = require('../helpers/tratarErroBanco');
 
 class FornecedorRepository {
     async listarTodos() {
-        const sql = 'SELECT * FROM Fornecedor';
+        // Traz apenas fornecedores ativos na listagem padrão
+        const sql = 'SELECT * FROM Fornecedor WHERE ativo = TRUE';
         const [linhas] = await db.query(sql);
         return linhas;
     }
 
     async buscarPorId(id) {
-        const sql = 'SELECT * FROM Fornecedor WHERE id_fornecedor = ?';
+        // Traz o fornecedor somente se ele estiver ativo
+        const sql = 'SELECT * FROM Fornecedor WHERE id_fornecedor = ? AND ativo = TRUE';
         const [linhas] = await db.query(sql, [id]);
         return linhas[0];
     }
@@ -28,9 +31,15 @@ class FornecedorRepository {
     }
 
     async excluir(id) {
-        const sql = 'DELETE FROM Fornecedor WHERE id_fornecedor = ?';
-        const [resultado] = await db.query(sql, [id]);
-        return resultado;
+        try {
+            // Soft Delete: desativa o fornecedor alterando 'ativo' para FALSE
+            const sql = 'UPDATE Fornecedor SET ativo = FALSE WHERE id_fornecedor = ?';
+            const [resultado] = await db.query(sql, [id]);
+            return resultado;
+        } catch (error) {
+            // Captura o erro e lança a mensagem amigável com 'Fornecedor'
+            tratarErroBanco(error, 'Fornecedor');
+        }
     }
 }
 

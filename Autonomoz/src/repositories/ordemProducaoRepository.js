@@ -1,4 +1,5 @@
 const db = require('../config/database');
+const { tratarErroBanco } = require('../helpers/tratarErroBanco');
 
 class OrdemProducaoRepository {
     async listarTodos() {
@@ -33,9 +34,14 @@ class OrdemProducaoRepository {
     }
 
     async excluir(id) {
-        const sql = 'DELETE FROM Ordem_Producao WHERE id_ordem_producao = ?';
-        const [resultado] = await db.query(sql, [id]);
-        return resultado;
+        try {
+            const sql = 'DELETE FROM Ordem_Producao WHERE id_ordem_producao = ?';
+            const [resultado] = await db.query(sql, [id]);
+            return resultado;
+        } catch (error) {
+            // Captura erros de FK (ex: itens/lotes vinculados a essa ordem) e lança a mensagem amigável
+            tratarErroBanco(error, 'Ordem de Produção');
+        }
     }
 }
 
