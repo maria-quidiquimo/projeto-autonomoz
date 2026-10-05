@@ -14,17 +14,24 @@ class ProdutoService {
         return produto;
     }
 
-    async cadastrar(dados) {
-        // Validação de regra de negócio (RN-04 e RES-06) [6, 7]
+    async cadastrar(dados, idUsuarioLogado) {
+        // Validação de regra de negócio (RN-04 e RES-06) [1, 2]
         if (!dados.codigo_item) throw new Error('O código do item é obrigatório.');
         if (dados.estoque_minimo < 0) throw new Error('Estoque mínimo inválido.');
 
-        const novoProduto = await produtoRepository.salvar(dados)
+        // 1. Sobrescreve para garantir que o estoque inicial seja 0 (RES-06) [1]
+        const dadosComEstoqueZerado = {
+            ...dados,
+            estoque_atual: 0
+        };
 
-        // Registro de Log
+        // 2. Salva no banco de dados enviando o objeto com estoque zerado
+        const novoProduto = await produtoRepository.salvar(dadosComEstoqueZerado);
+
+        // 3. Registro de Log do Sistema
         await registrarLog(
             'CRIACAO_PRODUTO',
-            `Produto "${dadosProduto.nome_produto}" (Código: ${dadosProduto.codigo_item}) foi cadastrado.`,
+            `Produto "${dados.nome_produto}" (Código: ${dados.codigo_item}) foi cadastrado.`,
             idUsuarioLogado
         );
 
