@@ -1,4 +1,5 @@
 const ordemProducaoRepository = require('../repositories/ordemProducaoRepository');
+const {registrarLog} = require('./logService')
 
 class OrdemProducaoService {
     async listarTodos() {
@@ -18,12 +19,21 @@ class OrdemProducaoService {
             throw new Error('O nome do projeto é obrigatório.');
         }
 
-        return await ordemProducaoRepository.salvar(dados);
+        const novaOrdem = await ordemProducaoRepository.salvar(dados);
+
+        await registrarLog(
+            'CRIACAO_ORDEM_PRODUCAO',
+            `Ordem de Produção "${dados.nome_projeto}" foi criada.`,
+            idUsuarioLogado
+        )
+        return novaOrdem;
     }
 
     async atualizar(id, dados) {
-        await this.buscarPorId(id);
-        return await ordemProducaoRepository.atualizar(id, dados);
+        const novaExistente = await this.buscarPorId(id);
+        const ordemAtualizada = await ordemProducaoRepository.atualizar(id, dados);
+        
+        // CONTINUAR...
     }
 
     async excluir(id) {

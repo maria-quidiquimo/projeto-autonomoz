@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const usuarioRepository = require('../repositories/usuarioRepository');
 const cargoRepository = require('../repositories/cargoRepository');
+const {registrarLog} = require('./logService')
 
 class UsuarioService {
     async listarTodos() {
@@ -34,11 +35,16 @@ class UsuarioService {
         return usuarioSemSenha;
     }
 
-    async cadastrar(arg1, arg2) {
+    async cadastrar(arg1, arg2, arg3) {
         const dados = (arg2 && typeof arg2 === 'object') ? arg2 : arg1;
-        const adminId = (arg2 && typeof arg2 === 'object') ? arg1 : (dados.fk_usuario_criador || null);
-        if (!dados.nome || !dados.matricula || !dados.senha) {
-            throw new Error('Nome, matrícula e senha são obrigatórios.');
+
+        const adminId = arg3 || ((arg2 && typeof arg2 === 'object') ? arg1 : (dados.fk_usuario_criador || null));
+
+        if (!dados.nome && !dados.nome_completo) {
+            throw new Error('Nome do usuário é obrigatório.');
+        }
+        if(!dados.matricula || !dados.senha){
+            throw new Error('Matrícula e senha são obrigatórios.')
         }
 
         if (dados.fk_cargo) {
@@ -51,11 +57,19 @@ class UsuarioService {
         const saltRounds = 10;
         const senhaHash = await bcrypt.hash(dados.senha, saltRounds);
 
-        return await usuarioRepository.salvar({
+        const novoUsuario = await usuarioRepository.salvar({
             ...dados,
             fk_usuario_criador: adminId || dados.fk_usuario_criador || null,
             senha: senhaHash
         });
+
+        const nomeUsuario = dados.nome_completo || dados.nome;
+        await registrarLog(
+            'CADASTRAR_USUARIO',
+            `Usuário "${nomeUsuario}" (Matrícula: ${dados.matricula}) foi cadastrado no sistema.`,
+            adminId
+        )
+        return novoUsuario;
     }
 
     async buscarCargos() {
@@ -63,7 +77,7 @@ class UsuarioService {
     }
 
     async atualizar(id, dados) {
-        await this.buscarPorId(id);
+        const usuarioExistente = await this.buscarPorId(id);
 
         if (dados.fk_cargo) {
             const cargoExiste = await cargoRepository.buscarPorId(dados.fk_cargo);
@@ -77,12 +91,32 @@ class UsuarioService {
             dados.senha = await bcrypt.hash(dados.senha, saltRounds);
         }
 
-        return await usuarioRepository.atualizar(id, dados);
+        const resultado = await usuarioRepository.atualizar(id, dados)
+
+        const tipoEvento = (dados.tipo_acesso || dados.fk_cargo) ? 'ALTERACAO_ACESSO' : 'EDICAO_USUARIO';
+
+        const nomeUsuario = usuarioExistente.nome_completo|| usuarioExistente.nome || `ID ${id}`;
+
+        await registrarLog(
+            tipoEvento,
+            `Dados/Acesso do usuário "${nomeUsuario}" (ID: ${id}) foram atualizados.`,
+            idUsuarioLogado
+        )
+        return resultado
     }
 
     async excluir(id) {
-        await this.buscarPorId(id);
-        return await usuarioRepository.excluir(id);
+        const usuarioExistente = await this.buscarPorId(id);
+        
+        const resultado = await usuarioRepository.excluir(id);
+
+        const nomeUsuario = usuarioExistente.nome_completo || usuarioExistente.nome || `ID ${id}`;
+
+        await registrarLog(
+            'INATIVACAO_USUARIO',
+            `Usuário "${nomeUsuario}" (ID: ${id}) foi removido/inativado.`
+        )
+        return resultado;
     }
 }
 

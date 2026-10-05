@@ -53,7 +53,10 @@ class UsuarioController {
     async atualizar(req, res) {
         try {
             const { id } = req.params;
-            await usuarioService.atualizar(id, req.body);
+
+            const adminId = req.usuario?.id_usuario || req.headers['user-id'] || req.headers['userid']
+
+            await usuarioService.atualizar(id, req.body, adminId);
             return res.status(200).json({ message: "Dados atualizados com sucesso." });
         } catch (error) {
             console.error("❌ ERRO NO ATUALIZAR:", error);
@@ -67,7 +70,10 @@ class UsuarioController {
     async excluir(req, res) {
         try {
             const { id } = req.params;
-            await usuarioService.excluir(id);
+
+            const adminId = req.usuario?.id_usuario || req.headers['user-id'] || req.headers['userid'];
+
+            await usuarioService.excluir(id, adminId);
             return res.status(200).json({ message: "Usuário removido do sistema." });
         } catch (error) {
             console.error("❌ ERRO NO EXCLUIR:", error);
