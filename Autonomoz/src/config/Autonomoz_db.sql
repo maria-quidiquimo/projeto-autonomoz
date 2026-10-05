@@ -2,7 +2,7 @@
 -- AUTONOMOZ - INDUSTRIAL CONTROL SYSTEM
 -- Banco de Dados: autonomoz_db
 --
--- Versão auditada e 100% testada (SENAI/SESI Itu, v9.1 - 2026)
+-- Versão auditada e 100% testada (SENAI/SESI Itu, v9.2 - 2026)
 -- Motor: MySQL 8.0+ / MariaDB 10.5+  |  Engine: InnoDB
 --
 -- ESTRUTURA DESTE ARQUIVO:
@@ -50,32 +50,6 @@ CREATE TABLE Fornecedor (
 -- BLOCO 2: NÍVEL 1
 -- ============================================================================
 
-CREATE TABLE Usuarios (
-    id_usuario          INT AUTO_INCREMENT PRIMARY KEY,
-    matricula           VARCHAR(20)  NOT NULL UNIQUE COMMENT 'ID de login',
-    nome_completo       VARCHAR(150) NOT NULL,
-    cpf                 VARCHAR(14)  NOT NULL UNIQUE,
-    data_nascimento     DATE NOT NULL,
-    senha_hash          VARCHAR(255) NOT NULL,
-
-    tipo_acesso         ENUM('GERENTE', 'FUNCIONARIO') NOT NULL,
-    cargo_descritivo     VARCHAR(80) NULL,
-
-    fk_usuario_criador   INT NULL,
-
-    ativo               BOOLEAN NOT NULL DEFAULT TRUE,
-    criado_em           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-    CONSTRAINT fk_usuarios_criador FOREIGN KEY (fk_usuario_criador) REFERENCES Usuarios(id_usuario)
-        ON UPDATE CASCADE ON DELETE SET NULL,
-
-    INDEX idx_usuarios_cpf (cpf),
-    INDEX idx_usuarios_nome (nome_completo),
-    INDEX idx_usuarios_tipo_acesso (tipo_acesso)
-) ENGINE=InnoDB;
-
-
 CREATE TABLE Cargo (
     id_cargo INT AUTO_INCREMENT PRIMARY KEY,
     nome_cargo VARCHAR(80) NOT NULL UNIQUE,
@@ -83,6 +57,30 @@ CREATE TABLE Cargo (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+
+CREATE TABLE Usuarios (
+    id_usuario          INT AUTO_INCREMENT PRIMARY KEY,
+    matricula           VARCHAR(20)  NOT NULL UNIQUE COMMENT 'ID de login',
+    nome_completo       VARCHAR(150) NOT NULL,
+    cpf                 VARCHAR(14)  NOT NULL UNIQUE,
+    data_nascimento     DATE NOT NULL,
+    senha_hash          VARCHAR(255) NOT NULL,
+    tipo_acesso         ENUM('GERENTE', 'FUNCIONARIO') NOT NULL DEFAULT 'FUNCIONARIO',
+    fk_cargo            INT NULL, -- <--- Adicionado para receber o ID do cargo
+    fk_usuario_criador  INT NULL,
+    ativo               BOOLEAN NOT NULL DEFAULT TRUE,
+    criado_em           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    CONSTRAINT fk_usuarios_cargo 
+        FOREIGN KEY (fk_cargo) REFERENCES Cargo(id_cargo) ON DELETE SET NULL,
+    CONSTRAINT fk_usuarios_criador 
+        FOREIGN KEY (fk_usuario_criador) REFERENCES Usuarios(id_usuario) ON DELETE SET NULL,
+
+    INDEX idx_usuarios_cpf (cpf),
+    INDEX idx_usuarios_nome (nome_completo),
+    INDEX idx_usuarios_tipo_acesso (tipo_acesso)
+) ENGINE=InnoDB;
 
 CREATE TABLE Sub_Categoria (
     id_subcategoria     INT AUTO_INCREMENT PRIMARY KEY,
@@ -375,15 +373,18 @@ INSERT INTO Fornecedor (razao_social, contato_email, contato_telefone) VALUES
 ('Itu Componentes Eletrônicos S.A.', 'vendas@itueletro.com.br', '(11) 4023-5566');
 
 -- Seed de Cargo, necessário para o UPDATE da Parte 4 funcionar
-INSERT INTO Cargo (nome_cargo, descricao) VALUES
-('Gerente', 'Gestão e supervisão geral'),
-('Funcionario', 'Operações de estoque e produção');
+INSERT INTO Cargo (nome_cargo, descricao) VALUES 
+('Gerente Geral',       'Responsável pela gestão completa e cadastro de novos funcionários'),  -- id_cargo = 1
+('Mecânico',            'Manutenção mecânica e reparo em veículos/peças'),                         -- id_cargo = 2
+('Auxiliar de Estoque', 'Movimentação, conferência e organização do almoxarifado'),      -- id_cargo = 3
+('Eletricista',         'Instalação e reparo do sistema elétrico e chicotes');                  -- id_cargo = 4
 
-INSERT INTO Usuarios (matricula, nome_completo, cpf, data_nascimento, senha_hash, tipo_acesso, cargo_descritivo, fk_usuario_criador) VALUES
-('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'GERENTE', 'Gerente', NULL),
-('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'FUNCIONARIO', 'Funcionario', 1),
-('FUNC-002', 'Maria Eduarda Barreto', '333.444.555-66', '2008-07-15', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'FUNCIONARIO', 'Funcionario', 1),
-('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2b$10$xEUKMhdHLZRru10eoK9.suhyQkWyDXvnS.GS6yuNX0n9gS5W3..Pq', 'FUNCIONARIO', 'Funcionario', 1);
+INSERT INTO Usuarios (matricula, nome_completo, cpf, data_nascimento, senha_hash, tipo_acesso, fk_cargo, fk_usuario_criador) 
+VALUES 
+('GER-001',  'Marlon Fanger Rodrigues',  '111.222.333-44', '1980-05-12', '$2y$10$exemploHASHnaoUSARemPRODUCAO01', 'GERENTE',     1, NULL),
+('FUNC-001', 'Lucas Felipe Sola',        '222.333.444-55', '2008-02-20', '$2y$10$exemploHASHnaoUSARemPRODUCAO02', 'FUNCIONARIO', 2, 1),
+('FUNC-002', 'Maria Eduarda Barreto',    '333.444.555-66', '2008-07-15', '$2y$10$exemploHASHnaoUSARemPRODUCAO03', 'FUNCIONARIO', 3, 1),
+('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2y$10$exemploHASHnaoUSARemPRODUCAO04', 'FUNCIONARIO', 4, 1);
 
 INSERT INTO Produto (codigo_item, nome_produto, descricao, fk_subcategoria, fk_fornecedor, unidade_medida, valor_unitario, estoque_minimo, estoque_atual) VALUES
 ('PC-001', 'Para-choque Dianteiro', 'Para-choque em ABS reforçado', 1, 1, 'UN', 350.00, 5, 12),
@@ -552,24 +553,16 @@ ORDER BY a.gerado_em DESC;
 -- PARTE 4: EDIÇÃO DE TABELAS
 -- ############################################################################
 
--- Adiciona a referência na tabela de Usuários
-ALTER TABLE Usuarios ADD COLUMN fk_cargo INT NULL;
-ALTER TABLE Usuarios ADD CONSTRAINT fk_usuarios_cargo
-    FOREIGN KEY (fk_cargo) REFERENCES Cargo(id_cargo) ON DELETE SET NULL;
-
--- Atualiza o usuário GER-001 (id_usuario = 1) para o cargo "Gerente Geral" (id_cargo = 1)
--- Corrigido: nome da tabela era 'usuario' (não existe), o correto é 'Usuarios';
--- a coluna era 'cargo_id' (não existe), o correto é 'fk_cargo';
--- e o placeholder ID_DO_CARGO_GERENTE foi substituído pelo id real de Cargo.
-UPDATE Usuarios
-SET fk_cargo = (SELECT id_cargo FROM Cargo WHERE nome_cargo = 'Gerente')
-WHERE id_usuario = 1;
-
--- Conferência
-SELECT id_usuario, matricula, nome_completo, tipo_acesso, cargo_descritivo, fk_cargo, criado_em
-FROM Usuarios
-ORDER BY id_usuario DESC;
-
+-- Consulta para verificar se todos os usuários estão com seus cargos associados corretamente
+SELECT 
+    u.id_usuario, 
+    u.matricula, 
+    u.nome_completo, 
+    u.tipo_acesso, 
+    c.nome_cargo AS cargo
+FROM Usuarios u
+LEFT JOIN Cargo c ON u.fk_cargo = c.id_cargo
+ORDER BY u.id_usuario ASC;
 -- ============================================================================
 -- FIM DO ARQUIVO
 -- ============================================================================ 
