@@ -1,21 +1,22 @@
 const localizacaoService = require('../services/localizacaoService');
+const { tratarErroController } = require('../helpers/tratarErroController');
 
 class LocalizacaoController {
     async listar(req, res) {
         try {
             const localizacoes = await localizacaoService.listarTodos();
-            res.status(200).json(localizacoes);
+            return res.status(200).json(localizacoes);
         } catch (erro) {
-            res.status(500).json({ mensagem: 'Erro ao buscar localizações.', erro: erro.message });
+            return tratarErroController(res, erro, 'Localizacao.listar');
         }
     }
 
     async buscarPorId(req, res) {
         try {
             const localizacao = await localizacaoService.buscarPorId(req.params.id);
-            res.status(200).json(localizacao);
+            return res.status(200).json(localizacao);
         } catch (erro) {
-            res.status(404).json({ mensagem: erro.message });
+            return tratarErroController(res, erro, 'Localizacao.buscarPorId');
         }
     }
 
@@ -23,9 +24,9 @@ class LocalizacaoController {
         try {
             const { nome } = req.query;
             const lotes = await localizacaoService.buscarLotesPorLocalizacao(nome);
-            res.status(200).json(lotes);
+            return res.status(200).json(lotes);
         } catch (erro) {
-            res.status(400).json({ mensagem: erro.message });
+            return tratarErroController(res, erro, 'Localizacao.buscarLotes');
         }
     }
 }
