@@ -1,4 +1,5 @@
 const produtoRepository = require('../repositories/produtoRepository');
+const { registrarLog } = require('./logService')
 
 class ProdutoService {
     async listarTodos() {
@@ -18,17 +19,41 @@ class ProdutoService {
         if (!dados.codigo_item) throw new Error('O código do item é obrigatório.');
         if (dados.estoque_minimo < 0) throw new Error('Estoque mínimo inválido.');
 
-        return await produtoRepository.salvar(dados);
+        const novoProduto = await produtoRepository.salvar(dados)
+
+        // Registro de Log
+        await registrarLog(
+            'CRIACAO_PRODUTO',
+            `Produto "${dadosProduto.nome_produto}" (Código: ${dadosProduto.codigo_item}) foi cadastrado.`,
+            idUsuarioLogado
+        );
+
+        return novoProduto;
     }
 
     async atualizar(id, dados) {
-        await this.buscarPorId(id);
-        return await produtoRepository.atualizar(id, dados);
+        const produtoExistente = await this.buscarPorId(id);
+        
+        const produtoAtualizado = await produtoRepository.atualizar(id, dados);
+
+        // Log de Auditoria
+        await registrarLog(
+            'EDICAO_PRODUTO',
+            `Produto ID ${id} ("${produtoExistente.nome_produto}") foi atualizado.`,
+            idUsuarioLogado
+        )
+        return produtoAtualizado
     }
 
     async excluir(id) {
-        await this.buscarPorId(id);
-        return await produtoRepository.excluir(id);
+        const resultado = await this.buscarPorId(id);
+        
+        await registrarLog(
+            'INATIVACAO_PRODUTO',
+            `Produto ID ${id} ("${produtoExistente.nome_produto}") foi removido/inativado.`,
+            idUsuarioLogado
+        )
+        return resultado
     }
 }
 

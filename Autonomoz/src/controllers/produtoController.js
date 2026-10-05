@@ -9,11 +9,9 @@ class ProdutoController {
             if (!Number.isInteger(pagina) || pagina < 1) {
                 pagina = 1;
             }
-
             if (!Number.isInteger(limite) || limite < 1) {
                 limite = 20;
             }
-
             // Impede consultas muito grandes
             if (limite > 100) {
                 limite = 100;
@@ -44,7 +42,9 @@ class ProdutoController {
 
     async cadastrar(req, res) {
         try {
-            const resultado = await produtoService.cadastrar(req.body);
+            const idUsuarioLogado = req.usuario?.id_usuario
+
+            const resultado = await produtoService.cadastrar(req.body, idUsuarioLogado);
 
             res.status(201).json({
                 id_produto: resultado.insertId,
@@ -60,7 +60,9 @@ class ProdutoController {
 
     async atualizar(req, res) {
         try {
-            await produtoService.atualizar(req.params.id, req.body);
+            const idUsuarioLogado = req.usuario?.id_usuario;
+
+            await produtoService.atualizar(req.params.id, req.body, idUsuarioLogado);
 
             res.status(200).json({
                 mensagem: 'Produto atualizado.'
@@ -74,7 +76,9 @@ class ProdutoController {
 
     async excluir(req, res) {
         try {
-            await produtoService.excluir(req.params.id);
+            const idUsuarioLogado = req.usuario?.id_usuario;
+
+            await produtoService.excluir(req.params.id, idUsuarioLogado);
 
             res.status(200).json({
                 mensagem: 'Produto removido.'
