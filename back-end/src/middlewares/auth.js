@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-// comentario meramente ilustrativo para fazer commit 
+// comentario meramente ilustrativo para fazer commit denovo pq errei dnovo
 const JWT_SECRET = process.env.JWT_SECRET || 'autonomoz_secret_key_2026';
 
 // Middleware que verifica se o token JWT é válido e injeta req.usuario
