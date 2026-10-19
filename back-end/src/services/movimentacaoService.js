@@ -22,7 +22,7 @@ class MovimentacaoService {
         return movimentacao;
     }
 
-    async cadastrar(dados) {
+    async cadastrar(dados, conexaoExterna = null) {
         if (!dados.fk_lote) {
             throw new Error('O lote (fk_lote) é obrigatório.');
         }
@@ -73,10 +73,13 @@ class MovimentacaoService {
             );
         }
 
-        const conexao = await db.getConnection();
+        const conexao = conexaoExterna || await db.getConnection();
+        const gerenciaTransacao = !conexaoExterna;
 
         try {
-            await conexao.beginTransaction();
+            if (gerenciaTransacao) {
+                await conexao.beginTransaction();
+            }
 
             const [lotes] = await conexao.query(
                 `
@@ -191,7 +194,9 @@ class MovimentacaoService {
                 ]
             );
 
-            await conexao.commit();
+            if (gerenciaTransacao) {
+                await conexao.commit();
+            }
 
             let tipoLog = 'ENTRADA_ESTOQUE';
 
@@ -216,10 +221,14 @@ class MovimentacaoService {
             };
 
         } catch (error) {
-            await conexao.rollback();
+            if (gerenciaTransacao) {
+                await conexao.rollback();
+            }
             throw error;
         } finally {
-            conexao.release();
+            if (gerenciaTransacao) {
+                conexao.release();
+            }
         }
     }
 

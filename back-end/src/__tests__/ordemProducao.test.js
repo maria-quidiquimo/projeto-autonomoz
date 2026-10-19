@@ -3,6 +3,8 @@ const app = require('../app');
 const ordemProducaoRepository = require('../repositories/ordemProducaoRepository');
 const ordemProducaoFuncionarioRepository = require('../repositories/ordemProducaoFuncionarioRepository');
 const ordemProducaoMateriaisRepository = require('../repositories/ordemProducaoMateriaisRepository');
+const produtoRepository = require('../repositories/produtoRepository');
+const db = require('../config/database');
 const { headerOperador } = require('./helpers/authHelper');
 
 jest.mock('../config/database');
@@ -92,6 +94,55 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       expect(res.body.mensagem).toMatch(/atualizada/i);
     });
 
+    it('deve dar baixa de estoque nos materiais ao concluir a ordem (PUT /api/ordem_producao/:id)', async () => {
+      const mockConn = db._mockConnection;
+      jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({
+        id_ordem_producao: 1,
+        nome_projeto: 'Projeto Especial',
+        status_ordem: 'EM_ANDAMENTO',
+        fk_usuario_responsavel: 1
+      });
+      jest.spyOn(ordemProducaoRepository, 'atualizar').mockResolvedValue({ affectedRows: 1 });
+
+      mockConn.query
+        .mockResolvedValueOnce([[{ fk_produto: 10, quantidade_utilizada: 4 }]]) // Ordem_Producao_Materiais
+        .mockResolvedValueOnce([[{ id_lote: 1, codigo_lote: 'L-1', quantidade: 20 }]]) // Lote_Produto
+        .mockResolvedValueOnce([[{ id_lote: 1, codigo_lote: 'L-1', quantidade: 20, fk_produto: 10, ativo: 1, produto_ativo: 1 }]]) // cadastrar SELECT
+        .mockResolvedValueOnce([{ affectedRows: 1 }]) // cadastrar UPDATE lote
+        .mockResolvedValueOnce([[{ total: 16 }]]) // cadastrar SELECT SUM
+        .mockResolvedValueOnce([{ affectedRows: 1 }]) // cadastrar UPDATE produto
+        .mockResolvedValueOnce([{ insertId: 99 }]); // cadastrar INSERT movimentacao
+
+      const res = await request(app)
+        .put('/api/ordem_producao/1')
+        .set(headerOperador())
+        .send({ status_ordem: 'CONCLUIDA' });
+
+      expect(res.status).toBe(200);
+      expect(res.body.mensagem).toMatch(/atualizada/i);
+    });
+
+    it('deve rejeitar conclusão quando saldo do estoque for insuficiente (PUT /api/ordem_producao/:id)', async () => {
+      const mockConn = db._mockConnection;
+      jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({
+        id_ordem_producao: 1,
+        nome_projeto: 'Projeto Especial',
+        status_ordem: 'EM_ANDAMENTO'
+      });
+
+      mockConn.query
+        .mockResolvedValueOnce([[{ fk_produto: 10, quantidade_utilizada: 10 }]])
+        .mockResolvedValueOnce([[{ id_lote: 1, codigo_lote: 'L-1', quantidade: 3 }]]);
+
+      const res = await request(app)
+        .put('/api/ordem_producao/1')
+        .set(headerOperador())
+        .send({ status_ordem: 'CONCLUIDA' });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/saldo insuficiente em estoque/i);
+    });
+
     it('deve remover ordem de produção (DELETE /api/ordem_producao/:id)', async () => {
       jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({ id_ordem_producao: 1 });
       jest.spyOn(ordemProducaoRepository, 'excluir').mockResolvedValue({ affectedRows: 1 });
@@ -166,6 +217,8 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
     });
 
     it('deve vincular material à ordem de produção (POST /api/ordem_producao_materiais)', async () => {
+      jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({ id_ordem_producao: 1, status_ordem: 'EM_ANDAMENTO' });
+      jest.spyOn(produtoRepository, 'buscarPorId').mockResolvedValue({ id_produto: 2, estoque_atual: 50, ativo: 1 });
       jest.spyOn(ordemProducaoMateriaisRepository, 'salvar').mockResolvedValue({ insertId: 5 });
 
       const res = await request(app)
@@ -180,6 +233,39 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty('id', 5);
       expect(res.body.quantidade_utilizada).toBe(15);
+    });
+
+    it('deve rejeitar vínculo de material quando saldo for insuficiente (POST /api/ordem_producao_materiais)', async () => {
+      jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({ id_ordem_producao: 1, status_ordem: 'EM_ANDAMENTO' });
+      jest.spyOn(produtoRepository, 'buscarPorId').mockResolvedValue({ id_produto: 2, estoque_atual: 5, ativo: 1 });
+
+      const res = await request(app)
+        .post('/api/ordem_producao_materiais')
+        .set(headerOperador())
+        .send({
+          fk_ordem_producao: 1,
+          fk_produto: 2,
+          quantidade_utilizada: 15
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/saldo insuficiente para o produto/i);
+    });
+
+    it('deve rejeitar vínculo de material se a ordem já estiver concluída (POST /api/ordem_producao_materiais)', async () => {
+      jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({ id_ordem_producao: 1, status_ordem: 'CONCLUIDA' });
+
+      const res = await request(app)
+        .post('/api/ordem_producao_materiais')
+        .set(headerOperador())
+        .send({
+          fk_ordem_producao: 1,
+          fk_produto: 2,
+          quantidade_utilizada: 5
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/já concluída/i);
     });
 
     it('deve remover vínculo de material da ordem (DELETE /api/ordem_producao_materiais/:id)', async () => {

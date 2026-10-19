@@ -1,4 +1,6 @@
 const ordemProducaoMateriaisRepository = require('../repositories/ordemProducaoMateriaisRepository');
+const produtoRepository = require('../repositories/produtoRepository');
+const ordemProducaoRepository = require('../repositories/ordemProducaoRepository');
 
 class OrdemProducaoMateriaisService {
     async listarTodos() {
@@ -22,6 +24,23 @@ class OrdemProducaoMateriaisService {
         }
         if (!dados.quantidade_utilizada || dados.quantidade_utilizada <= 0) {
             throw new Error('A quantidade utilizada deve ser maior que zero.');
+        }
+
+        const ordem = await ordemProducaoRepository.buscarPorId(dados.fk_ordem_producao);
+        if (ordem && ordem.status_ordem === 'CONCLUIDA') {
+            throw new Error('Não é possível vincular materiais a uma ordem de produção já concluída.');
+        }
+
+        const produto = await produtoRepository.buscarPorId(dados.fk_produto);
+        if (!produto) {
+            throw new Error('Produto não encontrado ou inativo.');
+        }
+
+        const saldoDisponivel = produto.estoque_atual !== undefined ? Number(produto.estoque_atual) : 0;
+        if (saldoDisponivel < Number(dados.quantidade_utilizada)) {
+            throw new Error(
+                `Saldo insuficiente para o produto. Solicitado: ${dados.quantidade_utilizada}, Disponível: ${saldoDisponivel}.`
+            );
         }
 
         return await ordemProducaoMateriaisRepository.salvar(dados);
