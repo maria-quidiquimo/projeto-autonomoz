@@ -80,9 +80,10 @@ class MovimentacaoService {
 
             const [lotes] = await conexao.query(
                 `
-                SELECT *
-                FROM Lote_Produto
-                WHERE id_lote = ?
+                SELECT lp.*, p.ativo AS produto_ativo
+                FROM Lote_Produto lp
+                INNER JOIN Produto p ON p.id_produto = lp.fk_produto
+                WHERE lp.id_lote = ?
                 FOR UPDATE
                 `,
                 [dados.fk_lote]
@@ -93,6 +94,14 @@ class MovimentacaoService {
             }
 
             const lote = lotes[0];
+
+            if (lote.ativo !== undefined && (lote.ativo === 0 || lote.ativo === false)) {
+                throw new Error('Lote inativo, não é possível movimentar.');
+            }
+
+            if (lote.produto_ativo !== undefined && (lote.produto_ativo === 0 || lote.produto_ativo === false)) {
+                throw new Error('Produto inativo, não é possível movimentar.');
+            }
 
             if (
                 dados.tipo_movimento === 'SAIDA' &&

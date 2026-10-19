@@ -226,5 +226,46 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/ajuste de inventário realizado/i);
     });
+
+    it('deve recusar movimentação em lote inativo (POST /api/movimentacoes)', async () => {
+      const mockConn = db._mockConnection;
+      mockConn.query.mockResolvedValueOnce([[{ id_lote: 1, codigo_lote: 'LOTE-1', quantidade: 100, fk_produto: 1, ativo: 0, produto_ativo: 1 }]]);
+
+      const payload = {
+        fk_lote: 1,
+        fk_usuario: 2,
+        tipo_movimento: 'ENTRADA',
+        quantidade: 10
+      };
+
+      const res = await request(app)
+        .post('/api/movimentacoes')
+        .set(headerOperador())
+        .send(payload);
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/Lote inativo, não é possível movimentar/i);
+    });
+
+    it('deve recusar movimentação quando o produto estiver inativo (POST /api/movimentacoes)', async () => {
+      const mockConn = db._mockConnection;
+      mockConn.query.mockResolvedValueOnce([[{ id_lote: 1, codigo_lote: 'LOTE-1', quantidade: 100, fk_produto: 1, ativo: 1, produto_ativo: 0 }]]);
+
+      const payload = {
+        fk_lote: 1,
+        fk_usuario: 2,
+        tipo_movimento: 'ENTRADA',
+        quantidade: 10
+      };
+
+      const res = await request(app)
+        .post('/api/movimentacoes')
+        .set(headerOperador())
+        .send(payload);
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/Produto inativo, não é possível movimentar/i);
+    });
   });
 });
+

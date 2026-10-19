@@ -137,7 +137,21 @@ class LoteRepository {
 
             return resultado;
         } catch (error) {
-            // Trata o erro e lança a mensagem amigável da pasta helpers
+            tratarErroBanco(error, 'Lote');
+        }
+    }
+
+    async inativarPorProduto(fk_produto) {
+        try {
+            const sql = `
+                UPDATE Lote_Produto
+                SET ativo = FALSE
+                WHERE fk_produto = ?
+            `;
+
+            const [resultado] = await db.query(sql, [fk_produto]);
+            return resultado;
+        } catch (error) {
             tratarErroBanco(error, 'Lote');
         }
     }

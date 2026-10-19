@@ -142,11 +142,19 @@ class ProdutoRepository {
         try {
             const sql = `
                 UPDATE Produto
-                SET ativo = FALSE
+                SET ativo = FALSE, estoque_atual = 0
                 WHERE id_produto = ?
             `;
 
             const [resultado] = await db.query(sql, [id]);
+
+            const sqlLotes = `
+                UPDATE Lote_Produto
+                SET ativo = FALSE
+                WHERE fk_produto = ?
+            `;
+
+            await db.query(sqlLotes, [id]);
 
             return resultado;
         } catch (error) {
