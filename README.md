@@ -98,11 +98,17 @@ DB_NAME=autonomoz_db
 DB_PORT=3306
 ```
 
-Use `DB_PASSWORD=` se o usuário local não tiver senha. O banco precisa estar criado antes de iniciar a API. A aplicação usa `JWT_SECRET` para assinar tokens; se não estiver definido, o código atual utiliza um valor de fallback destinado ao desenvolvimento. Para um ambiente próprio, defina também um segredo aleatório em `back-end/.env` e não o compartilhe:
+Use `DB_PASSWORD=` se o usuário local não tiver senha. O banco precisa estar criado antes de iniciar a API. `JWT_SECRET` é obrigatório: a API falha na inicialização se ele estiver ausente. Gere um segredo forte e aleatório com Node.js:
 
 ```env
-JWT_SECRET=coloque_aqui_um_segredo_aleatorio
+JWT_SECRET=gere_um_segredo_aleatorio_com_pelo_menos_32_bytes
 ```
+
+```bash
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+```
+
+Copie o valor gerado para `back-end/.env`. Não reutilize nem publique chaves. O arquivo `back-end/.env` contém configurações locais e não deve ser versionado. Se a chave antiga foi usada em algum ambiente, substitua-a e reinicie os serviços para invalidar os tokens previamente emitidos.
 
 ### 4. Configurar o front-end
 

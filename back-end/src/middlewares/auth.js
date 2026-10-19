@@ -1,7 +1,11 @@
 const jwt = require('jsonwebtoken');
 const usuarioRepository = require('../repositories/usuarioRepository');
 // comentario meramente ilustrativo para fazer commit denovo pq errei dnovo
-const JWT_SECRET = process.env.JWT_SECRET || 'autonomoz_secret_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET não definido no arquivo .env.');
+}
 
 // Middleware que verifica se o token JWT é válido e injeta req.usuario
 async function autenticar(req, res, next) {
