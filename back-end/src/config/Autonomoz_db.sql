@@ -400,10 +400,10 @@ INSERT INTO Cargo (nome_cargo, descricao) VALUES
 ('Eletricista',         'Instalação e reparo do sistema elétrico e chicotes');                  -- id_cargo = 4
 
 INSERT INTO Usuarios (matricula, nome_completo, cpf, data_nascimento, senha_hash, tipo_acesso, fk_cargo, fk_usuario_criador) VALUES
-('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2b$10$Gp12PGIMXXVPaCCRHRPmy.VoGGNpZV2qHfcA/.Lqh9dlms95teLeu', 'GERENTE', 1, NULL),
-('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2b$10$Gp12PGIMXXVPaCCRHRPmy.VoGGNpZV2qHfcA/.Lqh9dlms95teLeu', 'FUNCIONARIO', 2, 1),
-('FUNC-002', 'Maria Eduarda Barreto', '333.444.555-66', '2008-07-15', '$2b$10$Gp12PGIMXXVPaCCRHRPmy.VoGGNpZV2qHfcA/.Lqh9dlms95teLeu', 'FUNCIONARIO', 3, 1),
-('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2b$10$Gp12PGIMXXVPaCCRHRPmy.VoGGNpZV2qHfcA/.Lqh9dlms95teLeu', 'FUNCIONARIO', 4, 1);
+('GER-001', 'Marlon Fanger Rodrigues', '111.222.333-44', '1980-05-12', '$2b$10$FlKmgB1YYjuxbxHKYi8f6O5QmaFeQEPzDV4t46lXTqKsfpUAPvxOq', 'GERENTE', 1, NULL),
+('FUNC-001', 'Lucas Felipe Sola', '222.333.444-55', '2008-02-20', '$2b$10$h.iqQhN.xfFtO9POaR6pJenNvGVr8fI4GbiMwgrhPryuThLwQrD9y', 'FUNCIONARIO', 2, 1),
+('FUNC-002', 'Maria Eduarda Barreto', '333.444.555-66', '2008-07-15', '$2b$10$h.iqQhN.xfFtO9POaR6pJenNvGVr8fI4GbiMwgrhPryuThLwQrD9y', 'FUNCIONARIO', 3, 1),
+('FUNC-003', 'Mônica Cotrim Manfrinato', '444.555.666-77', '2007-11-30', '$2b$10$h.iqQhN.xfFtO9POaR6pJenNvGVr8fI4GbiMwgrhPryuThLwQrD9y', 'FUNCIONARIO', 4, 1);
 
 INSERT INTO Produto (codigo_item, nome_produto, descricao, fk_subcategoria, fk_fornecedor, unidade_medida, valor_unitario, estoque_minimo, estoque_atual) VALUES
 ('PC-001', 'Para-choque Dianteiro', 'Para-choque em ABS reforçado', 1, 1, 'UN', 350.00, 5, 12),
