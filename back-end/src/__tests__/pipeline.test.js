@@ -86,6 +86,14 @@ describe('Integração do Pipeline e Relatório Consolidado', () => {
         .mockResolvedValueOnce([[{ total: 50 }]])
         .mockResolvedValueOnce([{ affectedRows: 1 }]);
 
+      const mockConn = db._mockConnection;
+      mockConn.query
+        .mockResolvedValueOnce([[{ id_lote: 100, codigo_lote: 'LOTE-E2E-01', quantidade: 0, fk_produto: 50 }]])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([[{ total: 50 }]])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ insertId: 199 }]);
+
       const resLote = await request(app)
         .post('/api/lotes')
         .set(authHeader)
@@ -100,7 +108,6 @@ describe('Integração do Pipeline e Relatório Consolidado', () => {
       expect(resLote.body.id_lote).toBe(100);
 
       // 4. Movimentação Física (Saída para produção)
-      const mockConn = db._mockConnection;
       mockConn.query
         .mockResolvedValueOnce([[{ id_lote: 100, codigo_lote: 'LOTE-E2E-01', quantidade: 50, fk_produto: 50 }]])
         .mockResolvedValueOnce([{ affectedRows: 1 }])

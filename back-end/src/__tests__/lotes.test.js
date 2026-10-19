@@ -3,6 +3,7 @@ const app = require('../app');
 const loteRepository = require('../repositories/loteRepository');
 const movimentacaoRepository = require('../repositories/movimentacaoRepository');
 const db = require('../config/database');
+const { registrarLog } = require('../services/logAuditoriaHelper');
 const { headerOperador, headerGerente } = require('./helpers/authHelper');
 
 jest.mock('../config/database');
@@ -53,10 +54,16 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
     });
 
     it('deve cadastrar um novo lote com sucesso e recalcular estoque (POST /api/lotes)', async () => {
-      jest.spyOn(loteRepository, 'salvar').mockResolvedValue({ insertId: 5 });
-      db.query
-        .mockResolvedValueOnce([[{ total: 150 }]]) // Recálculo da soma
-        .mockResolvedValueOnce([{ affectedRows: 1 }]); // Update do produto
+      const mockConn = db._mockConnection;
+      mockConn.query
+        .mockResolvedValueOnce([{ insertId: 5 }]) // Insere o lote com quantidade zero
+        .mockResolvedValueOnce([[
+          { id_lote: 5, codigo_lote: 'LOTE-2026-B', quantidade: 0, fk_produto: 1 }
+        ]]) // Lê o lote para a entrada inicial
+        .mockResolvedValueOnce([{ affectedRows: 1 }]) // Atualiza quantidade do lote
+        .mockResolvedValueOnce([[{ total: 150 }]]) // Recalcula estoque do produto
+        .mockResolvedValueOnce([{ affectedRows: 1 }]) // Atualiza produto
+        .mockResolvedValueOnce([{ insertId: 10 }]); // Registra movimentação ENTRADA
 
       const novoLote = {
         codigo_lote: 'LOTE-2026-B',
@@ -75,6 +82,60 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty('id_lote', 5);
       expect(res.body.codigo_lote).toBe('LOTE-2026-B');
+      expect(res.body.quantidade).toBe(50);
+      expect(mockConn.beginTransaction).toHaveBeenCalledTimes(1);
+      expect(mockConn.query.mock.calls[0][1]).toEqual([
+        'LOTE-2026-B',
+        1,
+        null,
+        0,
+        'Prateleira A1',
+        expect.any(Date),
+        '2027-01-10',
+        true
+      ]);
+      expect(mockConn.query.mock.calls[5][1]).toEqual([
+        5,
+        2,
+        'ENTRADA',
+        50,
+        null
+      ]);
+      expect(mockConn.commit).toHaveBeenCalledTimes(1);
+      expect(registrarLog).toHaveBeenCalledWith(
+        'ENTRADA_LOTE',
+        expect.stringContaining('com 50 unidades'),
+        2
+      );
+    });
+
+    it('deve reverter o cadastro do lote e a movimentação se a atualização do produto falhar', async () => {
+      const mockConn = db._mockConnection;
+      const databaseError = new Error('Falha ao atualizar produto');
+      databaseError.sqlMessage = 'Falha ao atualizar produto';
+      mockConn.query
+        .mockResolvedValueOnce([{ insertId: 6 }])
+        .mockResolvedValueOnce([[
+          { id_lote: 6, codigo_lote: 'LOTE-ROLLBACK', quantidade: 0, fk_produto: 1 }
+        ]])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([[{ total: 20 }]])
+        .mockRejectedValueOnce(databaseError);
+
+      const res = await request(app)
+        .post('/api/lotes')
+        .set(headerOperador())
+        .send({
+          codigo_lote: 'LOTE-ROLLBACK',
+          fk_produto: 1,
+          localizacao_fisica: 'Prateleira A1',
+          quantidade: 20
+        });
+
+      expect(res.status).toBe(500);
+      expect(mockConn.rollback).toHaveBeenCalledTimes(1);
+      expect(mockConn.commit).not.toHaveBeenCalled();
+      expect(mockConn.release).toHaveBeenCalled();
     });
 
     it('deve rejeitar cadastro de lote sem localização física (POST /api/lotes)', async () => {
@@ -101,6 +162,46 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/removido/i);
+    });
+
+    it('deve atualizar dados permitidos do lote (PUT /api/lotes/:id)', async () => {
+      jest.spyOn(loteRepository, 'buscarPorId').mockResolvedValue({ id_lote: 1, fk_produto: 1, ativo: 1 });
+      jest.spyOn(loteRepository, 'atualizar').mockResolvedValue({ affectedRows: 1 });
+
+      const res = await request(app)
+        .put('/api/lotes/1')
+        .set(headerOperador())
+        .send({ localizacao_fisica: 'Prateleira B3' });
+
+      expect(res.status).toBe(200);
+      expect(res.body.mensagem).toMatch(/atualizado/i);
+    });
+
+    it('deve recusar tentativa de alterar quantidade diretamente pelo lote (PUT /api/lotes/:id)', async () => {
+      const res = await request(app)
+        .put('/api/lotes/1')
+        .set(headerOperador())
+        .send({ quantidade: 100 });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/quantidade.*não pode ser alterada diretamente/i);
+    });
+
+    it('deve recalcular estoque do produto ao inativar lote via atualização (PUT /api/lotes/:id)', async () => {
+      const mockConn = db._mockConnection;
+      jest.spyOn(loteRepository, 'buscarPorId').mockResolvedValue({ id_lote: 1, fk_produto: 1, ativo: 1 });
+      jest.spyOn(loteRepository, 'atualizar').mockResolvedValue({ affectedRows: 1 });
+      mockConn.query
+        .mockResolvedValueOnce([[{ total: 0 }]])
+        .mockResolvedValueOnce([{ affectedRows: 1 }]);
+
+      const res = await request(app)
+        .put('/api/lotes/1')
+        .set(headerOperador())
+        .send({ ativo: false });
+
+      expect(res.status).toBe(200);
+      expect(res.body.mensagem).toMatch(/atualizado/i);
     });
   });
 

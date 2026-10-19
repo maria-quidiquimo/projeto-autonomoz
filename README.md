@@ -281,6 +281,8 @@ Na listagem, `pagina` e `limite` são parâmetros de query opcionais; `limite` t
 | `PUT` | `/lotes/:id` | Atualizar lote |
 | `DELETE` | `/lotes/:id` | Remover lote |
 
+Ao cadastrar um lote com quantidade inicial maior que zero, o sistema grava o lote com saldo zero e registra a entrada inicial pela mesma rotina de movimentações. O cadastro, a atualização do saldo do produto e a movimentação são feitos na mesma transação; o usuário autenticado é associado aos registros de auditoria.
+
 #### Movimentações — `/movimentacoes`
 
 | Método | Caminho | Finalidade |

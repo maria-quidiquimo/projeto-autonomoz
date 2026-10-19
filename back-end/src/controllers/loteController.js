@@ -39,11 +39,15 @@ class LoteController {
 
     async cadastrar(req, res) {
         try {
-            const resultado = await loteService.cadastrar(req.body);
+            const resultado = await loteService.cadastrar(
+                req.body,
+                req.usuario?.id_usuario
+            );
 
             return res.status(201).json({
                 id_lote: resultado.insertId,
-                ...req.body
+                ...req.body,
+                quantidade: Number(req.body.quantidade ?? 0)
             });
         } catch (erro) {
             return tratarErroController(res, erro, 'Lote.cadastrar');

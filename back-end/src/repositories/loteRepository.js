@@ -40,19 +40,17 @@ class LoteRepository {
         };
     }
 
-    async buscarPorId(id) {
-        const sql = `
-            SELECT *
-            FROM Lote_Produto
-            WHERE id_lote = ? AND ativo = TRUE
-        `;
+    async buscarPorId(id, incluirInativos = false) {
+        const sql = incluirInativos
+            ? 'SELECT * FROM Lote_Produto WHERE id_lote = ?'
+            : 'SELECT * FROM Lote_Produto WHERE id_lote = ? AND ativo = TRUE';
 
         const [linhas] = await db.query(sql, [id]);
 
         return linhas[0];
     }
 
-    async salvar(lote) {
+    async salvar(lote, conexao = db) {
         const {
             codigo_lote,
             fk_produto,
@@ -78,7 +76,7 @@ class LoteRepository {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
-        const [resultado] = await db.query(sql, [
+        const [resultado] = await conexao.query(sql, [
             codigo_lote,
             fk_produto,
             fk_fornecedor || null,
@@ -92,34 +90,43 @@ class LoteRepository {
         return resultado;
     }
 
-    async atualizar(id, lote) {
-        const {
-            codigo_lote,
-            quantidade,
-            localizacao_fisica,
-            data_validade,
-            ativo
-        } = lote;
+    async atualizar(id, lote, conexao = db) {
+        const colunasPermitidas = [
+            'codigo_lote',
+            'fk_fornecedor',
+            'localizacao_fisica',
+            'data_validade',
+            'ativo'
+        ];
+
+        const camposParaAtualizar = [];
+        const valores = [];
+
+        Object.keys(lote).forEach((campo) => {
+            if (
+                colunasPermitidas.includes(campo) &&
+                lote[campo] !== undefined
+            ) {
+                camposParaAtualizar.push(`${campo} = ?`);
+                valores.push(lote[campo]);
+            }
+        });
+
+        if (camposParaAtualizar.length === 0) {
+            return {
+                affectedRows: 0
+            };
+        }
+
+        valores.push(id);
 
         const sql = `
             UPDATE Lote_Produto
-            SET
-                codigo_lote = ?,
-                quantidade = ?,
-                localizacao_fisica = ?,
-                data_validade = ?,
-                ativo = ?
+            SET ${camposParaAtualizar.join(', ')}
             WHERE id_lote = ?
         `;
 
-        const [resultado] = await db.query(sql, [
-            codigo_lote,
-            quantidade,
-            localizacao_fisica,
-            data_validade,
-            ativo,
-            id
-        ]);
+        const [resultado] = await conexao.query(sql, valores);
 
         return resultado;
     }
