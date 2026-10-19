@@ -36,6 +36,17 @@ class UsuarioRepository {
         return linhas[0];
     }
 
+    async buscarEstadoAutenticacao(id) {
+        const sql = `
+            SELECT id_usuario, matricula, tipo_acesso
+            FROM Usuarios
+            WHERE id_usuario = ? AND ativo = TRUE
+            LIMIT 1
+        `;
+        const [linhas] = await db.execute(sql, [id]);
+        return linhas[0];
+    }
+
     async buscarPorMatricula(matricula) {
         const sql = `
             SELECT u.id_usuario, u.nome_completo AS nome, u.matricula, u.tipo_acesso, u.senha_hash AS senha, u.fk_cargo, c.nome_cargo, u.ativo 

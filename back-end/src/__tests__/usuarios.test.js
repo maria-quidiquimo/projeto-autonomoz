@@ -1,6 +1,7 @@
 const request = require('supertest');
 const bcrypt = require('bcrypt');
 const app = require('../app');
+const db = require('../config/database');
 const usuarioRepository = require('../repositories/usuarioRepository');
 const cargoRepository = require('../repositories/cargoRepository');
 const { headerGerente, headerOperador, tokenInvalido } = require('./helpers/authHelper');
@@ -86,6 +87,30 @@ describe('Módulo: Usuários e Controle de Permissão', () => {
 
       expect(res.status).toBe(403);
       expect(res.body.mensagem).toMatch(/inválido ou expirado/i);
+    });
+
+    it('deve rejeitar token de usuário desativado', async () => {
+      db.execute.mockResolvedValueOnce([[]]);
+
+      const res = await request(app)
+        .get('/api/usuarios')
+        .set(headerOperador());
+
+      expect(res.status).toBe(401);
+      expect(res.body.mensagem).toMatch(/conta desativada/i);
+    });
+
+    it('deve usar o tipo de acesso atual do banco, não o papel antigo do token', async () => {
+      db.execute.mockResolvedValueOnce([[
+        { id_usuario: 1, matricula: 'GER001', tipo_acesso: 'FUNCIONARIO' }
+      ]]);
+
+      const res = await request(app)
+        .get('/api/usuarios/gerenciamento')
+        .set(headerGerente());
+
+      expect(res.status).toBe(403);
+      expect(res.body.mensagem).toMatch(/apenas gerentes/i);
     });
 
     it('deve retornar 403 ao tentar cadastrar usuário com perfil sem permissão (OPERADOR)', async () => {
