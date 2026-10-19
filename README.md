@@ -35,6 +35,14 @@ Centralização das informações de mapeamento de rotas da API e da especifica�
 
 Este repositório centraliza o mapeamento de rotas da API e as entidades do banco de dados modeladas nos semestres anteriores. O principal objetivo é otimizar a organização, a consistência e o gerenciamento do banco de dados da aplicação **AUTONOMOZ**.
 
+## 📁 Estrutura do projeto
+
+- `front-end/`: aplicação React com Vite, organizada em telas para dashboard, estoque, lotes, movimentações, categorias, fornecedores, ordens de produção, vendas, alertas, usuários e auditoria.
+- `back-end/`: API Express, autenticação, acesso ao MySQL e testes.
+- `design/`: referências visuais e materiais de design.
+
+O front-end já está conectado às rotas da API e utiliza `VITE_API_URL` para configurar o endereço do back-end. No desenvolvimento, o padrão é `http://localhost:3000`.
+
 ---
 
 ## 🌐 Como Funcionam as Rotas da API
@@ -94,6 +102,7 @@ Abaixo está o detalhamento completo de todas as rotas, recurso por recurso.
 | Método | Rota | Descrição | Parâmetros |
 | :---: | :--- | :--- | :--- |
 | `GET` | `/usuarios` | Listar todos os usuários | — |
+| `GET` | `/usuarios/gerenciamento` | Listar dados cadastrais para gerenciamento (somente gerente) | Token de gerente |
 | `GET` | `/usuarios/:id` | Acessar usuário específico | `id` (`req.params`) |
 | `POST` | `/usuarios` | Criar novo usuário | Body completo |
 | `PUT` | `/usuarios/:id` | Alterar dados do usuário | `id` (`req.params`) |
@@ -247,14 +256,35 @@ Abaixo está o detalhamento completo de todas as rotas, recurso por recurso.
    cd projeto-autonomoz
    ```
 
-3. Instale as dependências:
+3. Instale as dependências do back-end e do front-end:
    ```bash
-   npm install
+   npm --prefix back-end install
+   npm --prefix front-end install
    ```
 
-4. Inicie a aplicação:
+4. Configure `back-end/.env` com os dados do MySQL, usando `back-end/.env.example` como referência.
+
+5. Em um terminal, inicie a API:
    ```bash
-   npm start
+   npm --prefix back-end run dev
    ```
 
-5. A API estará disponível em `http://localhost:3000`.
+6. Em outro terminal, inicie o front-end:
+   ```bash
+   npm --prefix front-end run dev
+   ```
+
+O front-end de desenvolvimento ficará disponível em `http://localhost:5173` e a API em `http://localhost:3000`.
+
+Para compilar o front-end para produção e servi-lo pela API:
+
+```bash
+npm --prefix back-end run build
+npm --prefix back-end start
+```
+
+Os testes da API podem ser executados com:
+
+```bash
+npm --prefix back-end test
+```

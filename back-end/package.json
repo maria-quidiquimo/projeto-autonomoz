@@ -1,0 +1,45 @@
+{
+  "name": "projeto-autonomoz-sola",
+  "version": "1.0.0",
+  "description": "Repositório de projetos sobre o grupo de administração.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "npx nodemon src/server.js",
+    "build": "npm --prefix ../front-end run build",
+    "build:frontend": "npm --prefix ../front-end run build",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
+    "test:coverage": "jest --coverage --runInBand --detectOpenHandles --forceExit",
+    "test:usuarios": "jest src/__tests__/usuarios.test.js --runInBand",
+    "test:produtos": "jest src/__tests__/produtos.test.js --runInBand",
+    "test:lotes": "jest src/__tests__/lotes.test.js --runInBand",
+    "test:producao": "jest src/__tests__/ordemProducao.test.js --runInBand",
+    "test:pipeline": "jest src/__tests__/pipeline.test.js --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucas-sola/projeto-autonomoz-SOLA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/lucas-sola/projeto-autonomoz-SOLA/issues"
+  },
+  "homepage": "https://github.com/lucas-sola/projeto-autonomoz-SOLA#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "docx": "^9.7.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.23.2"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "mammoth": "^1.12.2",
+    "supertest": "^7.2.2"
+  }
+}
