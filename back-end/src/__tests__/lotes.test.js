@@ -227,6 +227,61 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(res.body.mensagem).toMatch(/ajuste de inventário realizado/i);
     });
 
+    it('deve recusar ajuste negativo maior que o saldo disponível', async () => {
+      const mockConn = db._mockConnection;
+      mockConn.query.mockResolvedValueOnce([[
+        { id_lote: 1, codigo_lote: 'LOTE-1', quantidade: 3, fk_produto: 1 }
+      ]]);
+
+      const res = await request(app)
+        .post('/api/movimentacoes/ajuste')
+        .set(headerOperador())
+        .send({
+          fk_lote: 1,
+          quantidade_ajuste: -10,
+          justificativa: 'Correção de inventário'
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/saldo insuficiente/i);
+      expect(mockConn.query).toHaveBeenCalledTimes(1);
+    });
+
+    it('deve registrar somente a diferença exata no ajuste negativo', async () => {
+      const mockConn = db._mockConnection;
+      mockConn.query
+        .mockResolvedValueOnce([[
+          { id_lote: 1, codigo_lote: 'LOTE-1', quantidade: 10, fk_produto: 1 }
+        ]])
+        .mockResolvedValueOnce([{ affectedRows: 1 }]) // Update lote
+        .mockResolvedValueOnce([[{ total: 3 }]]) // Recalculo produto
+        .mockResolvedValueOnce([{ affectedRows: 1 }]) // Update produto
+        .mockResolvedValueOnce([{ insertId: 13 }]); // Insert movimentacao
+
+      const res = await request(app)
+        .post('/api/movimentacoes/ajuste')
+        .set(headerOperador())
+        .send({
+          fk_lote: 1,
+          quantidade_ajuste: -7,
+          justificativa: 'Inventário físico encontrou três unidades'
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body.movimentacao).toMatchObject({
+        tipo_movimento: 'AJUSTE_NEGATIVO',
+        quantidade: 7
+      });
+      expect(mockConn.query.mock.calls[1][1]).toEqual([3, 1]);
+      expect(mockConn.query.mock.calls[4][1]).toEqual([
+        1,
+        expect.any(Number),
+        'AJUSTE_NEGATIVO',
+        7,
+        'Inventário físico encontrou três unidades'
+      ]);
+    });
+
     it('deve recusar movimentação em lote inativo (POST /api/movimentacoes)', async () => {
       const mockConn = db._mockConnection;
       mockConn.query.mockResolvedValueOnce([[{ id_lote: 1, codigo_lote: 'LOTE-1', quantidade: 100, fk_produto: 1, ativo: 0, produto_ativo: 1 }]]);
@@ -268,4 +323,3 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
     });
   });
 });
-

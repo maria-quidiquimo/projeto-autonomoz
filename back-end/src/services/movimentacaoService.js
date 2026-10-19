@@ -104,7 +104,10 @@ class MovimentacaoService {
             }
 
             if (
-                dados.tipo_movimento === 'SAIDA' &&
+                (
+                    dados.tipo_movimento === 'SAIDA' ||
+                    dados.tipo_movimento === 'AJUSTE_NEGATIVO'
+                ) &&
                 dados.quantidade > lote.quantidade
             ) {
                 const identificadorLote =
@@ -127,10 +130,6 @@ class MovimentacaoService {
                 dados.tipo_movimento === 'AJUSTE_NEGATIVO'
             ) {
                 novaQuantidade -= dados.quantidade;
-
-                if (novaQuantidade < 0) {
-                    novaQuantidade = 0;
-                }
             }
 
             await conexao.query(
