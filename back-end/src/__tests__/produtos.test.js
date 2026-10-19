@@ -4,7 +4,7 @@ const produtoRepository = require('../repositories/produtoRepository');
 const categoriaRepository = require('../repositories/categoriaRepository');
 const subcategoriaRepository = require('../repositories/subcategoriaRepository');
 const localizacaoRepository = require('../repositories/localizacaoRepository');
-const { headerOperador } = require('./helpers/authHelper');
+const { headerOperador, headerGerente } = require('./helpers/authHelper');
 
 jest.mock('../config/database');
 
@@ -49,7 +49,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
       expect(res.body.mensagem).toMatch(/não encontrado/i);
     });
 
-    it('deve cadastrar um novo produto com sucesso (POST /api/produtos)', async () => {
+    it('deve cadastrar um novo produto com sucesso (POST /api/produtos) [GERENTE]', async () => {
       jest.spyOn(produtoRepository, 'salvar').mockResolvedValue({ insertId: 10 });
 
       const novoProduto = {
@@ -66,7 +66,7 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
 
       const res = await request(app)
         .post('/api/produtos')
-        .set(headerOperador())
+        .set(headerGerente())
         .send(novoProduto);
 
       expect(res.status).toBe(201);
@@ -74,47 +74,71 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
       expect(res.body.codigo_item).toBe('PRD010');
     });
 
-    it('deve retornar 400 ao tentar cadastrar produto sem código do item', async () => {
+    it('deve retornar 403 ao funcionário tentar cadastrar produto (POST /api/produtos)', async () => {
       const res = await request(app)
         .post('/api/produtos')
         .set(headerOperador())
+        .send({ codigo_item: 'PRD099', nome_produto: 'Produto Proibido' });
+
+      expect(res.status).toBe(403);
+    });
+
+    it('deve retornar 400 ao tentar cadastrar produto sem código do item [GERENTE]', async () => {
+      const res = await request(app)
+        .post('/api/produtos')
+        .set(headerGerente())
         .send({ nome_produto: 'Produto Sem Código' });
 
       expect(res.status).toBe(400);
       expect(res.body.mensagem).toMatch(/código do item é obrigatório/i);
     });
 
-    it('deve retornar 400 ao tentar cadastrar produto com estoque mínimo negativo', async () => {
+    it('deve retornar 400 ao tentar cadastrar produto com estoque mínimo negativo [GERENTE]', async () => {
       const res = await request(app)
         .post('/api/produtos')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({ codigo_item: 'PRD-NEG', estoque_minimo: -5 });
 
       expect(res.status).toBe(400);
       expect(res.body.mensagem).toMatch(/estoque mínimo inválido/i);
     });
 
-    it('deve atualizar um produto existente com sucesso (PUT /api/produtos/:id)', async () => {
+    it('deve atualizar um produto existente com sucesso (PUT /api/produtos/:id) [GERENTE]', async () => {
       jest.spyOn(produtoRepository, 'buscarPorId').mockResolvedValue({ id_produto: 1 });
       jest.spyOn(produtoRepository, 'atualizar').mockResolvedValue({ affectedRows: 1 });
 
       const res = await request(app)
         .put('/api/produtos/1')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({ nome_produto: 'Resina Epóxi Atualizada' });
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/atualizado/i);
     });
 
-    it('deve inativar um produto com sucesso (DELETE /api/produtos/:id)', async () => {
+    it('deve retornar 403 ao funcionário tentar editar produto (PUT /api/produtos/:id)', async () => {
+      const res = await request(app)
+        .put('/api/produtos/1')
+        .set(headerOperador())
+        .send({ nome_produto: 'Tentativa Proibida' });
+
+      expect(res.status).toBe(403);
+    });
+
+    it('deve inativar um produto com sucesso (DELETE /api/produtos/:id) [GERENTE]', async () => {
       jest.spyOn(produtoRepository, 'buscarPorId').mockResolvedValue({ id_produto: 1 });
       jest.spyOn(produtoRepository, 'excluir').mockResolvedValue({ affectedRows: 1 });
 
-      const res = await request(app).delete('/api/produtos/1').set(headerOperador());
+      const res = await request(app).delete('/api/produtos/1').set(headerGerente());
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/removido/i);
+    });
+
+    it('deve retornar 403 ao funcionário tentar excluir produto (DELETE /api/produtos/:id)', async () => {
+      const res = await request(app).delete('/api/produtos/1').set(headerOperador());
+
+      expect(res.status).toBe(403);
     });
   });
 
@@ -130,16 +154,25 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
       expect(res.body.length).toBe(1);
     });
 
-    it('deve cadastrar nova categoria (POST /api/categorias)', async () => {
+    it('deve cadastrar nova categoria (POST /api/categorias) [GERENTE]', async () => {
       jest.spyOn(categoriaRepository, 'salvar').mockResolvedValue({ insertId: 5 });
 
       const res = await request(app)
         .post('/api/categorias')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({ nome_categoria: 'Embalagens', descricao: 'Caixas e fitas' });
 
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty('id_categoria', 5);
+    });
+
+    it('deve retornar 403 ao funcionário tentar cadastrar categoria (POST /api/categorias)', async () => {
+      const res = await request(app)
+        .post('/api/categorias')
+        .set(headerOperador())
+        .send({ nome_categoria: 'Categoria Proibida' });
+
+      expect(res.status).toBe(403);
     });
 
     it('deve listar subcategorias (GET /api/subcategoria)', async () => {

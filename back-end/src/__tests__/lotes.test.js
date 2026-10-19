@@ -53,7 +53,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(res.body.mensagem).toMatch(/não encontrado/i);
     });
 
-    it('deve cadastrar um novo lote com sucesso e recalcular estoque (POST /api/lotes)', async () => {
+    it('deve cadastrar um novo lote com sucesso e recalcular estoque (POST /api/lotes) [GERENTE]', async () => {
       const mockConn = db._mockConnection;
       mockConn.query
         .mockResolvedValueOnce([{ insertId: 5 }]) // Insere o lote com quantidade zero
@@ -76,7 +76,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
 
       const res = await request(app)
         .post('/api/lotes')
-        .set(headerOperador())
+        .set(headerGerente())
         .send(novoLote);
 
       expect(res.status).toBe(201);
@@ -96,7 +96,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       ]);
       expect(mockConn.query.mock.calls[5][1]).toEqual([
         5,
-        2,
+        1,
         'ENTRADA',
         50,
         null
@@ -105,11 +105,20 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(registrarLog).toHaveBeenCalledWith(
         'ENTRADA_LOTE',
         expect.stringContaining('com 50 unidades'),
-        2
+        1
       );
     });
 
-    it('deve reverter o cadastro do lote e a movimentação se a atualização do produto falhar', async () => {
+    it('deve retornar 403 ao funcionário tentar cadastrar lote (POST /api/lotes)', async () => {
+      const res = await request(app)
+        .post('/api/lotes')
+        .set(headerOperador())
+        .send({ codigo_lote: 'LOTE-PROIBIDO', fk_produto: 1, localizacao_fisica: 'Prateleira X', quantidade: 10 });
+
+      expect(res.status).toBe(403);
+    });
+
+    it('deve reverter o cadastro do lote e a movimentação se a atualização do produto falhar [GERENTE]', async () => {
       const mockConn = db._mockConnection;
       const databaseError = new Error('Falha ao atualizar produto');
       databaseError.sqlMessage = 'Falha ao atualizar produto';
@@ -124,7 +133,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
 
       const res = await request(app)
         .post('/api/lotes')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({
           codigo_lote: 'LOTE-ROLLBACK',
           fk_produto: 1,
@@ -138,10 +147,10 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(mockConn.release).toHaveBeenCalled();
     });
 
-    it('deve rejeitar cadastro de lote sem localização física (POST /api/lotes)', async () => {
+    it('deve rejeitar cadastro de lote sem localização física (POST /api/lotes) [GERENTE]', async () => {
       const res = await request(app)
         .post('/api/lotes')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({
           codigo_lote: 'LOTE-SEM-LOC',
           fk_produto: 1
@@ -151,43 +160,58 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(res.body.mensagem).toMatch(/localização física é obrigatória/i);
     });
 
-    it('deve inativar lote existente (DELETE /api/lotes/:id)', async () => {
+    it('deve inativar lote existente (DELETE /api/lotes/:id) [GERENTE]', async () => {
       jest.spyOn(loteRepository, 'buscarPorId').mockResolvedValue({ id_lote: 1, fk_produto: 1 });
       jest.spyOn(loteRepository, 'excluir').mockResolvedValue({ affectedRows: 1 });
       db.query
         .mockResolvedValueOnce([[{ total: 0 }]])
         .mockResolvedValueOnce([{ affectedRows: 1 }]);
 
-      const res = await request(app).delete('/api/lotes/1').set(headerOperador());
+      const res = await request(app).delete('/api/lotes/1').set(headerGerente());
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/removido/i);
     });
 
-    it('deve atualizar dados permitidos do lote (PUT /api/lotes/:id)', async () => {
+    it('deve retornar 403 ao funcionário tentar inativar lote (DELETE /api/lotes/:id)', async () => {
+      const res = await request(app).delete('/api/lotes/1').set(headerOperador());
+
+      expect(res.status).toBe(403);
+    });
+
+    it('deve atualizar dados permitidos do lote (PUT /api/lotes/:id) [GERENTE]', async () => {
       jest.spyOn(loteRepository, 'buscarPorId').mockResolvedValue({ id_lote: 1, fk_produto: 1, ativo: 1 });
       jest.spyOn(loteRepository, 'atualizar').mockResolvedValue({ affectedRows: 1 });
 
       const res = await request(app)
         .put('/api/lotes/1')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({ localizacao_fisica: 'Prateleira B3' });
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/atualizado/i);
     });
 
-    it('deve recusar tentativa de alterar quantidade diretamente pelo lote (PUT /api/lotes/:id)', async () => {
+    it('deve retornar 403 ao funcionário tentar editar lote (PUT /api/lotes/:id)', async () => {
       const res = await request(app)
         .put('/api/lotes/1')
         .set(headerOperador())
+        .send({ localizacao_fisica: 'Prateleira X' });
+
+      expect(res.status).toBe(403);
+    });
+
+    it('deve recusar tentativa de alterar quantidade diretamente pelo lote (PUT /api/lotes/:id) [GERENTE]', async () => {
+      const res = await request(app)
+        .put('/api/lotes/1')
+        .set(headerGerente())
         .send({ quantidade: 100 });
 
       expect(res.status).toBe(400);
       expect(res.body.mensagem).toMatch(/quantidade.*não pode ser alterada diretamente/i);
     });
 
-    it('deve recalcular estoque do produto ao inativar lote via atualização (PUT /api/lotes/:id)', async () => {
+    it('deve recalcular estoque do produto ao inativar lote via atualização (PUT /api/lotes/:id) [GERENTE]', async () => {
       const mockConn = db._mockConnection;
       jest.spyOn(loteRepository, 'buscarPorId').mockResolvedValue({ id_lote: 1, fk_produto: 1, ativo: 1 });
       jest.spyOn(loteRepository, 'atualizar').mockResolvedValue({ affectedRows: 1 });
@@ -197,7 +221,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
 
       const res = await request(app)
         .put('/api/lotes/1')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({ ativo: false });
 
       expect(res.status).toBe(200);
@@ -316,7 +340,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(res.body).toHaveProperty('id_movimentacao', 11);
     });
 
-    it('deve realizar ajuste de inventário com sucesso (POST /api/movimentacoes/ajuste)', async () => {
+    it('deve realizar ajuste de inventário com sucesso (POST /api/movimentacoes/ajuste) [GERENTE]', async () => {
       const mockConn = db._mockConnection;
       mockConn.query
         .mockResolvedValueOnce([[{ id_lote: 1, codigo_lote: 'LOTE-1', quantidade: 100, fk_produto: 1 }]])
@@ -337,14 +361,23 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
 
       const res = await request(app)
         .post('/api/movimentacoes/ajuste')
-        .set(headerOperador())
+        .set(headerGerente())
         .send(payload);
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/ajuste de inventário realizado/i);
     });
 
-    it('deve recusar ajuste negativo maior que o saldo disponível', async () => {
+    it('deve retornar 403 ao funcionário tentar realizar ajuste (POST /api/movimentacoes/ajuste)', async () => {
+      const res = await request(app)
+        .post('/api/movimentacoes/ajuste')
+        .set(headerOperador())
+        .send({ fk_lote: 1, quantidade_ajuste: 10, justificativa: 'Tentativa proibida' });
+
+      expect(res.status).toBe(403);
+    });
+
+    it('deve recusar ajuste negativo maior que o saldo disponível [GERENTE]', async () => {
       const mockConn = db._mockConnection;
       mockConn.query.mockResolvedValueOnce([[
         { id_lote: 1, codigo_lote: 'LOTE-1', quantidade: 3, fk_produto: 1 }
@@ -352,7 +385,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
 
       const res = await request(app)
         .post('/api/movimentacoes/ajuste')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({
           fk_lote: 1,
           quantidade_ajuste: -10,
@@ -364,7 +397,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(mockConn.query).toHaveBeenCalledTimes(1);
     });
 
-    it('deve registrar somente a diferença exata no ajuste negativo', async () => {
+    it('deve registrar somente a diferença exata no ajuste negativo [GERENTE]', async () => {
       const mockConn = db._mockConnection;
       mockConn.query
         .mockResolvedValueOnce([[
@@ -377,7 +410,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
 
       const res = await request(app)
         .post('/api/movimentacoes/ajuste')
-        .set(headerOperador())
+        .set(headerGerente())
         .send({
           fk_lote: 1,
           quantidade_ajuste: -7,
