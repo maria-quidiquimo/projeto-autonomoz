@@ -291,8 +291,8 @@ Ao cadastrar um lote com quantidade inicial maior que zero, o sistema grava o lo
 | `GET` | `/movimentacoes/:id` | Consultar movimentação |
 | `POST` | `/movimentacoes` | Registrar movimentação |
 | `POST` | `/movimentacoes/ajuste` | Ajustar estoque |
-| `PUT` | `/movimentacoes/:id` | Atualizar movimentação |
-| `DELETE` | `/movimentacoes/:id` | Remover movimentação |
+
+Movimentações são imutáveis: não há rotas para editar ou excluir lançamentos. Para corrigir um registro, faça uma movimentação compensatória (por exemplo, `AJUSTE_POSITIVO` ou `AJUSTE_NEGATIVO`) com a justificativa correspondente. O saldo é atualizado pelo fluxo normal e o histórico preserva o lançamento original e sua correção.
 
 #### Ordens de produção — `/ordem_producao`
 

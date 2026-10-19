@@ -82,32 +82,6 @@ class MovimentacaoController {
         }
     }
 
-    async atualizar(req, res) {
-        try {
-            await movimentacaoService.atualizar(
-                req.params.id,
-                req.body
-            );
-
-            return res.status(200).json({
-                mensagem: 'Movimentação atualizada.'
-            });
-        } catch (erro) {
-            return tratarErroController(res, erro, 'Movimentacao.atualizar');
-        }
-    }
-
-    async excluir(req, res) {
-        try {
-            await movimentacaoService.excluir(req.params.id);
-
-            return res.status(200).json({
-                mensagem: 'Movimentação removida.'
-            });
-        } catch (erro) {
-            return tratarErroController(res, erro, 'Movimentacao.excluir');
-        }
-    }
 }
 
 module.exports = new MovimentacaoController();

@@ -93,48 +93,6 @@ class MovimentacaoRepository {
         return resultado;
     }
 
-    async atualizar(id, movimentacao) {
-        const {
-            tipo_movimento,
-            quantidade,
-            motivo_saida
-        } = movimentacao;
-
-        const sql = `
-            UPDATE Movimentacao
-            SET
-                tipo_movimento = ?,
-                quantidade = ?,
-                motivo_saida = ?
-            WHERE id_movimentacao = ?
-        `;
-
-        const [resultado] = await db.query(
-            sql,
-            [
-                tipo_movimento,
-                quantidade,
-                motivo_saida,
-                id
-            ]
-        );
-
-        return resultado;
-    }
-
-    async excluir(id) {
-        const sql = `
-            DELETE FROM Movimentacao
-            WHERE id_movimentacao = ?
-        `;
-
-        const [resultado] = await db.query(
-            sql,
-            [id]
-        );
-
-        return resultado;
-    }
 }
 
 module.exports = new MovimentacaoRepository();

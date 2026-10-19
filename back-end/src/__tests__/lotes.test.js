@@ -224,6 +224,22 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       expect(Array.isArray(res.body)).toBe(true);
     });
 
+    it('deve rejeitar edição ou exclusão de movimentações para preservar o histórico', async () => {
+      const mockConn = db._mockConnection;
+
+      const resAtualizacao = await request(app)
+        .put('/api/movimentacoes/1')
+        .set(headerOperador())
+        .send({ quantidade: 500 });
+      const resExclusao = await request(app)
+        .delete('/api/movimentacoes/1')
+        .set(headerOperador());
+
+      expect(resAtualizacao.status).toBe(404);
+      expect(resExclusao.status).toBe(404);
+      expect(mockConn.query).not.toHaveBeenCalled();
+    });
+
     it('deve registrar movimentação de ENTRADA com sucesso (POST /api/movimentacoes)', async () => {
       const mockConn = db._mockConnection;
       mockConn.query

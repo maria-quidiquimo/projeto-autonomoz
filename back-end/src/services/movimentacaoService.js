@@ -288,20 +288,6 @@ class MovimentacaoService {
         });
     }
 
-    async atualizar(id, dados) {
-        await this.buscarPorId(id);
-
-        return await movimentacaoRepository.atualizar(
-            id,
-            dados
-        );
-    }
-
-    async excluir(id) {
-        await this.buscarPorId(id);
-
-        return await movimentacaoRepository.excluir(id);
-    }
 }
 
 module.exports = new MovimentacaoService();
