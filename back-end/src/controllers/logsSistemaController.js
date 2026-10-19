@@ -36,43 +36,6 @@ class LogsSistemaController {
             return tratarErroController(res, erro, 'LogsSistema.buscarPorId');
         }
     }
-
-    async cadastrar(req, res) {
-        try {
-            const resultado = await logsSistemaService.cadastrar(req.body);
-
-            return res.status(201).json({
-                id_log: resultado.insertId,
-                ...req.body
-            });
-        } catch (erro) {
-            return tratarErroController(res, erro, 'LogsSistema.cadastrar');
-        }
-    }
-
-    async atualizar(req, res) {
-        try {
-            await logsSistemaService.atualizar(req.params.id, req.body);
-
-            return res.status(200).json({
-                mensagem: 'Log atualizado.'
-            });
-        } catch (erro) {
-            return tratarErroController(res, erro, 'LogsSistema.atualizar');
-        }
-    }
-
-    async excluir(req, res) {
-        try {
-            await logsSistemaService.excluir(req.params.id);
-
-            return res.status(200).json({
-                mensagem: 'Log removido.'
-            });
-        } catch (erro) {
-            return tratarErroController(res, erro, 'LogsSistema.excluir');
-        }
-    }
 }
 
 module.exports = new LogsSistemaController();

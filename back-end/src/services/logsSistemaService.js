@@ -39,21 +39,12 @@ class LogsSistemaService {
         );
     }
 
-    async atualizar(id, dados) {
-        await this.buscarPorId(id);
-
-        return await logsSistemaRepository.atualizar(
-            id,
-            dados
-        );
+    async atualizar() {
+        throw new Error('Logs de auditoria são imutáveis e não podem ser alterados.');
     }
 
-    async excluir(id) {
-        await this.buscarPorId(id);
-
-        return await logsSistemaRepository.excluir(
-            id
-        );
+    async excluir() {
+        throw new Error('Logs de auditoria são imutáveis e não podem ser excluídos.');
     }
 }
 

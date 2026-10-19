@@ -87,48 +87,6 @@ class LogsSistemaRepository {
         return resultado;
     }
 
-    async atualizar(id, log) {
-        const {
-            tipo_evento,
-            mensagem,
-            fk_usuario
-        } = log;
-
-        const sql = `
-            UPDATE Logs_Sistema
-            SET
-                tipo_evento = ?,
-                mensagem = ?,
-                fk_usuario = ?
-            WHERE id_log = ?
-        `;
-
-        const [resultado] = await db.query(
-            sql,
-            [
-                tipo_evento,
-                mensagem,
-                fk_usuario,
-                id
-            ]
-        );
-
-        return resultado;
-    }
-
-    async excluir(id) {
-        const sql = `
-            DELETE FROM Logs_Sistema
-            WHERE id_log = ?
-        `;
-
-        const [resultado] = await db.query(
-            sql,
-            [id]
-        );
-
-        return resultado;
-    }
 }
 
 module.exports = new LogsSistemaRepository();

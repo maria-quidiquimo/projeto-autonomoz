@@ -349,7 +349,27 @@ BEGIN
     END IF;
 END$$
 
+-- Triggers para garantir a imutabilidade dos logs de auditoria (RF-009)
+CREATE TRIGGER trg_bloquear_update_logs
+BEFORE UPDATE ON Logs_Sistema
+FOR EACH ROW
+BEGIN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Logs de auditoria são imutáveis e não podem ser alterados.';
+END$$
+
+CREATE TRIGGER trg_bloquear_delete_logs
+BEFORE DELETE ON Logs_Sistema
+FOR EACH ROW
+BEGIN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Logs de auditoria são imutáveis e não podem ser excluídos.';
+END$$
+
 DELIMITER ;
+
+-- SEGURANÇA E AUDITORIA (RF-009):
+-- Configuração recomendada para o usuário da aplicação no MySQL:
+-- GRANT SELECT, INSERT ON Autonomoz_db.Logs_Sistema TO 'app_user'@'%';
+-- REVOKE UPDATE, DELETE ON Autonomoz_db.Logs_Sistema FROM 'app_user'@'%';
 
 
 -- ############################################################################
