@@ -1,4 +1,5 @@
 const pool = require('../config/database');
+const { tratarErroController } = require('../helpers/tratarErroController');
 
 class DashboardController {
     async obterMetricas(req, res) {
@@ -97,10 +98,7 @@ class DashboardController {
                 alertas_recentes: alertasRecentes
             });
         } catch (error) {
-            return res.status(500).json({
-                mensagem: 'Erro ao consolidar métricas do dashboard industrial.',
-                erro: error.message
-            });
+            return tratarErroController(res, error, 'Dashboard.obterMetricas');
         }
     }
 }
