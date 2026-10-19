@@ -122,7 +122,27 @@ O front-end envia as chamadas para esse endereço. Se a API estiver em outra má
 
 ### 5. Credenciais locais
 
-O SQL inclui usuários de demonstração (matrículas `GER-001`, `FUNC-001`, `FUNC-002` e `FUNC-003`), mas não documenta uma senha em texto puro. Não há uma senha padrão publicada neste README. Utilize as credenciais fornecidas pela equipe ou defina uma senha de desenvolvimento atualizando o hash bcrypt de um usuário local. Com as dependências do back-end instaladas, gere um hash no terminal:
+Os usuários de demonstração do SQL usam estas credenciais:
+
+- Gerente (`GER-001`): senha `123`.
+- Funcionários (`FUNC-001`, `FUNC-002` e `FUNC-003`): senha `1234`.
+
+Essas senhas são somente para desenvolvimento local. Não as use em produção. Se o banco já tiver sido criado, atualize apenas os usuários de demonstração locais com:
+
+```sql
+UPDATE Usuarios
+SET senha_hash = '$2b$10$FlKmgB1YYjuxbxHKYi8f6O5QmaFeQEPzDV4t46lXTqKsfpUAPvxOq'
+WHERE matricula = 'GER-001' AND tipo_acesso = 'GERENTE';
+
+UPDATE Usuarios
+SET senha_hash = '$2b$10$h.iqQhN.xfFtO9POaR6pJenNvGVr8fI4GbiMwgrhPryuThLwQrD9y'
+WHERE matricula IN ('FUNC-001', 'FUNC-002', 'FUNC-003')
+  AND tipo_acesso = 'FUNCIONARIO';
+```
+
+Outra opção é recriar o banco com o script SQL, mas ele apaga e recria `autonomoz_db`; faça isso somente em uma instalação local descartável ou após fazer backup.
+
+Para definir outras senhas de desenvolvimento, gere um hash bcrypt com as dependências do back-end instaladas:
 
 ```bash
 cd back-end
