@@ -2,6 +2,7 @@ const alertasEstoqueRepository = require('../repositories/alertasEstoqueReposito
 // comentario aleatorio pra dar commit milagroso
 class AlertasEstoqueService {
     async listarTodos() {
+        await alertasEstoqueRepository.gerarAlertasValidade();
         return await alertasEstoqueRepository.listarTodos();
     }
 
