@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import Modal from '../components/ui/Modal';
@@ -165,9 +166,10 @@ export default function LotesPage() {
     return lotes.filter((l) => {
       const matchSearch =
         !search ||
-        (l.codigo_lote && l.codigo_lote.toLowerCase().includes(search.toLowerCase())) ||
-        (l.localizacao_fisica && l.localizacao_fisica.toLowerCase().includes(search.toLowerCase())) ||
-        (l.nome_produto && l.nome_produto.toLowerCase().includes(search.toLowerCase()));
+        matchesSearch(l.codigo_lote, search) ||
+        matchesSearch(l.localizacao_fisica, search) ||
+        matchesSearch(l.nome_produto, search) ||
+        matchesSearch(l.fk_produto, search);
       return matchSearch;
     });
   }, [lotes, search]);

@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import { useToast } from '../hooks/useToast';
@@ -91,9 +92,9 @@ export default function LogsRelatoriosPage() {
     return logs.filter((l) => {
       const matchSearch =
         !search ||
-        (l.mensagem && l.mensagem.toLowerCase().includes(search.toLowerCase())) ||
-        (l.tipo_evento && l.tipo_evento.toLowerCase().includes(search.toLowerCase())) ||
-        String(l.id_log).includes(search);
+        matchesSearch(l.mensagem, search) ||
+        matchesSearch(l.tipo_evento, search) ||
+        matchesSearch(l.id_log, search);
 
       if (!matchSearch) return false;
       if (eventFilter !== 'ALL') {

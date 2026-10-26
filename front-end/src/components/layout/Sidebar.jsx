@@ -36,12 +36,12 @@ export default function Sidebar() {
     <div className="flex flex-col h-full justify-between bg-[#131d2a] text-slate-100 select-none">
       {/* Brand Header */}
       <div>
-        <div className="h-16 px-4 flex items-center justify-between border-b border-slate-700/50 bg-[#0f1722]">
-          <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+        <div className={`min-h-16 px-4 flex ${isCollapsed ? 'items-center justify-between' : 'flex-col items-start justify-center'} gap-1 border-b border-slate-700/50 bg-[#0f1722] py-2`}>
+          <div className={`flex min-w-0 overflow-hidden ${isCollapsed ? 'items-center gap-3' : 'flex-col items-start gap-1'}`}>
             <img
               src={logoImg}
               alt="Autonomoz Logo"
-              className="h-9 w-auto object-contain shrink-0 rounded"
+              className={`${isCollapsed ? 'h-9' : 'h-8'} w-auto object-contain shrink-0 rounded`}
             />
             {!isCollapsed && (
               <div className="flex flex-col min-w-0">
@@ -55,7 +55,7 @@ export default function Sidebar() {
             )}
           </div>
           {!isCollapsed && user && (
-            <RoleBadge role={user.tipo_acesso} className="shrink-0" />
+            <RoleBadge role={user.tipo_acesso} className="shrink-0 ml-1 px-1.5 py-0 text-[10px]" />
           )}
         </div>
 
@@ -111,8 +111,8 @@ export default function Sidebar() {
           )}
         </div>
 
-        <div className="flex items-center justify-between gap-2 pt-1">
-          <div className="flex items-center gap-2.5 min-w-0">
+        <div className={`flex ${isCollapsed ? 'flex-col justify-center' : 'items-center justify-between'} gap-2 pt-1`}>
+          <div className={`flex items-center gap-2.5 min-w-0 ${isCollapsed ? 'justify-center' : ''}`}>
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold shrink-0">
               <span className="material-symbols-outlined text-[18px]">person</span>
             </div>
@@ -130,8 +130,9 @@ export default function Sidebar() {
           <button
             type="button"
             onClick={logout}
-            className="p-1.5 rounded text-slate-400 hover:text-error hover:bg-slate-800 transition-colors shrink-0"
+            className={`p-1.5 rounded text-slate-400 hover:text-error hover:bg-slate-800 transition-colors shrink-0 ${isCollapsed ? 'self-center' : ''}`}
             title="Encerrar Sessão"
+            aria-label="Encerrar sessão"
           >
             <span className="material-symbols-outlined text-[20px]">logout</span>
           </button>

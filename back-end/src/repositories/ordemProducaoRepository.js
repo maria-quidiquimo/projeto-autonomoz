@@ -20,7 +20,7 @@ class OrdemProducaoRepository {
                      VALUES (?, ?, ?, ?, ?, ?)`;
         const [resultado] = await db.query(sql, [
             nome_projeto, descricao, fk_usuario_responsavel || null, 
-            data_inicio || new Date(), data_previsao_entrega || null, status_ordem || 'EM_ANDAMENTO'
+            data_inicio || new Date(), data_previsao_entrega || null, status_ordem || 'PENDENTE'
         ]);
         return resultado;
     }

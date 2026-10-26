@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import CadastroProdutoModal from './CadastroProdutoModal';
@@ -76,9 +77,9 @@ export default function EstoquePage() {
     return products.filter((p) => {
       const matchSearch =
         !search ||
-        (p.nome_produto && p.nome_produto.toLowerCase().includes(search.toLowerCase())) ||
-        (p.codigo_item && p.codigo_item.toLowerCase().includes(search.toLowerCase())) ||
-        (p.descricao && p.descricao.toLowerCase().includes(search.toLowerCase()));
+        matchesSearch(p.nome_produto, search) ||
+        matchesSearch(p.codigo_item, search) ||
+        matchesSearch(p.descricao, search);
 
       const atual = Number(p.estoque_atual) || 0;
       const minimo = Number(p.estoque_minimo) || 0;

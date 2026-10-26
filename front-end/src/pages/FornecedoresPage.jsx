@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import Modal from '../components/ui/Modal';
@@ -34,7 +35,7 @@ export default function FornecedoresPage() {
   const fetchSuppliers = async () => {
     setLoading(true);
     try {
-      const data = await api.get('/fornecedores');
+      const data = await api.get('/fornecedores?incluir_inativos=true');
       if (Array.isArray(data)) {
         setSuppliers(data);
       }
@@ -117,9 +118,10 @@ export default function FornecedoresPage() {
     return suppliers.filter((s) => {
       return (
         !search ||
-        (s.razao_social && s.razao_social.toLowerCase().includes(search.toLowerCase())) ||
-        (s.contato_email && s.contato_email.toLowerCase().includes(search.toLowerCase())) ||
-        (s.contato_telefone && s.contato_telefone.includes(search))
+        matchesSearch(s.razao_social, search) ||
+        matchesSearch(s.contato_email, search) ||
+        matchesSearch(s.contato_telefone, search) ||
+        matchesSearch(Number(s.ativo) === 1 ? 'homologado ativo' : 'inativo suspenso', search)
       );
     });
   }, [suppliers, search]);
@@ -193,14 +195,17 @@ export default function FornecedoresPage() {
           >
             <span className="material-symbols-outlined text-[18px]">edit</span>
           </button>
-          <button
-            type="button"
-            onClick={() => handleDelete(row)}
-            className="p-1.5 rounded text-secondary hover:text-error hover:bg-surface-container transition-colors"
-            title="Excluir Fornecedor"
-          >
-            <span className="material-symbols-outlined text-[18px]">delete</span>
-          </button>
+          {Number(row.ativo) === 1 && (
+            <button
+              type="button"
+              onClick={() => handleDelete(row)}
+              className="p-1.5 rounded text-secondary hover:text-error hover:bg-surface-container transition-colors"
+              title="Inativar fornecedor"
+              aria-label="Inativar fornecedor"
+            >
+              <span className="material-symbols-outlined text-[18px]">delete</span>
+            </button>
+          )}
         </div>
       ),
     },

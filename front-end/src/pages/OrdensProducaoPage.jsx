@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import Modal from '../components/ui/Modal';
@@ -49,7 +50,7 @@ export default function OrdensProducaoPage() {
     fk_usuario_responsavel: '',
     data_inicio: new Date().toISOString().split('T')[0],
     data_previsao_entrega: '',
-    status_ordem: 'EM_ANDAMENTO',
+    status_ordem: 'PENDENTE',
   });
 
   const fetchData = async () => {
@@ -95,7 +96,7 @@ export default function OrdensProducaoPage() {
         fk_usuario_responsavel: order.fk_usuario_responsavel || '',
         data_inicio: order.data_inicio ? order.data_inicio.split('T')[0] : '',
         data_previsao_entrega: order.data_previsao_entrega ? order.data_previsao_entrega.split('T')[0] : '',
-        status_ordem: order.status_ordem || 'EM_ANDAMENTO',
+        status_ordem: order.status_ordem || 'PENDENTE',
       });
     } else {
       setFormData({
@@ -104,7 +105,7 @@ export default function OrdensProducaoPage() {
         fk_usuario_responsavel: users[0]?.id_usuario || '',
         data_inicio: new Date().toISOString().split('T')[0],
         data_previsao_entrega: '',
-        status_ordem: 'EM_ANDAMENTO',
+        status_ordem: 'PENDENTE',
       });
     }
     setModalOpen(true);
@@ -155,6 +156,17 @@ export default function OrdensProducaoPage() {
       } catch (err) {
         toast.error(err.message || 'Erro ao excluir OP.');
       }
+    }
+  };
+
+  const handleStartOrder = async (order) => {
+    const id = order.id_ordem_producao || order.id;
+    try {
+      await api.put(`/ordem_producao/${id}`, { status_ordem: 'EM_ANDAMENTO' });
+      toast.success('Ordem de produção iniciada.');
+      fetchData();
+    } catch (err) {
+      toast.error(err.message || 'Erro ao iniciar a ordem de produção.');
     }
   };
 
@@ -228,8 +240,10 @@ export default function OrdensProducaoPage() {
     return orders.filter((o) => {
       const matchSearch =
         !search ||
-        (o.nome_projeto && o.nome_projeto.toLowerCase().includes(search.toLowerCase())) ||
-        (o.descricao && o.descricao.toLowerCase().includes(search.toLowerCase()));
+        matchesSearch(o.nome_projeto, search) ||
+        matchesSearch(o.descricao, search) ||
+        matchesSearch(o.id_ordem_producao, search) ||
+        matchesSearch(o.status_ordem, search);
 
       if (!matchSearch) return false;
       if (statusFilter === 'ACTIVE') return o.status_ordem === 'EM_ANDAMENTO';
@@ -308,6 +322,17 @@ export default function OrdensProducaoPage() {
       header: 'Ações',
       render: (_, row) => (
         <div className="flex items-center gap-1">
+          {row.status_ordem === 'PENDENTE' && (
+            <button
+              type="button"
+              onClick={() => handleStartOrder(row)}
+              className="p-1.5 rounded text-emerald-600 hover:bg-emerald-500/10 transition-colors"
+              title="Iniciar OP"
+              aria-label={`Iniciar ordem ${row.nome_projeto}`}
+            >
+              <span className="material-symbols-outlined text-[18px]">play_arrow</span>
+            </button>
+          )}
           <button
             type="button"
             onClick={() => handleOpenDetails(row)}
@@ -479,18 +504,28 @@ export default function OrdensProducaoPage() {
               ))}
             </FormField>
 
-            <FormField
-              label="Status da Linha"
-              name="status_ordem"
-              type="select"
-              value={formData.status_ordem}
-              onChange={(e) => setFormData({ ...formData, status_ordem: e.target.value })}
-            >
-              <option value="EM_ANDAMENTO">Em Andamento</option>
-              <option value="PENDENTE">Pendente</option>
-              <option value="CONCLUIDA">Concluída</option>
-              <option value="CANCELADA">Cancelada</option>
-            </FormField>
+            {selectedOrder ? (
+              <FormField
+                label="Status da Linha"
+                name="status_ordem"
+                type="select"
+                value={formData.status_ordem}
+                onChange={(e) => setFormData({ ...formData, status_ordem: e.target.value })}
+              >
+                <option value="EM_ANDAMENTO">Em Andamento</option>
+                <option value="PENDENTE">Pendente</option>
+                <option value="CONCLUIDA">Concluída</option>
+                <option value="CANCELADA">Cancelada</option>
+              </FormField>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <span className="text-label-sm text-secondary">Status da Linha</span>
+                <div className="flex items-center gap-2 min-h-11">
+                  <StatusBadge status="PENDENTE" />
+                  <span className="text-body-sm text-secondary">Use “Iniciar OP” para começar.</span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

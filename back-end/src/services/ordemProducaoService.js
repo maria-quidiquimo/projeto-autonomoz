@@ -21,8 +21,14 @@ class OrdemProducaoService {
             throw new Error('O nome do projeto é obrigatório.');
         }
         this.validarStatus(dados.status_ordem);
+        if (dados.status_ordem && dados.status_ordem !== 'PENDENTE') {
+            throw new Error('Toda ordem de produção deve ser criada como PENDENTE. Inicie-a pela ação "Iniciar OP".');
+        }
 
-        const novaOrdem = await ordemProducaoRepository.salvar(dados);
+        const novaOrdem = await ordemProducaoRepository.salvar({
+            ...dados,
+            status_ordem: 'PENDENTE'
+        });
 
         await registrarLog(
             'CRIACAO_ORDEM_PRODUCAO',

@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import Modal from '../components/ui/Modal';
@@ -153,8 +154,9 @@ export default function VendasPage() {
     return sales.filter((s) => {
       const matchSearch =
         !search ||
-        (s.observacoes && s.observacoes.toLowerCase().includes(search.toLowerCase())) ||
-        String(s.id_venda).includes(search);
+        matchesSearch(s.observacoes, search) ||
+        matchesSearch(s.id_venda, search) ||
+        matchesSearch(s.nome_projeto, search);
 
       if (!matchSearch) return false;
       if (statusFilter === 'PAGO') return s.status_venda === 'PAGO';

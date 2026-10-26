@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import Modal from '../components/ui/Modal';
@@ -119,9 +120,10 @@ export default function MovimentacoesPage() {
     return movements.filter((m) => {
       const matchSearch =
         !search ||
-        (m.motivo_saida && m.motivo_saida.toLowerCase().includes(search.toLowerCase())) ||
-        (m.codigo_lote && m.codigo_lote.toLowerCase().includes(search.toLowerCase())) ||
-        (m.nome_produto && m.nome_produto.toLowerCase().includes(search.toLowerCase()));
+        matchesSearch(m.motivo_saida, search) ||
+        matchesSearch(m.codigo_lote, search) ||
+        matchesSearch(m.nome_produto, search) ||
+        matchesSearch(m.id_movimentacao, search);
 
       if (!matchSearch) return false;
 

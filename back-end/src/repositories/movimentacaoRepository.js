@@ -1,6 +1,16 @@
 const db = require('../config/database');
 
 class MovimentacaoRepository {
+    montarConsultaMovimentacoes(where = '') {
+        return `
+            SELECT m.*, lp.codigo_lote, p.nome_produto, u.nome_completo AS nome_usuario
+            FROM Movimentacao m
+            INNER JOIN Lote_Produto lp ON lp.id_lote = m.fk_lote
+            INNER JOIN Produto p ON p.id_produto = lp.fk_produto
+            LEFT JOIN Usuarios u ON u.id_usuario = m.fk_usuario
+            ${where}
+        `;
+    }
 
     async listarTodos(pagina = 1, limite = 20) {
         const offset = (pagina - 1) * limite;
@@ -17,9 +27,8 @@ class MovimentacaoRepository {
         const total = resultadoTotal[0].total;
 
         const sql = `
-            SELECT *
-            FROM Movimentacao
-            ORDER BY id_movimentacao DESC
+            ${this.montarConsultaMovimentacoes()}
+            ORDER BY m.id_movimentacao DESC
             LIMIT ? OFFSET ?
         `;
 
@@ -45,11 +54,7 @@ class MovimentacaoRepository {
     }
 
     async buscarPorId(id) {
-        const sql = `
-            SELECT *
-            FROM Movimentacao
-            WHERE id_movimentacao = ?
-        `;
+        const sql = this.montarConsultaMovimentacoes('WHERE m.id_movimentacao = ?');
 
         const [linhas] = await db.query(
             sql,

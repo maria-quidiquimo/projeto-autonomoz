@@ -1,8 +1,8 @@
 const fornecedorRepository = require('../repositories/fornecedorRepository');
 
 class FornecedorService {
-    async listarTodos() {
-        return await fornecedorRepository.listarTodos();
+    async listarTodos(incluirInativos = false) {
+        return await fornecedorRepository.listarTodos(incluirInativos);
     }
 
     async buscarPorId(id) {
@@ -21,7 +21,10 @@ class FornecedorService {
     }
 
     async atualizar(id, dados) {
-        await this.buscarPorId(id);
+        const fornecedor = await fornecedorRepository.buscarPorId(id, true);
+        if (!fornecedor) {
+            throw new Error('Fornecedor não encontrado.');
+        }
         return await fornecedorRepository.atualizar(id, dados);
     }
 

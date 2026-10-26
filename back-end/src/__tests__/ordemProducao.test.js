@@ -69,6 +69,21 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty('id_ordem_producao', 7);
       expect(res.body.nome_projeto).toBe('Produção Chapa Acrílica');
+      expect(ordemProducaoRepository.salvar).toHaveBeenCalledWith(
+        expect.objectContaining({ status_ordem: 'PENDENTE' })
+      );
+    });
+
+    it('deve exigir que novas ordens comecem como pendentes', async () => {
+      const salvarSpy = jest.spyOn(ordemProducaoRepository, 'salvar');
+      const res = await request(app)
+        .post('/api/ordem_producao')
+        .set(headerOperador())
+        .send({ nome_projeto: 'Produção nova', status_ordem: 'EM_ANDAMENTO' });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/criada como PENDENTE/i);
+      expect(salvarSpy).not.toHaveBeenCalled();
     });
 
     it('deve retornar 400 ao cadastrar ordem sem nome do projeto', async () => {

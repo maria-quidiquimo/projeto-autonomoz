@@ -2,16 +2,18 @@ const db = require('../config/database');
 const { tratarErroBanco } = require('../helpers/databaseErrorHelper');
 
 class FornecedorRepository {
-    async listarTodos() {
-        // Traz apenas fornecedores ativos na listagem padrão
-        const sql = 'SELECT * FROM Fornecedor WHERE ativo = TRUE';
+    async listarTodos(incluirInativos = false) {
+        const sql = incluirInativos
+            ? 'SELECT * FROM Fornecedor ORDER BY razao_social'
+            : 'SELECT * FROM Fornecedor WHERE ativo = TRUE ORDER BY razao_social';
         const [linhas] = await db.query(sql);
         return linhas;
     }
 
-    async buscarPorId(id) {
-        // Traz o fornecedor somente se ele estiver ativo
-        const sql = 'SELECT * FROM Fornecedor WHERE id_fornecedor = ? AND ativo = TRUE';
+    async buscarPorId(id, incluirInativos = false) {
+        const sql = incluirInativos
+            ? 'SELECT * FROM Fornecedor WHERE id_fornecedor = ?'
+            : 'SELECT * FROM Fornecedor WHERE id_fornecedor = ? AND ativo = TRUE';
         const [linhas] = await db.query(sql, [id]);
         return linhas[0];
     }

@@ -4,7 +4,8 @@ const { tratarErroController } = require('../helpers/tratarErroController');
 class FornecedorController {
     async listar(req, res) {
         try {
-            const fornecedores = await fornecedorService.listarTodos();
+            const incluirInativos = req.query.incluir_inativos === 'true';
+            const fornecedores = await fornecedorService.listarTodos(incluirInativos);
             return res.status(200).json(fornecedores);
         } catch (erro) {
             return tratarErroController(res, erro, 'Fornecedor.listar');

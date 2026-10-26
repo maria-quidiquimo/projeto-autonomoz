@@ -107,7 +107,7 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
         1,
         'ENTRADA',
         50,
-        null
+        'Estoque inicial do lote LOTE-2026-B'
       ]);
       expect(mockConn.commit).toHaveBeenCalledTimes(1);
       expect(registrarLog).toHaveBeenCalledWith(

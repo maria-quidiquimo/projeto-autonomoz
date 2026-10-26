@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import RoleBadge from '../components/shared/RoleBadge';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
@@ -237,9 +238,9 @@ export default function UsuariosPage() {
     return users.filter((u) => {
       const matchSearch =
         !search ||
-        (u.nome && u.nome.toLowerCase().includes(search.toLowerCase())) ||
-        (u.nome_completo && u.nome_completo.toLowerCase().includes(search.toLowerCase())) ||
-        (u.matricula && u.matricula.toLowerCase().includes(search.toLowerCase()));
+        matchesSearch(u.nome, search) ||
+        matchesSearch(u.nome_completo, search) ||
+        matchesSearch(u.matricula, search);
       return matchSearch;
     });
   }, [users, search]);

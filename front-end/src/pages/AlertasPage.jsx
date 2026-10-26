@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import DataTable from '../components/ui/DataTable';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/shared/SearchInput';
+import { matchesSearch } from '../utils/search';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import Modal from '../components/ui/Modal';
@@ -117,8 +118,8 @@ export default function AlertasPage() {
     return alerts.filter((a) => {
       const matchSearch =
         !search ||
-        (a.descricao && a.descricao.toLowerCase().includes(search.toLowerCase())) ||
-        (a.tipo_alerta && a.tipo_alerta.toLowerCase().includes(search.toLowerCase()));
+        matchesSearch(a.descricao, search) ||
+        matchesSearch(a.tipo_alerta, search);
 
       if (!matchSearch) return false;
       if (statusFilter === 'UNRESOLVED') return !a.resolvido;

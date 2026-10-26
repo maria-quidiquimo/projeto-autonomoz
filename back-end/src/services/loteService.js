@@ -56,7 +56,8 @@ class LoteService {
                     fk_lote: resultado.insertId,
                     fk_usuario: idUsuario,
                     tipo_movimento: 'ENTRADA',
-                    quantidade: quantidadeInicial
+                    quantidade: quantidadeInicial,
+                    motivo_saida: `Estoque inicial do lote ${dados.codigo_lote}`
                 }, conexao);
             } else {
                 const [rows] = await conexao.query(
