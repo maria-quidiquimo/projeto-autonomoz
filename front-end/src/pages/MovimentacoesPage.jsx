@@ -46,8 +46,13 @@ export default function MovimentacoesPage() {
       if (movRes.status === 'fulfilled' && Array.isArray(movRes.value)) {
         setMovements(movRes.value);
       }
-      if (loteRes.status === 'fulfilled' && Array.isArray(loteRes.value)) {
-        setLotes(loteRes.value);
+      if (loteRes.status === 'fulfilled') {
+        const lotesCarregados = Array.isArray(loteRes.value)
+          ? loteRes.value
+          : loteRes.value?.dados;
+        if (Array.isArray(lotesCarregados)) {
+          setLotes(lotesCarregados);
+        }
       }
     } catch (err) {
       toast.error('Erro ao carregar movimentações.');
