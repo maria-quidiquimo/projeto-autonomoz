@@ -41,7 +41,6 @@ class AlertasEstoqueRepository {
                       FROM Alertas_Estoque AS alerta
                       WHERE alerta.fk_lote = lote.id_lote
                         AND alerta.tipo_alerta = 'VALIDADE_VENCIDA'
-                        AND alerta.resolvido = FALSE
                   )
             `);
 
@@ -60,7 +59,6 @@ class AlertasEstoqueRepository {
                       FROM Alertas_Estoque AS alerta
                       WHERE alerta.fk_lote = lote.id_lote
                         AND alerta.tipo_alerta = 'VALIDADE_PROXIMA'
-                        AND alerta.resolvido = FALSE
                   )
             `);
 

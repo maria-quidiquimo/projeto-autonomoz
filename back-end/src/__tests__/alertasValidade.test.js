@@ -19,7 +19,7 @@ describe('Geração de alertas de validade', () => {
         database.getConnection.mockResolvedValue(connection);
     });
 
-    it('gera alertas de lotes ativos sem duplicar alertas ainda abertos', async () => {
+    it('não recria alertas de validade já existentes, mesmo quando resolvidos', async () => {
         await alertasEstoqueRepository.gerarAlertasValidade();
 
         expect(connection.beginTransaction).toHaveBeenCalledTimes(1);
@@ -28,9 +28,12 @@ describe('Geração de alertas de validade', () => {
         expect(connection.query.mock.calls[0][0]).toContain('data_validade <= DATE_ADD(CURRENT_DATE, INTERVAL 7 DAY)');
         expect(connection.query.mock.calls[1][0]).toContain("alerta.tipo_alerta = 'VALIDADE_PROXIMA'");
         expect(connection.query.mock.calls[2][0]).toContain("'VALIDADE_VENCIDA'");
-        expect(connection.query.mock.calls[2][0]).toContain('alerta.resolvido = FALSE');
+        expect(connection.query.mock.calls[2][0]).toContain('alerta.fk_lote = lote.id_lote');
+        expect(connection.query.mock.calls[2][0]).not.toContain('alerta.resolvido = FALSE');
         expect(connection.query.mock.calls[3][0]).toContain("'VALIDADE_PROXIMA'");
         expect(connection.query.mock.calls[3][0]).toContain('lote.ativo = TRUE');
+        expect(connection.query.mock.calls[3][0]).toContain('alerta.fk_lote = lote.id_lote');
+        expect(connection.query.mock.calls[3][0]).not.toContain('alerta.resolvido = FALSE');
         expect(connection.commit).toHaveBeenCalledTimes(1);
         expect(connection.rollback).not.toHaveBeenCalled();
         expect(connection.release).toHaveBeenCalledTimes(1);
