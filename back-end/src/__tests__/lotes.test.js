@@ -244,16 +244,17 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
     });
 
     it('deve listar movimentações com usuário autenticado (GET /api/movimentacoes)', async () => {
-      jest.spyOn(movimentacaoRepository, 'listarTodos').mockResolvedValue([
-        { id_movimentacao: 1, tipo_movimento: 'ENTRADA', quantidade: 50 }
-      ]);
+      jest.spyOn(movimentacaoRepository, 'listarTodos').mockResolvedValue({
+        dados: [{ id_movimentacao: 1, tipo_movimento: 'ENTRADA', quantidade: 50 }],
+        paginacao: { pagina: 1, limite: 20, total: 1, totalPaginas: 1 }
+      });
 
       const res = await request(app)
         .get('/api/movimentacoes')
         .set(headerOperador());
 
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
+      expect(res.body.dados[0].id_movimentacao).toBe(1);
     });
 
     it('deve rejeitar edição ou exclusão de movimentações para preservar o histórico', async () => {

@@ -43,8 +43,13 @@ export default function MovimentacoesPage() {
       ]);
       notifyFailedRequests([movRes, loteRes], toast, 'Não foi possível carregar todas as movimentações e lotes.');
 
-      if (movRes.status === 'fulfilled' && Array.isArray(movRes.value)) {
-        setMovements(movRes.value);
+      if (movRes.status === 'fulfilled') {
+        const movimentacoesCarregadas = Array.isArray(movRes.value)
+          ? movRes.value
+          : movRes.value?.dados;
+        if (Array.isArray(movimentacoesCarregadas)) {
+          setMovements(movimentacoesCarregadas);
+        }
       }
       if (loteRes.status === 'fulfilled') {
         const lotesCarregados = Array.isArray(loteRes.value)
