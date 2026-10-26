@@ -20,6 +20,7 @@ class OrdemProducaoService {
         if (!dados.nome_projeto) {
             throw new Error('O nome do projeto é obrigatório.');
         }
+        this.validarStatus(dados.status_ordem);
 
         const novaOrdem = await ordemProducaoRepository.salvar(dados);
 
@@ -32,6 +33,7 @@ class OrdemProducaoService {
     }
 
     async atualizar(id, dados, idUsuarioLogado) {
+        this.validarStatus(dados.status_ordem);
         const ordemExistente = await this.buscarPorId(id);
 
         if (dados.status_ordem === 'CONCLUIDA' && ordemExistente.status_ordem !== 'CONCLUIDA') {
@@ -73,6 +75,13 @@ class OrdemProducaoService {
             idUsuarioLogado
         );
         return ordemAtualizada;
+    }
+
+    validarStatus(status) {
+        const statusPermitidos = ['PENDENTE', 'EM_ANDAMENTO', 'CONCLUIDA', 'CANCELADA'];
+        if (status !== undefined && !statusPermitidos.includes(status)) {
+            throw new Error('O status da ordem de produção é inválido.');
+        }
     }
 
     async baixarMateriaisOrdem(idOrdem, idUsuario, conexao) {

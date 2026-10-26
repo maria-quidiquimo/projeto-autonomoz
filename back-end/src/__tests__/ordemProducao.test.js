@@ -32,7 +32,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
       jest.spyOn(ordemProducaoRepository, 'buscarPorId').mockResolvedValue({
         id_ordem_producao: 1,
         nome_projeto: 'Lote Especial A',
-        status_ordem: 'PLANEJADA'
+        status_ordem: 'PENDENTE'
       });
 
       const res = await request(app).get('/api/ordem_producao/1').set(headerOperador());
@@ -58,7 +58,7 @@ describe('Módulo: Ordem de Produção e Equipes', () => {
         descricao: 'Produção sob medida',
         fk_usuario_responsavel: 1,
         data_previsao_entrega: '2026-10-15',
-        status_ordem: 'PLANEJADA'
+        status_ordem: 'PENDENTE'
       };
 
       const res = await request(app)

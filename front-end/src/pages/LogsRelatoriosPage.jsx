@@ -28,8 +28,13 @@ export default function LogsRelatoriosPage() {
       ]);
       notifyFailedRequests([logRes, userRes], toast, 'Não foi possível carregar todos os dados dos relatórios.');
 
-      if (logRes.status === 'fulfilled' && Array.isArray(logRes.value)) {
-        setLogs(logRes.value);
+      if (logRes.status === 'fulfilled') {
+        const logsCarregados = Array.isArray(logRes.value)
+          ? logRes.value
+          : logRes.value?.dados;
+        if (Array.isArray(logsCarregados)) {
+          setLogs(logsCarregados);
+        }
       }
       if (userRes.status === 'fulfilled' && Array.isArray(userRes.value)) {
         setUsers(userRes.value);

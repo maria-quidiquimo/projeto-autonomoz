@@ -173,7 +173,7 @@ CREATE TABLE Ordem_Producao (
     data_inicio            DATE NOT NULL DEFAULT (CURRENT_DATE),
     data_previsao_entrega  DATE NULL,
 
-    status_ordem          ENUM('EM_ANDAMENTO', 'CONCLUIDA', 'CANCELADA') NOT NULL DEFAULT 'EM_ANDAMENTO',
+    status_ordem          ENUM('PENDENTE', 'EM_ANDAMENTO', 'CONCLUIDA', 'CANCELADA') NOT NULL DEFAULT 'EM_ANDAMENTO',
 
     criado_em             TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     atualizado_em         TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
