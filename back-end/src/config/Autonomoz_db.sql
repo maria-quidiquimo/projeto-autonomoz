@@ -279,13 +279,7 @@ CREATE TABLE Vendas (
 
 CREATE TABLE Alertas_Estoque (
     id_alerta            INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_alerta          ENUM(
-        'ESTOQUE_MINIMO',
-        'VALIDADE_PROXIMA',
-        'VALIDADE_VENCIDA',
-        'ANOMALIA_PRODUCAO',
-        'DIVERGENCIA_FISICA'
-    ) NOT NULL,
+    tipo_alerta          ENUM('ESTOQUE_MINIMO', 'VALIDADE_PROXIMA', 'VALIDADE_VENCIDA') NOT NULL,
 
     fk_produto           INT NULL,
     fk_lote              INT NULL,
