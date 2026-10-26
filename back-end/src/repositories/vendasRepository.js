@@ -29,7 +29,13 @@ class VendasRepository {
         const { valor_venda, data_entrega_final, status_venda, observacoes } = venda;
         const sql = `UPDATE Vendas SET valor_venda = ?, data_entrega_final = ?, status_venda = ?, observacoes = ? 
                      WHERE id_venda = ?`;
-        const [resultado] = await db.query(sql, [valor_venda, data_entrega_final, status_venda, observacoes, id]);
+        const [resultado] = await db.query(sql, [
+            valor_venda,
+            data_entrega_final || null,
+            status_venda,
+            observacoes || null,
+            id
+        ]);
         return resultado;
     }
 

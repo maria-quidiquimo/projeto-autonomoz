@@ -106,6 +106,7 @@ export default function VendasPage() {
         fk_ordem_producao: formData.fk_ordem_producao ? Number(formData.fk_ordem_producao) : null,
         fk_usuario_gerente: user?.id_usuario || Number(formData.fk_usuario_gerente),
         valor_venda: saleValue,
+        data_entrega_final: formData.data_entrega_final || null,
       };
 
       if (selectedSale) {
