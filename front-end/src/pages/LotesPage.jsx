@@ -52,8 +52,13 @@ export default function LotesPage() {
         'Não foi possível carregar todos os dados de lotes e produtos.'
       );
 
-      if (loteRes.status === 'fulfilled' && Array.isArray(loteRes.value)) {
-        setLotes(loteRes.value);
+      if (loteRes.status === 'fulfilled') {
+        const lotesCarregados = Array.isArray(loteRes.value)
+          ? loteRes.value
+          : loteRes.value?.dados;
+        if (Array.isArray(lotesCarregados)) {
+          setLotes(lotesCarregados);
+        }
       }
       if (prodRes.status === 'fulfilled' && Array.isArray(prodRes.value)) {
         setProducts(prodRes.value);

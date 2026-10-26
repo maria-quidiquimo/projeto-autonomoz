@@ -21,13 +21,21 @@ describe('Módulo: Lote Produto e Movimentação Física', () => {
       const mockLotes = [
         { id_lote: 1, codigo_lote: 'LOTE-2026-A', fk_produto: 1, quantidade: 100, ativo: 1 }
       ];
-      jest.spyOn(loteRepository, 'listarTodos').mockResolvedValue(mockLotes);
+      jest.spyOn(loteRepository, 'listarTodos').mockResolvedValue({
+        dados: mockLotes,
+        paginacao: {
+          pagina: 1,
+          limite: 20,
+          total: 1,
+          totalPaginas: 1
+        }
+      });
 
       const res = await request(app).get('/api/lotes').set(headerOperador());
 
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
-      expect(res.body[0].codigo_lote).toBe('LOTE-2026-A');
+      expect(res.body.dados[0].codigo_lote).toBe('LOTE-2026-A');
+      expect(res.body.paginacao.total).toBe(1);
     });
 
     it('deve retornar detalhes de um lote existente (GET /api/lotes/:id)', async () => {
