@@ -91,6 +91,10 @@ export default function CadastroProdutoModal({
       toast.warning('Código do item e nome do produto são obrigatórios.');
       return;
     }
+    if (!formData.fk_subcategoria) {
+      toast.warning('Selecione uma subcategoria para o produto.');
+      return;
+    }
     const unitValue = Number(formData.valor_unitario || 0);
     const minimumStock = Number(formData.estoque_minimo);
     if (!Number.isFinite(unitValue) || unitValue < 0 || !Number.isInteger(minimumStock) || minimumStock < 0) {
@@ -174,6 +178,7 @@ export default function CadastroProdutoModal({
             type="select"
             value={formData.fk_subcategoria}
             onChange={handleChange}
+            required
             icon="category"
           >
             <option value="">Selecione uma subcategoria...</option>

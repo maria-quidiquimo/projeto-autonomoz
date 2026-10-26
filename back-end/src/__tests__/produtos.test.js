@@ -93,6 +93,18 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
       expect(res.body.mensagem).toMatch(/código do item é obrigatório/i);
     });
 
+    it('deve retornar 400 ao tentar cadastrar produto sem subcategoria [GERENTE]', async () => {
+      const salvarSpy = jest.spyOn(produtoRepository, 'salvar');
+      const res = await request(app)
+        .post('/api/produtos')
+        .set(headerGerente())
+        .send({ codigo_item: 'PRD-SUB-NULL', nome_produto: 'Produto sem subcategoria' });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/subcategoria é obrigatória/i);
+      expect(salvarSpy).not.toHaveBeenCalled();
+    });
+
     it('deve retornar 400 ao tentar cadastrar produto com estoque mínimo negativo [GERENTE]', async () => {
       const res = await request(app)
         .post('/api/produtos')
@@ -114,6 +126,18 @@ describe('Módulo: Produtos, Categorias e Localização', () => {
 
       expect(res.status).toBe(200);
       expect(res.body.mensagem).toMatch(/atualizado/i);
+    });
+
+    it('deve rejeitar atualização que remove a subcategoria [GERENTE]', async () => {
+      const atualizarSpy = jest.spyOn(produtoRepository, 'atualizar');
+      const res = await request(app)
+        .put('/api/produtos/1')
+        .set(headerGerente())
+        .send({ fk_subcategoria: null });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/subcategoria é obrigatória/i);
+      expect(atualizarSpy).not.toHaveBeenCalled();
     });
 
     it('deve retornar 403 ao funcionário tentar editar produto (PUT /api/produtos/:id)', async () => {

@@ -18,6 +18,8 @@ class ProdutoService {
         // Validação de regra de negócio (RN-04 e RES-06) [1, 2]
         if (!dados.codigo_item) throw new Error('O código do item é obrigatório.');
         if (dados.estoque_minimo < 0) throw new Error('Estoque mínimo inválido.');
+        if (!dados.nome_produto) throw new Error('O nome do produto é obrigatório.');
+        if (!dados.fk_subcategoria) throw new Error('A subcategoria é obrigatória.');
 
         // 1. Sobrescreve para garantir que o estoque inicial seja 0 (RES-06) [1]
         const dadosComEstoqueZerado = {
@@ -39,6 +41,13 @@ class ProdutoService {
     }
 
     async atualizar(id, dados, idUsuarioLogado) {
+        if (
+            dados.fk_subcategoria !== undefined &&
+            (dados.fk_subcategoria === null || dados.fk_subcategoria === '')
+        ) {
+            throw new Error('A subcategoria é obrigatória.');
+        }
+
         const produtoExistente = await this.buscarPorId(id);
 
         const produtoAtualizado = await produtoRepository.atualizar(id, dados);
