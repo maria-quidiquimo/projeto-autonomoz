@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+const API_BASE_URL = (configuredApiUrl || '/api').replace(/\/+$/, '');
+const API_ROOT = API_BASE_URL.endsWith('/api') ? API_BASE_URL : `${API_BASE_URL}/api`;
 
 class ApiError extends Error {
   constructor(message, status, data) {
@@ -36,7 +38,8 @@ export const setStoredUser = (user) => {
 };
 
 export async function apiRequest(endpoint, options = {}) {
-  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = /^https?:\/\//i.test(endpoint) ? endpoint : `${API_ROOT}${path}`;
   const token = getToken();
 
   const headers = {
@@ -83,7 +86,11 @@ export async function apiRequest(endpoint, options = {}) {
     if (error instanceof ApiError) {
       throw error;
     }
-    throw new ApiError(error.message || 'Falha de conexão com o servidor.', 0, null);
+    throw new ApiError(
+      `Não foi possível conectar à API em ${API_ROOT}. Verifique se o back-end está em execução e se a URL está correta.`,
+      0,
+      null
+    );
   }
 }
 
