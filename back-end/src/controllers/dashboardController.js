@@ -43,7 +43,7 @@ class DashboardController {
                 SELECT 
                     COALESCE(SUM(valor_venda), 0) AS total_faturado
                 FROM Vendas
-                WHERE status_venda = 'PAGO'
+                WHERE status_venda IN ('PAGO', 'FINALIZADA')
             `);
 
             // 6. Últimas movimentações

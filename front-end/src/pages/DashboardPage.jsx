@@ -7,16 +7,24 @@ import DataTable from '../components/ui/DataTable';
 import StatusBadge from '../components/ui/StatusBadge';
 import Pagination from '../components/shared/Pagination';
 import { useToast } from '../hooks/useToast';
-import { notifyFailedRequests } from '../utils/notifyFailedRequests';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
+  const [metrics, setMetrics] = useState({
+    total_itens: 0,
+    total_skus: 0,
+    alertas_ativos: 0,
+    alertas_criticos: 0,
+    ordens_em_andamento: 0,
+    total_ordens: 0,
+    total_movimentacoes: 0,
+    movimentacoes_hoje: 0,
+    total_faturado: 0,
+  });
   const [alerts, setAlerts] = useState([]);
-  const [orders, setOrders] = useState([]);
   const [movements, setMovements] = useState([]);
   const [alertFilter, setAlertFilter] = useState('ALL'); // ALL | CRITICAL | WARNING
   const [movementPage, setMovementPage] = useState(1);
@@ -25,32 +33,16 @@ export default function DashboardPage() {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      const [prodRes, alertRes, orderRes, movRes] = await Promise.allSettled([
-        api.get('/produtos'),
-        api.get('/alertas_estoque'),
-        api.get('/ordem_producao'),
-        api.get('/movimentacoes'),
-      ]);
-      notifyFailedRequests(
-        [prodRes, alertRes, orderRes, movRes],
-        toast,
-        'Não foi possível carregar todos os dados do dashboard.'
-      );
+      const data = await api.get('/dashboard');
+      if (!data?.kpis || !Array.isArray(data.movimentacoes_recentes) || !Array.isArray(data.alertas_recentes)) {
+        throw new Error('A API retornou dados incompletos para o dashboard.');
+      }
 
-      if (prodRes.status === 'fulfilled' && Array.isArray(prodRes.value)) {
-        setProducts(prodRes.value);
-      }
-      if (alertRes.status === 'fulfilled' && Array.isArray(alertRes.value)) {
-        setAlerts(alertRes.value);
-      }
-      if (orderRes.status === 'fulfilled' && Array.isArray(orderRes.value)) {
-        setOrders(orderRes.value);
-      }
-      if (movRes.status === 'fulfilled' && Array.isArray(movRes.value)) {
-        setMovements(movRes.value);
-      }
+      setMetrics(data.kpis);
+      setMovements(data.movimentacoes_recentes);
+      setAlerts(data.alertas_recentes);
     } catch (err) {
-      toast.error('Erro ao carregar métricas do dashboard.');
+      toast.error(err.message || 'Erro ao carregar métricas do dashboard.');
     } finally {
       setLoading(false);
     }
@@ -60,39 +52,11 @@ export default function DashboardPage() {
     fetchDashboardData();
   }, []);
 
-  // Compute KPIs
-  const totalStockItems = useMemo(() => {
-    return products.reduce((acc, p) => acc + (Number(p.estoque_atual) || 0), 0);
-  }, [products]);
-
   const activeAlerts = useMemo(() => {
-    return alerts.filter((a) => !a.resolvido);
+    return alerts.filter((a) => !Number(a.resolvido));
   }, [alerts]);
 
-  const criticalAlertsCount = useMemo(() => {
-    return activeAlerts.filter(
-      (a) =>
-        a.tipo_alerta === 'ESTOQUE_MINIMO' ||
-        String(a.tipo_alerta).includes('CRITICO')
-    ).length;
-  }, [activeAlerts]);
-
-  const activeOrdersCount = useMemo(() => {
-    return orders.filter(
-      (o) =>
-        o.status_ordem === 'EM_ANDAMENTO' ||
-        o.status_ordem === 'EM PRODUÇÃO' ||
-        o.status_ordem === 'PENDENTE'
-    ).length;
-  }, [orders]);
-
-  const todayMovementsCount = useMemo(() => {
-    const todayStr = new Date().toISOString().split('T')[0];
-    return movements.filter((m) => {
-      const date = m.data_movimento || m.created_at || '';
-      return date.startsWith(todayStr);
-    }).length || movements.length;
-  }, [movements]);
+  const criticalAlertsCount = metrics.alertas_criticos;
 
   // Filtered alerts for the alert list widget
   const filteredAlerts = useMemo(() => {
@@ -118,6 +82,8 @@ export default function DashboardPage() {
     const start = (movementPage - 1) * pageSize;
     return movements.slice(start, start + pageSize);
   }, [movements, movementPage, pageSize]);
+
+  const todayMovementsCount = metrics.movimentacoes_hoje;
 
   const movementColumns = [
     {
@@ -233,9 +199,9 @@ export default function DashboardPage() {
       <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <KpiCard
           title="Total de Itens em Estoque"
-          value={loading ? '...' : totalStockItems.toLocaleString('pt-BR')}
+          value={loading ? '...' : metrics.total_itens.toLocaleString('pt-BR')}
           icon="inventory_2"
-          subtext={`${products.length} SKUs cadastrados`}
+          subtext={`${metrics.total_skus} SKUs cadastrados`}
           badgeText="Ativo"
           badgeVariant="info"
           loading={loading}
@@ -243,7 +209,7 @@ export default function DashboardPage() {
 
         <KpiCard
           title="Alertas Ativos"
-          value={loading ? '...' : String(activeAlerts.length).padStart(2, '0')}
+          value={loading ? '...' : String(metrics.alertas_ativos).padStart(2, '0')}
           icon="warning"
           subtext={`${criticalAlertsCount} críticos de estoque mínimo`}
           badgeText={criticalAlertsCount > 0 ? 'Ação requerida' : 'Normal'}
@@ -254,9 +220,9 @@ export default function DashboardPage() {
 
         <KpiCard
           title="Ordens em Andamento"
-          value={loading ? '...' : String(activeOrdersCount).padStart(2, '0')}
+          value={loading ? '...' : String(metrics.ordens_em_andamento).padStart(2, '0')}
           icon="precision_manufacturing"
-          subtext={`${orders.length} OPs no histórico`}
+          subtext={`${metrics.total_ordens} OPs no histórico`}
           badgeText="Em linha"
           badgeVariant="warning"
           variant="warning"
@@ -265,10 +231,10 @@ export default function DashboardPage() {
 
         <KpiCard
           title="Movimentações Registradas"
-          value={loading ? '...' : movements.length.toLocaleString('pt-BR')}
+          value={loading ? '...' : metrics.total_movimentacoes.toLocaleString('pt-BR')}
           icon="sync_alt"
           subtext="Fluxo de entradas e saídas"
-          badgeText="+ Hoje"
+          badgeText={`${todayMovementsCount} hoje`}
           badgeVariant="success"
           loading={loading}
         />
@@ -331,7 +297,7 @@ export default function DashboardPage() {
               </h2>
             </div>
             <span className="px-2 py-0.5 rounded font-label-code text-[11px] font-bold bg-error/15 text-error">
-              {activeAlerts.length}
+              {metrics.alertas_ativos}
             </span>
           </div>
 
@@ -346,7 +312,7 @@ export default function DashboardPage() {
                   : 'text-secondary hover:text-on-surface'
               }`}
             >
-              Todos ({activeAlerts.length})
+              Todos ({metrics.alertas_ativos})
             </button>
             <button
               type="button"
