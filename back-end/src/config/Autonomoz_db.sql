@@ -87,6 +87,7 @@ CREATE TABLE Sub_Categoria (
     fk_categoria        INT NOT NULL,
     nome_subcategoria    VARCHAR(80) NOT NULL,
     descricao           VARCHAR(255) NULL,
+    ativo               BOOLEAN NOT NULL DEFAULT TRUE,
     criado_em           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_subcategoria_categoria FOREIGN KEY (fk_categoria) REFERENCES Categoria(id_categoria)
