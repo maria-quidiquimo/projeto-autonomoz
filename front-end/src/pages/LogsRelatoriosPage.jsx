@@ -8,6 +8,14 @@ import Pagination from '../components/shared/Pagination';
 import { useToast } from '../hooks/useToast';
 import { notifyFailedRequests } from '../utils/notifyFailedRequests';
 
+const eventFilterTerms = {
+  CRIACAO: ['CRIACAO', 'CADASTRO', 'CADASTRAR', 'REGISTRO'],
+  EDICAO: ['EDICAO', 'ALTERACAO'],
+  EXCLUSAO: ['EXCLUSAO', 'INATIVACAO', 'REMOCAO'],
+  AJUSTE: ['AJUSTE', 'ENTRADA', 'SAIDA', 'MOVIMENTACAO'],
+  ALERTA: ['ALERTA', 'VALIDADE', 'ESTOQUE_MINIMO'],
+};
+
 export default function LogsRelatoriosPage() {
   const { toast } = useToast();
 
@@ -88,7 +96,13 @@ export default function LogsRelatoriosPage() {
         String(l.id_log).includes(search);
 
       if (!matchSearch) return false;
-      if (eventFilter !== 'ALL' && l.tipo_evento !== eventFilter) return false;
+      if (eventFilter !== 'ALL') {
+        const eventType = String(l.tipo_evento || '').toUpperCase();
+        const terms = eventFilterTerms[eventFilter];
+        if (terms ? !terms.some((term) => eventType.includes(term)) : eventType !== eventFilter) {
+          return false;
+        }
+      }
       return true;
     });
   }, [logs, search, eventFilter]);
