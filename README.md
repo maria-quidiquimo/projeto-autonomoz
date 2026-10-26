@@ -48,9 +48,27 @@ Sistema de controle de estoque e apoio à produção. O projeto tem front-end em
 
    Se a API estiver em outro endereço, configure `VITE_API_PROXY_TARGET` para o destino do back-end. Para um front-end compilado servido em outro domínio, configure `VITE_API_URL` com a URL da API incluindo `/api`.
 
-### Banco existente
+### Atualizações em banco existente
 
-Para usar os tipos de alerta operacionais em um banco criado anteriormente, aplique:
+O script [`Autonomoz_db.sql`](./back-end/src/config/Autonomoz_db.sql) cria um banco novo e apaga o banco `autonomoz_db` antes de recriá-lo. **Não execute o script completo para atualizar um banco com dados.**
+
+Confira as colunas antes de aplicar as alterações. Execute cada `ALTER TABLE` somente se a respectiva coluna ainda não existir:
+
+```sql
+ALTER TABLE Sub_Categoria
+ADD COLUMN ativo BOOLEAN NOT NULL DEFAULT TRUE;
+
+ALTER TABLE Usuarios
+ADD COLUMN cargo_descritivo VARCHAR(100) NULL;
+
+ALTER TABLE Ordem_Producao
+ADD COLUMN status_ordem ENUM('EM_ANDAMENTO', 'CONCLUIDA', 'CANCELADA')
+NOT NULL DEFAULT 'EM_ANDAMENTO';
+```
+
+Se a coluna já existir, não execute novamente o comando correspondente. Após a migração, reinicie o back-end.
+
+Para habilitar todos os tipos de alerta operacionais em um banco criado anteriormente, aplique:
 
 ```sql
 ALTER TABLE Alertas_Estoque
@@ -62,6 +80,10 @@ MODIFY tipo_alerta ENUM(
   'DIVERGENCIA_FISICA'
 ) NOT NULL;
 ```
+
+### Atualização do estoque
+
+O estoque atual do produto é calculado a partir das quantidades dos lotes ativos. Para registrar recebimentos, cadastre um lote em **Lotes & Rastreabilidade Física** ou registre uma movimentação do tipo **Entrada no Estoque**. Para baixas, use **Saída para Produção/Oficina**; não altere o estoque atual diretamente no cadastro do produto.
 
 ### Usuários de demonstração
 
