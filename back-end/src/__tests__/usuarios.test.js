@@ -200,6 +200,18 @@ describe('Módulo: Usuários e Controle de Permissão', () => {
       expect(res.body.message).toMatch(/atualizados com sucesso/i);
     });
 
+    it('deve rejeitar data de nascimento vazia na atualização', async () => {
+      const atualizarSpy = jest.spyOn(usuarioRepository, 'atualizar');
+      const res = await request(app)
+        .put('/api/usuarios/5')
+        .set(headerGerente())
+        .send({ data_nascimento: '' });
+
+      expect(res.status).toBe(400);
+      expect(res.body.mensagem).toMatch(/data de nascimento é obrigatória/i);
+      expect(atualizarSpy).not.toHaveBeenCalled();
+    });
+
     it('deve excluir usuário por GERENTE', async () => {
       jest.spyOn(usuarioRepository, 'buscarPorId').mockResolvedValue({ id_usuario: 5 });
       jest.spyOn(usuarioRepository, 'excluir').mockResolvedValue(true);

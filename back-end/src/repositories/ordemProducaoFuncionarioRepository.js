@@ -30,7 +30,7 @@ class OrdemProducaoFuncionarioRepository {
         const { fk_usuario, data_alocacao } = dados;
         const sql = `UPDATE Ordem_Producao_Funcionarios SET fk_usuario = ?, data_alocacao = ? 
                      WHERE fk_ordem_producao = ?`;
-        const [resultado] = await db.query(sql, [fk_usuario, data_alocacao, id]);
+        const [resultado] = await db.query(sql, [fk_usuario, data_alocacao || new Date(), id]);
         return resultado;
     }
 

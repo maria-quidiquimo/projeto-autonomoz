@@ -108,7 +108,7 @@ class LoteRepository {
                 lote[campo] !== undefined
             ) {
                 camposParaAtualizar.push(`${campo} = ?`);
-                valores.push(lote[campo]);
+                valores.push(campo === 'data_validade' ? lote[campo] || null : lote[campo]);
             }
         });
 

@@ -6,7 +6,7 @@ const produtoRepository = require('../repositories/produtoRepository');
 const loteRepository = require('../repositories/loteRepository');
 const ordemProducaoRepository = require('../repositories/ordemProducaoRepository');
 const db = require('../config/database');
-const { headerOperador } = require('./helpers/authHelper');
+const { headerGerente, headerOperador } = require('./helpers/authHelper');
 
 jest.mock('../config/database');
 jest.mock('../services/logAuditoriaHelper', () => ({
@@ -34,9 +34,13 @@ describe('Integração do Pipeline e Relatório Consolidado', () => {
 
       const res = await request(app)
         .post('/api/produtos')
-        .set(headerOperador())
+        .set(headerGerente())
         .set('Content-Type', 'application/json')
-        .send({ codigo_item: 'JSON-TEST', nome_produto: 'Teste JSON' });
+        .send({
+          codigo_item: 'JSON-TEST',
+          nome_produto: 'Teste JSON',
+          fk_subcategoria: 1
+        });
 
       expect(res.status).toBe(201);
       expect(res.body.codigo_item).toBe('JSON-TEST');
@@ -73,6 +77,7 @@ describe('Integração do Pipeline e Relatório Consolidado', () => {
         .send({
           codigo_item: 'E2E-PRD',
           nome_produto: 'Produto Teste Pipeline',
+          fk_subcategoria: 1,
           valor_unitario: 120.00,
           estoque_minimo: 5
         });

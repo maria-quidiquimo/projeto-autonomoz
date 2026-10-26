@@ -29,7 +29,14 @@ class OrdemProducaoRepository {
         const { nome_projeto, descricao, fk_usuario_responsavel, data_previsao_entrega, status_ordem } = ordem;
         const sql = `UPDATE Ordem_Producao SET nome_projeto = ?, descricao = ?, fk_usuario_responsavel = ?, data_previsao_entrega = ?, status_ordem = ? 
                      WHERE id_ordem_producao = ?`;
-        const [resultado] = await conexao.query(sql, [nome_projeto, descricao, fk_usuario_responsavel, data_previsao_entrega, status_ordem, id]);
+        const [resultado] = await conexao.query(sql, [
+            nome_projeto,
+            descricao,
+            fk_usuario_responsavel,
+            data_previsao_entrega || null,
+            status_ordem,
+            id
+        ]);
         return resultado;
     }
 

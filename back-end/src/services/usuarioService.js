@@ -81,6 +81,10 @@ class UsuarioService {
     }
 
     async atualizar(id, dados, idUsuarioLogado) {
+        if (dados.data_nascimento !== undefined && !dados.data_nascimento) {
+            throw new Error('A data de nascimento é obrigatória.');
+        }
+
         const usuarioExistente = await this.buscarPorId(id);
 
         if (dados.fk_cargo) {
