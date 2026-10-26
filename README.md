@@ -90,7 +90,7 @@ O estoque atual do produto é calculado a partir das quantidades dos lotes ativo
 Os usuários inseridos pelo script SQL são destinados apenas ao desenvolvimento local:
 
 - Gerente: matrícula `GER-001`, senha `123`.
-- Funcionários: matrículas `FUNC-001`, `FUNC-002`, `FUNC-003` e `FUNC-004`, senha `1234`.
+- Funcionários: matrículas `FUNC-001`, `FUNC-002` e`FUNC-003` senha `1234`.
 
 Não use essas credenciais em produção.
 
