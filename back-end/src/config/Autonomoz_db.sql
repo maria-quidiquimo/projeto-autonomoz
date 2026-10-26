@@ -67,6 +67,7 @@ CREATE TABLE Usuarios (
     senha_hash          VARCHAR(255) NOT NULL,
     tipo_acesso         ENUM('GERENTE', 'FUNCIONARIO') NOT NULL DEFAULT 'FUNCIONARIO',
     fk_cargo            INT NULL, -- <--- Adicionado para receber o ID do cargo
+    cargo_descritivo    VARCHAR(100) NULL,
     fk_usuario_criador  INT NULL,
     ativo               BOOLEAN NOT NULL DEFAULT TRUE,
     criado_em           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
