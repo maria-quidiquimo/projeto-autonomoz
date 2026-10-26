@@ -44,14 +44,7 @@ export default function Sidebar() {
               className={`${isCollapsed ? 'h-9' : 'h-8'} w-auto object-contain shrink-0 rounded`}
             />
             {!isCollapsed && (
-              <div className="flex flex-col min-w-0">
-                <span className="font-headline-md text-[16px] font-bold tracking-wider text-white leading-none truncate">
-                  AUTONOMOZ
-                </span>
-                <span className="font-label-code text-[9px] uppercase tracking-widest text-slate-400 leading-tight">
-                  ICS Platform
-                </span>
-              </div>
+              <span className="sr-only">Autonomoz</span>
             )}
           </div>
           {!isCollapsed && user && (
